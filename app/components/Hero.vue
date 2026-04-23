@@ -12,10 +12,10 @@
     >
       <div class="hidden lg:flex flex-col items-center gap-6 mr-1">
         <div class="flex flex-col gap-4">
-          <a href="#" class="text-white hover:text-[#10b481] transition"
+          <a href="https://share.google/xF5gkcyYn6EsR5cPA" class="text-white hover:text-[#10b481] transition"
             ><i class="bx bxl-linkedin text-2xl"></i
           ></a>
-          <a href="#" class="text-white hover:text-[#10b481] transition"
+          <a href="https://www.facebook.com/share/1EHaGKpfnD/" class="text-white hover:text-[#10b481] transition"
             ><i class="bx bxl-facebook text-2xl"></i
           ></a>
         </div>
