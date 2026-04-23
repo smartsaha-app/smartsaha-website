@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #10B481;
+  --color-dark: #112830;
+  --color-light: #FAFAF9;
+}
+
+.btn-primary {
+  @apply px-4 py-3 text-white text-sm rounded-full transition;
+  background-color: var(--color-primary);
+}
+
+.btn-primary:hover {
+  background-color: #0E9F6E; 
+}
+
+.btn-secondary {
+  @apply px-4 py-2.5  font-interMedium text-[#10B481] text-xs sm:text-sm border border-[#10B481] rounded-full hover:bg-[#10b481]/10 transition;
+}
+
+.btn-third {
+  @apply px-4 py-2.5 bg-[#f4a261] font-interMedium text-white text-xs sm:text-sm rounded-full hover:bg-[#f4a261] transition;
+}
+
+.btn-neutre {
+  @apply px-4 py-2.5 bg-[#F3F4F6] font-interMedium text-[#6B7280] text-xs sm:text-sm border border-[#D1D5DB] rounded-full hover:bg-[#E5E7EB] transition;
+}
+
+.btn-decline {
+  @apply px-4 py-2.5 bg-[#EF4444] font-interMedium text-white text-xs sm:text-sm rounded-full hover:bg-[#DC2626] transition;
+}
+
+.text-content {
+  @apply text-gray-700 leading-relaxed text-xs sm:text-sm font-inter;
+}
+
+.text-italic {
+  @apply text-gray-700 leading-relaxed text-xs sm:text-sm font-interItalic;
+}
+
+.text-medium {
+  @apply text-gray-700 leading-relaxed text-xs sm:text-sm font-interMedium;
+}
+
+.text-bold {
+  @apply text-gray-700 leading-relaxed text-3xl sm:text-4xl font-manropeBold;
+}
+
+.text-semibold {
+  @apply text-gray-700 leading-relaxed text-3xl sm:text-4xl font-manropeSemi;
+}
+
+.text-extra {
+  @apply text-gray-700 leading-relaxed text-xs sm:text-sm font-manropeExtra;
+}
+
+.logo {
+  @apply leading-relaxed text-base font-manropeExtra;
+  color: var(--color-dark);
+}
+
+.sous-logo {
+  @apply text-gray-700 leading-relaxed text-xs font-inter;
+}
+
+.menu-item {
+  @apply text-gray-700 leading-relaxed text-sm font-interMedium;
+}
+
+.menu-item:hover {
+  color: var(--color-primary);
+}
+
+.text-hero {
+  @apply leading-relaxed text-xs sm:text-sm font-manropeExtra;
+  color: var(--color-light);
+}
+
+.light-subtitle {
+  @apply leading-relaxed text-base sm:text-lg font-manropeSemi;
+  color: var(--color-light);
+}
+
+.light-content {
+  @apply leading-relaxed text-sm font-inter;
+  color: var(--color-light);
+}
+
+.subtitle {
+  @apply text-gray-800 leading-relaxed text-base sm:text-lg font-manropeSemi;
+  
+}
+
+.content {
+  @apply text-gray-700 leading-relaxed text-sm font-inter;
+}
+
+.lightcontent {
+  @apply leading-relaxed text-sm font-inter;
+}
+
+.light-extra {
+  @apply leading-relaxed text-xl sm:text-2xl lg:text-3xl font-manropeExtra;
+  color: var(--color-light);
+}
+
+.light-logo {
+  @apply leading-relaxed text-base font-manropeExtra;
+  color: var(--color-light);
+}
+
+.light-sous-logo {
+  @apply text-gray-300 leading-relaxed text-xs font-inter;
+  
+}
+
+.light-menu-item {
+  @apply leading-relaxed text-sm font-interMedium;
+  color: var(--color-light);
+}
+
+.light-menu-item:hover {
+  color: var(--color-primary);
+}
+
+.username {
+  @apply leading-relaxed font-manropeBold;
+  
+}
+
+.small {
+  @apply leading-relaxed font-inter;
+}
+
+.small-medium {
+  @apply leading-relaxed font-interMedium;
+}
+
+.items {
+  @apply text-gray-700 leading-relaxed text-sm font-manropeSemi;
+}
+
+.label {
+  @apply text-gray-700 leading-relaxed text-sm font-interMedium;
+}
+
+h2 {
+  @apply leading-relaxed text-xl sm:text-2xl font-manropeExtra ;
+  color: var(--color-dark);
+}
+
+.h2 {
+  @apply leading-relaxed text-xl sm:text-2xl font-manropeExtra ;
+}
+
+.light-menu {
+  @apply leading-relaxed text-sm font-interMedium;
+  color: var(--color-light);
+}
+
+.apexcharts-legend-text {
+  @apply leading-relaxed font-inter;
+}
+
+.apexcharts-datalabel-name {
+  @apply text-sm small font-inter text-gray-600;
+}
