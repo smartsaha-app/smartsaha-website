@@ -18,7 +18,7 @@ import { useLanguageStore } from "~/stores/language";
 import Lenis from "lenis";
 const languageStore = useLanguageStore();
 const route = useRoute();
-const canonicalUrl = computed(() => `https://platform.smart-saha.com${route.path}`);
+const canonicalUrl = computed(() => `https://smart-saha.com${route.path}`);
 
 const showBackToTop = ref(false);
 
