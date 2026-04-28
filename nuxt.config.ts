@@ -22,7 +22,7 @@ export default defineNuxtConfig({
   },
 
   site: {
-    url: 'https://platform.smart-saha.com',
+    url: 'https://smart-saha.com',
     name: 'SmartSaha',
     description: 'SmartSaha is a digital platform transforming agriculture through smart technology, data-driven insights, and innovative tools.',
     defaultLocale: 'en',
