@@ -1,135 +1,78 @@
 <template>
-  <section
-    class="relative overflow-hidden bg-gray-50 py-16 px-4 sm:px-6 lg:px-24"
-  >
-    <div
-      class="flex flex-col md:flex-row items-stretch gap-12 max-w-7xl mx-auto"
-    >
-      <div class="w-full md:w-1/2" data-aos="fade-up">
-        <div
-          class="relative w-full h-full min-h-[380px] rounded-2xl shadow-xl overflow-hidden"
-        >
-          <iframe
-            class="absolute inset-0 w-full h-full"
-            src="https://www.canva.com/design/DAGYzTIDa-c/YRVzquDVeA76WKafhB_Mbg/view?embed"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
+  <section id="demo" class="relative overflow-hidden bg-[#fafaf9] dark:bg-[#0b1a1f] py-24 px-4 sm:px-6 lg:px-24 transition-colors duration-300">
+    <!-- Decorative background accent -->
+    <div class="absolute top-0 right-0 w-96 h-96 bg-[#10b481]/5 rounded-full blur-3xl -mr-48 -mt-48"></div>
+
+    <div class="flex flex-col lg:flex-row items-center gap-16 max-w-7xl mx-auto relative z-10">
+      
+      <!-- Left: MacBook Pro Mockup Container -->
+      <div class="w-full lg:w-1/2" data-aos="fade-right">
+        <div class="relative mx-auto max-w-[600px] group">
+          
+          <!-- MacBook Screen Shell -->
+          <div class="relative bg-gray-800 dark:bg-black rounded-t-[2rem] p-2 pt-4 shadow-2xl border-x-2 border-t-2 border-gray-700 dark:border-white/10">
+            <!-- Screen Notch/Camera area -->
+            <div class="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-4 bg-gray-900 rounded-b-xl z-20"></div>
+            
+            <!-- Screen Content (Canva) -->
+            <div class="relative aspect-[16/10] overflow-hidden rounded-lg bg-black">
+               <iframe
+                class="absolute inset-0 w-full h-full"
+                src="https://www.canva.com/design/DAGYzTIDa-c/YRVzquDVeA76WKafhB_Mbg/view?embed"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+              
+              <!-- Glass reflection effect -->
+              <div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/5 via-transparent to-white/10 opacity-50"></div>
+            </div>
+          </div>
+          
+          <!-- MacBook Bottom Base -->
+          <div class="relative h-4 bg-gray-700 dark:bg-[#112830] rounded-b-xl shadow-xl w-[105%] -left-[2.5%]">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1.5 bg-gray-800 dark:bg-black rounded-b-md"></div>
+          </div>
+
+          <!-- Bottom Shadow -->
+          <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 w-[90%] h-10 bg-[#112830]/10 blur-2xl rounded-full"></div>
         </div>
       </div>
 
-      <div class="flex-1 w-full md:w-1/2 flex flex-col">
-        <!-- <p class="text-gray-700 mb-6 leading-relaxed" data-aos="fade-up"></p> -->
-
-        <div class="flex flex-col px-2 sm:px-4 mb-3">
-          <h2 class="uppercase text-sm small tracking-widest text-[#10b481]">
+      <!-- Right: Content -->
+      <div class="w-full lg:w-1/2 flex flex-col" data-aos="fade-left">
+        <div class="mb-10">
+          <h5 class="uppercase text-sm tracking-[0.2em] font-bold text-[#10b481] mb-4">
             {{ t("mrvHighlights") }}
-          </h2>
-          <h2
-            class="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight mb-3"
-          >
+          </h5>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-manropeExtra text-[#112830] dark:text-white leading-tight mb-6">
             {{ t("mrvAsk") }}
           </h2>
-          <p class="content">
+          <p class="text-lg text-gray-500 dark:text-gray-400 font-inter leading-relaxed">
             {{ t("mrvRes") }}
           </p>
         </div>
 
-        <div class="mt-3 pl-4">
-          <ul class="flex flex-col gap-4">
-            <li
-              class="flex items-start gap-4 group transition-all"
-              data-aos="fade-left"
-            >
-              <div
-                class="w-8 h-8 flex items-center justify-center rounded-full bg-[#10b481]/15 group-hover:bg-[#10b481] transition"
-              >
-                <i
-                  class="bx bx-check text-[#10b481] group-hover:text-white text-sm font-bold"
-                ></i>
-              </div>
-              <p
-                class="small-medium text-gray-700 text-sm leading-relaxed group-hover:tex-[#10b481]"
-              >
-                {{ t("mrvRes1") }}
+        <ul class="space-y-6">
+          <li
+            v-for="i in 5"
+            :key="i"
+            class="flex items-start gap-5 group"
+            data-aos="fade-up"
+            :data-aos-delay="100 * i"
+          >
+            <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-xl bg-white dark:bg-white/5 shadow-sm text-[#10b481] group-hover:bg-[#10b481] group-hover:text-white transition-all duration-300">
+              <i class="bx bx-check text-xl font-bold"></i>
+            </div>
+            <div>
+              <p class="text-gray-600 dark:text-gray-400 font-inter leading-relaxed group-hover:text-[#112830] dark:group-hover:text-white transition-colors">
+                {{ t("mrvRes" + i) }}
               </p>
-            </li>
-
-            <li
-              class="flex items-start gap-4 group transition-all"
-              data-aos="fade-left"
-            >
-              <div
-                class="w-8 h-8 flex items-center justify-center rounded-full bg-[#10b481]/15 group-hover:bg-[#10b481] transition"
-              >
-                <i
-                  class="bx bx-check text-[#10b481] group-hover:text-white text-sm font-bold"
-                ></i>
-              </div>
-              <p
-                class="small-medium text-gray-700 text-sm leading-relaxed group-hover:tex-[#10b481]"
-              >
-                {{ t("mrvRes2") }}
-              </p>
-            </li>
-
-            <li
-              class="flex items-start gap-4 group transition-all"
-              data-aos="fade-left"
-            >
-              <div
-                class="w-8 h-8 flex items-center justify-center rounded-full bg-[#10b481]/15 group-hover:bg-[#10b481] transition"
-              >
-                <i
-                  class="bx bx-check text-[#10b481] group-hover:text-white text-sm font-bold"
-                ></i>
-              </div>
-              <p
-                class="small-medium text-gray-700 text-sm leading-relaxed group-hover:tex-[#10b481]"
-              >
-                {{ t("mrvRes3") }}
-              </p>
-            </li>
-
-            <li
-              class="flex items-start gap-4 group transition-all"
-              data-aos="fade-left"
-            >
-              <div
-                class="w-8 h-8 flex items-center justify-center rounded-full bg-[#10b481]/15 group-hover:bg-[#10b481] transition"
-              >
-                <i
-                  class="bx bx-check text-[#10b481] group-hover:text-white text-sm font-bold"
-                ></i>
-              </div>
-              <p
-                class="small-medium text-gray-700 text-sm leading-relaxed group-hover:tex-[#10b481]"
-              >
-                {{ t("mrvRes4") }}
-              </p>
-            </li>
-
-            <li
-              class="flex items-start gap-4 group transition-all"
-              data-aos="fade-left"
-            >
-              <div
-                class="w-8 h-8 flex items-center justify-center rounded-full bg-[#10b481]/15 group-hover:bg-[#10b481] transition"
-              >
-                <i
-                  class="bx bx-check text-[#10b481] group-hover:text-white text-sm font-bold"
-                ></i>
-              </div>
-              <p
-                class="small-medium text-gray-700 text-sm leading-relaxed group-hover:tex-[#10b481]"
-              >
-                {{ t("mrvRes5") }}
-              </p>
-            </li>
-          </ul>
-        </div>
+            </div>
+          </li>
+        </ul>
       </div>
+
     </div>
   </section>
 </template>
@@ -144,3 +87,9 @@ const t = (key: string) => {
   return translate[lang][key] || key;
 };
 </script>
+
+<style scoped>
+section {
+  position: relative;
+}
+</style>
