@@ -1,17 +1,18 @@
 <template>
-  <footer class="bg-[#112830] text-gray-200 py-16 px-6 sm:px-12 lg:px-24">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+  <footer class="bg-[#112830] text-white pt-20 pb-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-24">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
       <div class="gap-6">
         <NuxtLink to="/" class="flex items-center gap-4 group">
             <img
               src="/logo.png"
               alt="Logo"
-              class="w-12 h-12 object-contain flex-shrink-0 rounded-xl"
+              class="w-16 h-16 object-contain flex-shrink-0 rounded-xl"
             />
 
             <div class="leading-tight">
-              <h1 class="text-xl light-logo font-bold text-gray-700">SmartSaha</h1>
-              <p class="light-sous-logo tracking-wide">
+              <h1 class="text-xl light-logo font-bold text-white">SmartSaha</h1>
+              <p class="light-sous-logo tracking-wide text-gray-400">
                 {{ t("tagline") }}
               </p>
             </div>
@@ -21,10 +22,10 @@
         </p>
 
         <div class="flex items-center gap-4 mt-4">
-          <a href="#" class="text-white light-menu-item hover:text-[#10b481] transition">
+          <a href="https://www.facebook.com/share/1EHaGKpfnD/" class="text-white light-menu-item hover:text-[#10b481] transition">
             <i class="bx bxl-facebook text-2xl"></i>
           </a>
-          <a href="#" class="text-white light-menu-item hover:text-[#10b481] transition">
+          <a href="https://share.google/xF5gkcyYn6EsR5cPA" class="text-white light-menu-item hover:text-[#10b481] transition">
             <i class="bx bxl-linkedin text-2xl"></i>
           </a>
         </div>
@@ -34,17 +35,20 @@
         <h4 class="light-subtitle mb-4 border-b border-gray-700 pb-2">{{ t("company") }}</h4>
         <ul class="space-y-2">
           <li>
-            <NuxtLink to="/about" class="light-menu-item hover:text-[#10b481] transition">{{
+            <NuxtLink to="/#about" class="light-menu-item hover:text-[#10b481] transition">{{
               t("aboutUs")
             }}</NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/services" class="light-menu-item hover:text-[#10b481] transition">{{
+            <NuxtLink to="/#services" class="light-menu-item hover:text-[#10b481] transition">{{
               t("services")
             }}</NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/team" class="light-menu-item hover:text-[#10b481] transition">{{
+            <NuxtLink to="/#mrv" class="light-menu-item hover:text-[#10b481] transition">MRV</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/#team" class="light-menu-item hover:text-[#10b481] transition">{{
               t("team")
             }}</NuxtLink>
           </li>
@@ -83,7 +87,6 @@
             <a
               href="/conditions/privacy-policy-09jg8366r2jn883"
               class="light-menu-item hover:text-[#10b481] transition"
-              target="_blank"
               rel="noopener noreferrer"
               >{{ t("policy") }}</a
             >
@@ -92,7 +95,6 @@
             <a
               href="/conditions/terms-of-use-38kd92j2k3l"
               class="light-menu-item hover:text-[#10b481] transition"
-              target="_blank"
               rel="noopener noreferrer"
               >{{ t("terms") }}</a
             >
@@ -107,7 +109,7 @@
         </p>
         <form
           @submit.prevent="subscribe"
-          class="flex flex-col sm:flex-row max-w-md mx-auto"
+          class="flex flex-row max-w-md mx-auto"
         >
           <input
             v-model="email"
@@ -125,12 +127,13 @@
           </button>
         </form>
       </div>
-    </div>
+      </div>
 
-    <div
-      class="mt-12 border-t border-gray-700 pt-6 text-center text-gray-400 small text-sm"
-    >
-      &copy; {{ new Date().getFullYear() }} {{ t("copyright") }}
+      <div
+        class="mt-12 border-t border-gray-700 pt-6 text-center text-gray-400 small text-sm"
+      >
+        &copy; {{ new Date().getFullYear() }} {{ t("copyright") }}
+      </div>
     </div>
   </footer>
 

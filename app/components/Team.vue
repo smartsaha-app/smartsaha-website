@@ -1,210 +1,77 @@
 <template>
-  <div
-    class="relative overflow-hidden bg-gray-50 text-white py-16 px-4 sm:px-6 lg:px-24"
-  >
-    <div class="text-center mb-12" data-aos="fade-up">
-      <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-[#112830]">
-        {{ t("teamTitle") }}
-      </h2>
-      <div class="w-16 h-1 bg-accent mx-auto mt-4 rounded-full"></div>
+  <section id="team" class="relative bg-[#fafaf9] dark:bg-[#0a0a0a] py-24 px-4 sm:px-6 lg:px-24 overflow-hidden transition-colors duration-300">
+    <!-- Decorative Elements -->
+    <div class="absolute top-0 right-0 w-64 h-64 bg-[#10b481]/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-[#10b481]/5 rounded-full blur-3xl -ml-48 -mb-48"></div>
 
-      <div class="flex justify-center mt-4">
-        <div class="w-48 h-[3px] bg-[#10b481]"></div>
+    <div class="relative max-w-7xl mx-auto">
+      <!-- Section Header -->
+      <div class="text-center mb-20" data-aos="fade-up">
+        <h5 class="uppercase text-sm tracking-widest text-[#10b481] font-bold mb-4">
+          Our Visionaries
+        </h5>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-manropeExtra text-[#112830] dark:text-white mb-6">
+          {{ t("teamTitle") }}
+        </h2>
+        <div class="flex justify-center">
+          <div class="w-24 h-1 bg-[#10b481] rounded-full"></div>
+        </div>
       </div>
-    </div>
 
-    <div class="relative">
-      <div
-        id="team-container"
-        class="flex gap-6 overflow-x-auto scroll-smooth px-2 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:gap-8 sm:overflow-visible"
-      >
+      <!-- Team Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         <div
-          class="group relative bg-white min-w-[280px] rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+          v-for="(member, index) in teamMembers"
+          :key="index"
+          class="group relative bg-white dark:bg-[#161616] rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 dark:border-white/10"
           data-aos="fade-up"
+          :data-aos-delay="index * 100"
         >
-          <div class="relative h-64 overflow-hidden">
+          <!-- Member Image Container -->
+          <div class="relative h-80 overflow-hidden">
             <img
-              src="/Michel.jpg"
-              alt="Team Member"
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              :src="member.image"
+              :alt="member.name"
+              class="w-full h-full object-cover group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-110"
             />
-
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-[#112830]/90 via-[#112830]/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end justify-center"
-            >
-              <div
-                class="flex gap-4 mb-6 translate-y-6 group-hover:translate-y-0 transition-all duration-300"
-              >
-                <a
-                  href="https://www.linkedin.com/in/michel-raherimanantsoa-2bab19a9?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
-                  class="w-10 h-10 flex items-center justify-center rounded-full bg-white/90 text-[#10b481] hover:bg-white hover:scale-110 transition"
-                >
-                  <i class="bx bxl-linkedin"></i>
+            
+            <!-- Social Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-[#112830]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-8">
+              <div class="flex gap-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                <a :href="member.linkedin" target="_blank" class="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/10 backdrop-blur-md text-white hover:bg-[#10b481] hover:scale-110 transition-all">
+                  <i class="bx bxl-linkedin text-2xl"></i>
                 </a>
-
-                <a
-                  href="mailto:smartsaapp@gmail.com?subject=Demande%20d'information&body=Bonjour%2C%20je%20souhaite%20..."
-                  class="w-10 h-10 flex items-center justify-center rounded-full bg-white/90 text-[#10b481] hover:bg-white hover:scale-110 transition"
-                >
-                  <i class="bx bx-envelope"></i>
+                <a :href="'mailto:' + member.email" class="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/10 backdrop-blur-md text-white hover:bg-[#10b481] hover:scale-110 transition-all">
+                  <i class="bx bx-envelope text-2xl"></i>
                 </a>
               </div>
             </div>
           </div>
 
-          <div class="p-6 text-center">
-            <h3 class="subtitle">Michel Raherimenanantsoa</h3>
-            <p class="text-sm small-medium text-[#10b481] font-medium mt-1">
-              {{ t("teamJob1") }}
+          <!-- Member Info -->
+          <div class="p-8 text-center bg-white dark:bg-[#161616] relative">
+            <!-- Decorative circle behind name -->
+            <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-[#10b481] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+            
+            <h3 class="text-xl font-manropeSemi text-[#112830] dark:text-white mb-2 group-hover:text-[#10b481] transition-colors">
+              {{ member.name }}
+            </h3>
+            <p class="text-xs uppercase tracking-widest text-[#10b481] font-bold mb-4 opacity-80">
+              {{ member.role }}
             </p>
-            <p class="content text-sm mt-3 leading-relaxed">
-              {{ t("teamJobDesc1") }}
-            </p>
-          </div>
-        </div>
-
-        <div
-          class="group relative bg-white min-w-[280px] rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
-          data-aos="fade-up"
-        >
-          <div class="relative h-64 overflow-hidden">
-            <img
-              src="/Fitahiana.jpg"
-              alt="Team Member"
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            />
-
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-[#112830]/90 via-[#112830]/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end justify-center"
-            >
-              <div
-                class="flex gap-4 mb-6 translate-y-6 group-hover:translate-y-0 transition-all duration-300"
-              >
-                <a
-                  href="https://www.linkedin.com/in/fitahiana-rahetimazava-ramangamihanta-b77758145/"
-                  class="w-10 h-10 flex items-center justify-center rounded-full bg-white/90 text-[#10b481] hover:bg-white hover:scale-110 transition"
-                >
-                  <i class="bx bxl-linkedin"></i>
-                </a>
-
-                <a
-                  href="mailto:smartsaapp@gmail.com?subject=Demande%20d'information&body=Bonjour%2C%20je%20souhaite%20..."
-                  class="w-10 h-10 flex items-center justify-center rounded-full bg-white/90 text-[#10b481] hover:bg-white hover:scale-110 transition"
-                >
-                  <i class="bx bx-envelope"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="p-6 text-center">
-            <h3 class="subtitle">Fitahiana Rahetimazava</h3>
-            <p class="text-sm small-medium text-[#10b481] font-medium mt-1">
-              {{ t("teamJob2") }}
-            </p>
-            <p class="content text-sm mt-3 leading-relaxed">
-              {{ t("teamJobDesc2") }}
-            </p>
-          </div>
-        </div>
-
-        <div
-          class="group relative bg-white min-w-[280px] rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
-          data-aos="fade-up"
-        >
-          <div class="relative h-64 overflow-hidden">
-            <img
-              src="/Hasina.jpg"
-              alt="Team Member"
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            />
-
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-[#112830]/90 via-[#112830]/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end justify-center"
-            >
-              <div
-                class="flex gap-4 mb-6 translate-y-6 group-hover:translate-y-0 transition-all duration-300"
-              >
-                <a
-                  href="https://www.linkedin.com/in/hasina-henintsoa-andriatsitohaina-2b2042a6/"
-                  class="w-10 h-10 flex items-center justify-center rounded-full bg-white/90 text-[#10b481] hover:bg-white hover:scale-110 transition"
-                >
-                  <i class="bx bxl-linkedin"></i>
-                </a>
-
-                <a
-                  href="mailto:smartsaapp@gmail.com?subject=Demande%20d'information&body=Bonjour%2C%20je%20souhaite%20..."
-                  class="w-10 h-10 flex items-center justify-center rounded-full bg-white/90 text-[#10b481] hover:bg-white hover:scale-110 transition"
-                >
-                  <i class="bx bx-envelope"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="p-6 text-center">
-            <h3 class="subtitle">Hasina Andriatsitohaina</h3>
-            <p class="text-sm small-medium text-[#10b481] font-medium mt-1">
-              {{ t("teamJob3") }}
-            </p>
-            <p class="content text-sm mt-3 leading-relaxed">
-              {{ t("teamJobDesc3") }}
-            </p>
-          </div>
-        </div>
-
-        <div
-          class="group relative bg-white min-w-[280px] rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
-          data-aos="fade-up"
-        >
-          <div class="relative h-64 overflow-hidden">
-            <img
-              src="/Rindra.jpg"
-              alt="Team Member"
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            />
-
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-[#112830]/90 via-[#112830]/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end justify-center"
-            >
-              <div
-                class="flex gap-4 mb-6 translate-y-6 group-hover:translate-y-0 transition-all duration-300"
-              >
-                <a
-                  href="https://www.linkedin.com/in/g%C3%A9rald-rindra-ranaivosoa-454549202/"
-                  class="w-10 h-10 flex items-center justify-center rounded-full bg-white/90 text-[#10b481] hover:bg-white hover:scale-110 transition"
-                >
-                  <i class="bx bxl-linkedin"></i>
-                </a>
-
-                <a
-                  href="mailto:smartsaapp@gmail.com?subject=Demande%20d'information&body=Bonjour%2C%20je%20souhaite%20..."
-                  class="w-10 h-10 flex items-center justify-center rounded-full bg-white/90 text-[#10b481] hover:bg-white hover:scale-110 transition"
-                >
-                  <i class="bx bx-envelope"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="p-6 text-center">
-            <h3 class="subtitle">Rindra Ranaivosoa</h3>
-            <p class="text-sm small-medium text-[#10b481] font-medium mt-1">
-              {{ t("teamJob4") }}
-            </p>
-            <p class="content text-sm mt-3 leading-relaxed">
-              {{ t("teamJobDesc4") }}
+            <div class="w-8 h-0.5 bg-gray-100 mx-auto mb-4 group-hover:w-16 transition-all duration-500 group-hover:bg-[#10b481]"></div>
+            <p class="text-sm text-gray-500 leading-relaxed line-clamp-3">
+              {{ member.description }}
             </p>
           </div>
         </div>
       </div>
     </div>
-
-    <div class="text-center mt-12" data-aos="fade-up"></div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
 import { useLanguageStore } from "~/stores/language";
 import { translate } from "~/utils/translate";
 
@@ -213,4 +80,48 @@ const t = (key: string) => {
   const lang = languageStore.lang;
   return translate[lang][key] || key;
 };
+
+const teamMembers = computed(() => [
+  {
+    name: "Michel Raherimenanantsoa",
+    role: t("teamJob1"),
+    description: t("teamJobDesc1"),
+    image: "/Michel.jpg",
+    linkedin: "https://www.linkedin.com/in/michel-raherimanantsoa-2bab19a9",
+    email: "smartsaapp@gmail.com"
+  },
+  {
+    name: "Fitahiana Rahetimazava",
+    role: t("teamJob2"),
+    description: t("teamJobDesc2"),
+    image: "/Fitahiana.jpg",
+    linkedin: "https://www.linkedin.com/in/fitahiana-rahetimazava-ramangamihanta-b77758145/",
+    email: "smartsaapp@gmail.com"
+  },
+  {
+    name: "Hasina Andriatsitohaina",
+    role: t("teamJob3"),
+    description: t("teamJobDesc3"),
+    image: "/Hasina.jpg",
+    linkedin: "https://www.linkedin.com/in/hasina-henintsoa-andriatsitohaina-2b2042a6/",
+    email: "smartsaapp@gmail.com"
+  },
+  {
+    name: "Rindra Ranaivosoa",
+    role: t("teamJob4"),
+    description: t("teamJobDesc4"),
+    image: "/Rindra.jpg",
+    linkedin: "https://www.linkedin.com/in/g%C3%A9rald-rindra-ranaivosoa-454549202/",
+    email: "smartsaapp@gmail.com"
+  }
+]);
 </script>
+
+<style scoped>
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+</style>
