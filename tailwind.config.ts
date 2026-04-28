@@ -1,13 +1,21 @@
 export default {
+    darkMode: 'class',
     theme: {
       extend: {
         fontFamily: {
-          inter: ['"Inter-Regular"', 'sans-serif'],
-          interItalic: ['"Inter-Italic"', 'sans-serif'],
-          interMedium: ['"Inter-Medium"', 'sans-serif'],
-          manropeBold: ['"Manrope-Bold"', 'sans-serif'],
-          manropeSemi: ['"Manrope-SemiBold"', 'sans-serif'],
-          manropeExtra: ['"Manrope-ExtraBold"', 'sans-serif'],
+          inter: ['Inter', 'sans-serif'],
+          interMedium: ['Inter', 'sans-serif'],
+          manropeBold: ['Manrope', 'sans-serif'],
+          manropeSemi: ['Manrope', 'sans-serif'],
+          manropeExtra: ['Manrope', 'sans-serif'],
+        },
+        animation: {
+          shimmer: 'shimmer 2s infinite',
+        },
+        keyframes: {
+          shimmer: {
+            '100%': { transform: 'translateX(200%)' },
+          },
         },
       },
     },

@@ -8,9 +8,18 @@
   --color-light: #FAFAF9;
 }
 
+.dark {
+  --color-dark: #FAFAF9;
+  --color-light: #112830;
+}
+
+body {
+  @apply bg-white dark:bg-[#0b1a1f] text-gray-800 dark:text-gray-100 transition-colors duration-300;
+}
+
 .btn-primary {
-  @apply px-4 py-3 text-white text-sm rounded-full transition;
-  background-color: var(--color-primary);
+  @apply px-6 py-3 text-white text-sm font-semibold rounded-full transition-all duration-300 transform active:scale-95 shadow-md hover:shadow-lg hover:-translate-y-0.5;
+  background-color: #10B481;
 }
 
 .btn-primary:hover {
@@ -18,153 +27,117 @@
 }
 
 .btn-secondary {
-  @apply px-4 py-2.5  font-interMedium text-[#10B481] text-xs sm:text-sm border border-[#10B481] rounded-full hover:bg-[#10b481]/10 transition;
+  @apply px-5 py-2.5 font-medium text-[#10B481] text-xs sm:text-sm border border-[#10B481] rounded-full transition-all duration-300 hover:bg-[#10b481]/10 hover:-translate-y-0.5;
 }
 
-.btn-third {
-  @apply px-4 py-2.5 bg-[#f4a261] font-interMedium text-white text-xs sm:text-sm rounded-full hover:bg-[#f4a261] transition;
+/* Micro-interactions pour les cartes */
+.hover-card {
+  @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer;
 }
 
-.btn-neutre {
-  @apply px-4 py-2.5 bg-[#F3F4F6] font-interMedium text-[#6B7280] text-xs sm:text-sm border border-[#D1D5DB] rounded-full hover:bg-[#E5E7EB] transition;
+.service-card {
+  @apply hover-card;
 }
 
-.btn-decline {
-  @apply px-4 py-2.5 bg-[#EF4444] font-interMedium text-white text-xs sm:text-sm rounded-full hover:bg-[#DC2626] transition;
+/* Styles de texte harmonisés */
+.text-content, .content {
+  @apply text-gray-600 dark:text-gray-400 leading-relaxed text-sm font-inter;
 }
 
-.text-content {
-  @apply text-gray-700 leading-relaxed text-xs sm:text-sm font-inter;
+.subtitle {
+  @apply text-gray-800 dark:text-white leading-relaxed text-lg sm:text-xl font-manropeSemi;
 }
 
-.text-italic {
-  @apply text-gray-700 leading-relaxed text-xs sm:text-sm font-interItalic;
+h2, .h2 {
+  @apply leading-tight text-3xl sm:text-4xl font-manropeExtra tracking-tight text-[#112830] dark:text-white;
 }
 
-.text-medium {
-  @apply text-gray-700 leading-relaxed text-xs sm:text-sm font-interMedium;
+/* Barre de progression de lecture (optionnelle via JS) */
+#scroll-progress {
+  @apply fixed top-0 left-0 h-1 bg-[#10b481] z-[60] transition-all duration-100 ease-out;
 }
 
-.text-bold {
-  @apply text-gray-700 leading-relaxed text-3xl sm:text-4xl font-manropeBold;
-}
-
-.text-semibold {
-  @apply text-gray-700 leading-relaxed text-3xl sm:text-4xl font-manropeSemi;
-}
-
-.text-extra {
-  @apply text-gray-700 leading-relaxed text-xs sm:text-sm font-manropeExtra;
-}
-
-.logo {
-  @apply leading-relaxed text-base font-manropeExtra;
-  color: var(--color-dark);
-}
-
-.sous-logo {
-  @apply text-gray-700 leading-relaxed text-xs font-inter;
-}
-
+/* Amélioration du menu item */
 .menu-item {
-  @apply text-gray-700 leading-relaxed text-sm font-interMedium;
+  @apply text-gray-700 text-sm font-medium transition-colors duration-200;
 }
 
 .menu-item:hover {
   color: var(--color-primary);
 }
 
+/* Utilitaires pour les sections qui restent sombres (Hero, Footer) */
 .text-hero {
-  @apply leading-relaxed text-xs sm:text-sm font-manropeExtra;
-  color: var(--color-light);
+  @apply font-manropeExtra leading-tight;
+  color: #FAFAF9;
 }
 
 .light-subtitle {
-  @apply leading-relaxed text-base sm:text-lg font-manropeSemi;
-  color: var(--color-light);
-}
-
-.light-content {
-  @apply leading-relaxed text-sm font-inter;
-  color: var(--color-light);
-}
-
-.subtitle {
-  @apply text-gray-800 leading-relaxed text-base sm:text-lg font-manropeSemi;
-  
-}
-
-.content {
-  @apply text-gray-700 leading-relaxed text-sm font-inter;
-}
-
-.lightcontent {
-  @apply leading-relaxed text-sm font-inter;
-}
-
-.light-extra {
-  @apply leading-relaxed text-xl sm:text-2xl lg:text-3xl font-manropeExtra;
-  color: var(--color-light);
+  @apply font-manropeSemi leading-relaxed;
+  color: #FAFAF9;
 }
 
 .light-logo {
-  @apply leading-relaxed text-base font-manropeExtra;
-  color: var(--color-light);
+  color: #FAFAF9 !important;
 }
 
 .light-sous-logo {
-  @apply text-gray-300 leading-relaxed text-xs font-inter;
-  
+  color: #9CA3AF !important; /* text-gray-400 */
 }
 
 .light-menu-item {
-  @apply leading-relaxed text-sm font-interMedium;
-  color: var(--color-light);
+  color: #D1D5DB !important; /* text-gray-300 */
 }
 
-.light-menu-item:hover {
-  color: var(--color-primary);
+/* Transitions globales */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.3s ease;
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
 }
 
-.username {
-  @apply leading-relaxed font-manropeBold;
-  
+/* Lenis Smooth Scroll */
+html.lenis, html.lenis body {
+  height: auto;
 }
 
-.small {
-  @apply leading-relaxed font-inter;
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
 }
 
-.small-medium {
-  @apply leading-relaxed font-interMedium;
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
 }
 
-.items {
-  @apply text-gray-700 leading-relaxed text-sm font-manropeSemi;
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
-.label {
-  @apply text-gray-700 leading-relaxed text-sm font-interMedium;
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
-h2 {
-  @apply leading-relaxed text-xl sm:text-2xl font-manropeExtra ;
-  color: var(--color-dark);
+/* 3D Perspective & Custom Animations */
+.perspective-1000 {
+  perspective: 1000px;
 }
 
-.h2 {
-  @apply leading-relaxed text-xl sm:text-2xl font-manropeExtra ;
+.rotate-x-6 {
+  transform: rotateX(6deg);
 }
 
-.light-menu {
-  @apply leading-relaxed text-sm font-interMedium;
-  color: var(--color-light);
+.rotate-y-12 {
+  transform: rotateY(12deg);
 }
 
-.apexcharts-legend-text {
-  @apply leading-relaxed font-inter;
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
 }
 
-.apexcharts-datalabel-name {
-  @apply text-sm small font-inter text-gray-600;
+.animate-bounce-slow {
+  animation: bounce-slow 2s ease-in-out infinite;
 }

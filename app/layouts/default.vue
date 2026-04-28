@@ -20,7 +20,7 @@
   
   <style scoped>
   main {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Inter", sans-serif;
   }
   
   html,
