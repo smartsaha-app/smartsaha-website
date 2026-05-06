@@ -48,6 +48,11 @@
             <NuxtLink to="/#mrv" class="light-menu-item hover:text-[#10b481] transition">MRV</NuxtLink>
           </li>
           <li>
+            <NuxtLink to="/#pricing" class="light-menu-item hover:text-[#10b481] transition">{{
+              t("pricing")
+            }}</NuxtLink>
+          </li>
+          <li>
             <NuxtLink to="/#team" class="light-menu-item hover:text-[#10b481] transition">{{
               t("team")
             }}</NuxtLink>
@@ -65,7 +70,7 @@
         <ul class="space-y-2">
           <li>
             <a
-              href="https://app.smart-saha.com"
+              href="https://agriculture.smart-saha.com"
               target="_blank"
               rel="noopener noreferrer"
               class="light-menu-item hover:text-[#10b481] transition"

@@ -81,7 +81,7 @@
             </transition>
           </div>
           <a
-            href="https://app.smart-saha.com"
+            href="https://agriculture.smart-saha.com"
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center btn-primary"
@@ -255,6 +255,7 @@ const menuItems = computed(() => [
   { name: t("about"), id: "about" },
   { name: t("services"), id: "services" },
   { name: "MRV", id: "mrv" },
+  { name: t("pricing"), id: "pricing" },
   { name: t("team"), id: "team" },
   { name: t("contact"), id: "contact" },
 ]);
@@ -271,7 +272,7 @@ const updateScrollProgress = () => {
 };
 
 const updateActiveSection = () => {
-  const sections = ["about", "services", "mrv", "team", "contact"];
+  const sections = ["about", "services", "mrv", "pricing", "team", "contact"];
   const scrollPosition = window.scrollY + 100;
 
   for (const section of sections) {

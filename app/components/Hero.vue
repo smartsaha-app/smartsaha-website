@@ -133,7 +133,7 @@
             </p>
           </div>
 
-          <a href="https://app.smart-saha.com" target="_blank" class="inline-flex items-center w-max gap-3 btn-primary mt-6 group">
+          <a href="https://agriculture.smart-saha.com" target="_blank" class="inline-flex items-center w-max gap-3 btn-primary mt-6 group">
             {{ t("learnMore") }}
             <i class="bxr bx-arrow-right-stroke group-hover:translate-x-1 transition-transform"></i>
           </a>

@@ -22,7 +22,7 @@
 
       <div class="flex flex-col sm:flex-row justify-center items-center gap-6" data-aos="zoom-in" data-aos-delay="200">
         <a 
-          href="https://app.smart-saha.com/" 
+          href="https://agriculture.smart-saha.com" 
           target="_blank" 
           class="w-full sm:w-auto"
         >
