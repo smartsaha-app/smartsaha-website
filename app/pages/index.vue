@@ -9,6 +9,7 @@
   <Precision />
   <Mrv />
   <Demo />
+  <Pricing />
   <section id="team">
     <Team />
   </section>
@@ -24,6 +25,7 @@ import Precision from "~/components/Precision.vue";
 import Mrv from "~/components/Mrv.vue";
 import Demo from "~/components/Demo.vue";
 import Team from "~/components/Team.vue";
+import Pricing from "~/components/Pricing.vue";
 import Cta from "~/components/Cta.vue";
 import ContactSection from "~/components/ContactSection.vue";
 import { useLanguageStore } from "~/stores/language";

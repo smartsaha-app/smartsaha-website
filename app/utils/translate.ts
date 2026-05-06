@@ -226,7 +226,38 @@ export const translate = {
     ceo: "CEO",
     whatsapp: "WhatsApp",
     address: "Address",
-    tagline: "Nurture data. Harvest impact"
+    tagline: "Nurture data. Harvest impact",
+    pricing: "Pricing",
+    pricingTitle: "Simple and Transparent Pricing",
+    pricingSubtitle: "Choose the perfect plan to grow your farm and agribusiness with SmartSaha.",
+    starter: "Starter",
+    starterPrice: "Free",
+    starterFeatures: [
+      "Basic platform access",
+      "Local weather monitoring",
+      "1 Registered field",
+      "Email support"
+    ],
+    pro: "Growth",
+    proPrice: "$29",
+    proPriceSub: "/month",
+    proFeatures: [
+      "Everything in Starter",
+      "Advanced AI analytics",
+      "Up to 10 registered fields",
+      "PDF report export",
+      "Priority support"
+    ],
+    enterprise: "Enterprise",
+    enterprisePrice: "Custom",
+    enterpriseFeatures: [
+      "Everything in Growth",
+      "Unlimited fields",
+      "API access",
+      "Custom training",
+      "Dedicated account manager"
+    ],
+    choosePlan: "Get Started",
   },
 
   fr: {
@@ -470,6 +501,37 @@ export const translate = {
     whatsapp: "WhatsApp",
     address: "Adresse",
     tagline: "Valorisez les données, récoltez l’impact",
+    pricing: "Tarification",
+    pricingTitle: "Des tarifs simples et transparents",
+    pricingSubtitle: "Choisissez le forfait idéal pour développer votre exploitation avec SmartSaha.",
+    starter: "Starter",
+    starterPrice: "Gratuit",
+    starterFeatures: [
+      "Accès basique à la plateforme",
+      "Suivi météo local",
+      "1 Champ enregistré",
+      "Support par email"
+    ],
+    pro: "Growth",
+    proPrice: "29€",
+    proPriceSub: "/mois",
+    proFeatures: [
+      "Tout ce qui est dans Starter",
+      "Analyses IA avancées",
+      "Jusqu'à 10 champs enregistrés",
+      "Exportation de rapports PDF",
+      "Support prioritaire"
+    ],
+    enterprise: "Enterprise",
+    enterprisePrice: "Sur mesure",
+    enterpriseFeatures: [
+      "Tout ce qui est dans Growth",
+      "Champs illimités",
+      "Accès API",
+      "Formation personnalisée",
+      "Manager de compte dédié"
+    ],
+    choosePlan: "Commencer",
   },
 
   mg: {
@@ -693,5 +755,36 @@ export const translate = {
     whatsapp: "WhatsApp",
     address: "Adiresy",
     tagline: "Angona tsara, vokatra tsara",
+    pricing: "Sarany",
+    pricingTitle: "Sarany mazava sy mangarahara",
+    pricingSubtitle: "Fidio ny tolotra mifanaraka aminao mba hampivoarana ny fambolenao.",
+    starter: "Starter",
+    starterPrice: "Maimaimpoana",
+    starterFeatures: [
+      "Fidirana fototra amin'ny sehatra",
+      "Fanaraha-maso ny toetr'andro",
+      "Saha 1 voasoratra anarana",
+      "Fanampiana amin'ny alalan'ny mailaka"
+    ],
+    pro: "Growth",
+    proPrice: "Ar 120.000",
+    proPriceSub: "/volana",
+    proFeatures: [
+      "Ny tolotra Starter rehetra",
+      "Fandinihana AI avo lenta",
+      "Saha hatramin'ny 10",
+      "Famoahana tatitra PDF",
+      "Fanampiana laharam-pahamehana"
+    ],
+    enterprise: "Enterprise",
+    enterprisePrice: "Mifanaraka",
+    enterpriseFeatures: [
+      "Ny tolotra Growth rehetra",
+      "Saha tsy voafetra",
+      "Fidirana API",
+      "Fampiofanana manokana",
+      "Mpitantana kaonty manokana"
+    ],
+    choosePlan: "Hanomboka",
   },
 };

@@ -175,7 +175,7 @@ const contactInfos = computed(() => [
   { icon: 'bx bx-envelope', label: t("general"), value: 'contact@smartsaha.com' },
   { icon: 'bx bx-briefcase', label: t("sales"), value: 'sales@smartsaha.com' },
   { icon: 'bx bx-user', label: t("ceo"), value: 'ceo@smartsaha.com' },
-  { icon: 'bx bxl-whatsapp', label: t("whatsapp"), value: '+261 34 45 99 60' },
+  { icon: 'bx bxl-whatsapp', label: t("whatsapp"), value: '+261 34 45 999 60' },
   { icon: 'bx bx-location-plus', label: t("address"), value: 'Antananarivo, Madagascar' }
 ]);
 
