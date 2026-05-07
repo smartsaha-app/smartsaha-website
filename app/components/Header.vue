@@ -205,7 +205,7 @@
 
         <div class="flex flex-col gap-3 mt-auto">
           <a
-            href="https://app.smart-saha.com"
+            href="https://agriculture.smart-saha.com"
             target="_blank"
             rel="noopener noreferrer"
             class="w-full flex items-center justify-center btn-primary"
