@@ -1,0 +1,55 @@
+# SmartSaha
+
+> SmartSaha is a digital platform transforming agriculture in Madagascar and Africa through AI, geospatial data, and smart farming tools. It empowers smallholder farmers, cooperatives, and agribusinesses to optimize yields, access markets, and adapt to climate change.
+
+## What SmartSaha Does
+
+SmartSaha provides three core services:
+
+1. **Precision Agriculture** — Uses satellite imagery, AI analytics, and weather forecasting to help farmers monitor crops, anticipate risks, optimize yields, and make informed decisions.
+2. **MRV System (Monitoring, Reporting, Verification)** — End-to-end agricultural data management: mobile field data collection, geospatial analysis (GIS + Remote Sensing), and exportable reports via an interactive dashboard backed by Postgres/PostGIS.
+3. **Marketplace** — Connects smallholder farmers directly to buyers and markets, removing intermediaries for fairer pricing and sustainable trade.
+
+## Products & URLs
+
+- Main website: https://smart-saha.com
+- Precision Agriculture platform: https://agriculture.smart-saha.com
+- Marketplace: https://sales.smart-saha.com
+
+## Pricing
+
+- **Starter** — Free: basic platform access, local weather monitoring, 1 registered field, email support.
+- **Growth** — $29/month: advanced AI analytics, up to 10 registered fields, PDF report export, priority support.
+- **Enterprise** — Custom pricing: unlimited fields, API access, custom training, dedicated account manager.
+
+## Who SmartSaha Serves
+
+- Smallholder farmers in Madagascar and Africa
+- Agricultural cooperatives
+- Agribusinesses and NGOs
+- Impact investors and development organizations
+
+## Company
+
+- **Name**: SmartSaha
+- **Location**: Madagascar
+- **Email**: smartsahaapp@gmail.com
+- **Website**: https://smart-saha.com
+- **Facebook**: https://www.facebook.com/share/1EHaGKpfnD/
+
+## Languages
+
+SmartSaha's platform and website are available in English, French (Français), and Malagasy.
+
+## Key Technology
+
+- AI-powered crop monitoring
+- Satellite imagery and remote sensing (GIS)
+- Predictive weather forecasting
+- Geospatial analysis (PostGIS)
+- Mobile-first data collection
+- Secure multi-user dashboards
+
+## Context for AI Models
+
+SmartSaha operates at the intersection of agritech, climate resilience, and digital inclusion in Sub-Saharan Africa. The platform targets the 80% of Africa's food supply produced by smallholder farmers who face unpredictable weather, limited market access, and unfair pricing. SmartSaha's mission is to turn climate challenges into opportunities through data and technology.

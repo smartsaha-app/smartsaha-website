@@ -122,7 +122,13 @@
                 </div>
                 <div>
                   <p class="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-1">{{ info.label }}</p>
-                  <p class="text-white font-medium hover:text-[#10b481] transition-colors cursor-pointer">{{ info.value }}</p>
+                  <component
+                    :is="info.href ? 'a' : 'p'"
+                    :href="info.href"
+                    :target="info.href?.startsWith('http') ? '_blank' : undefined"
+                    :rel="info.href?.startsWith('http') ? 'noopener noreferrer' : undefined"
+                    class="text-white font-medium hover:text-[#10b481] transition-colors cursor-pointer"
+                  >{{ info.value }}</component>
                 </div>
               </div>
             </div>
@@ -172,11 +178,11 @@ const toast = ref({
 });
 
 const contactInfos = computed(() => [
-  { icon: 'bx bx-envelope', label: t("general"), value: 'contact@smart-saha.com' },
-  { icon: 'bx bx-briefcase', label: t("sales"), value: 'ct@smart-saha.com' },
-  { icon: 'bx bx-user', label: t("ceo"), value: 'ceo@smart-saha.com' },
-  { icon: 'bx bxl-whatsapp', label: t("whatsapp"), value: '+261 34 45 999 60' },
-  { icon: 'bx bx-location-plus', label: t("address"), value: 'Antananarivo, Madagascar' }
+  { icon: 'bx bx-envelope', label: t("general"), value: 'contact@smart-saha.com', href: undefined as string | undefined },
+  { icon: 'bx bx-briefcase', label: t("sales"), value: 'cto@smart-saha.com', href: undefined as string | undefined },
+  { icon: 'bx bx-user', label: t("ceo"), value: 'ceo@smart-saha.com', href: undefined as string | undefined },
+  { icon: 'bx bxl-whatsapp', label: t("whatsapp"), value: '+261 34 45 999 60', href: 'https://wa.me/261344599960' as string | undefined },
+  { icon: 'bx bx-location-plus', label: t("address"), value: 'Antananarivo, Madagascar', href: undefined as string | undefined },
 ]);
 
 const showToast = (message: string, type: "success" | "error" = "success") => {

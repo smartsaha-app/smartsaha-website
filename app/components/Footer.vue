@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-24">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
       <div class="gap-6">
-        <NuxtLink to="/" class="flex items-center gap-4 group">
+        <NuxtLink :to="localePath('/')" class="flex items-center gap-4 group">
             <img
               src="/logo.png"
               alt="Logo"
@@ -35,30 +35,30 @@
         <h4 class="light-subtitle mb-4 border-b border-gray-700 pb-2">{{ t("company") }}</h4>
         <ul class="space-y-2">
           <li>
-            <NuxtLink to="/#about" class="light-menu-item hover:text-[#10b481] transition">{{
+            <NuxtLink :to="localePath('/') + '#about'" class="light-menu-item hover:text-[#10b481] transition">{{
               t("aboutUs")
             }}</NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/#services" class="light-menu-item hover:text-[#10b481] transition">{{
+            <NuxtLink :to="localePath('/') + '#services'" class="light-menu-item hover:text-[#10b481] transition">{{
               t("services")
             }}</NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/#mrv" class="light-menu-item hover:text-[#10b481] transition">MRV</NuxtLink>
+            <NuxtLink :to="localePath('/') + '#mrv'" class="light-menu-item hover:text-[#10b481] transition">MRV</NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/#pricing" class="light-menu-item hover:text-[#10b481] transition">{{
+            <NuxtLink :to="localePath('/') + '#pricing'" class="light-menu-item hover:text-[#10b481] transition">{{
               t("pricing")
             }}</NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/#team" class="light-menu-item hover:text-[#10b481] transition">{{
+            <NuxtLink :to="localePath('/') + '#team'" class="light-menu-item hover:text-[#10b481] transition">{{
               t("team")
             }}</NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/contact" class="light-menu-item hover:text-[#10b481] transition">{{
+            <NuxtLink :to="localePath('/contact')" class="light-menu-item hover:text-[#10b481] transition">{{
               t("contact")
             }}</NuxtLink>
           </li>
@@ -89,19 +89,17 @@
             </a>
           </li>
           <li>
-            <a
-              href="/conditions/privacy-policy-09jg8366r2jn883"
+            <NuxtLink
+              :to="localePath('/conditions/privacy-policy-09jg8366r2jn883')"
               class="light-menu-item hover:text-[#10b481] transition"
-              rel="noopener noreferrer"
-              >{{ t("policy") }}</a
+              >{{ t("policy") }}</NuxtLink
             >
           </li>
           <li>
-            <a
-              href="/conditions/terms-of-use-38kd92j2k3l"
+            <NuxtLink
+              :to="localePath('/conditions/terms-of-use-38kd92j2k3l')"
               class="light-menu-item hover:text-[#10b481] transition"
-              rel="noopener noreferrer"
-              >{{ t("terms") }}</a
+              >{{ t("terms") }}</NuxtLink
             >
           </li>
         </ul>
@@ -167,6 +165,7 @@ import { useLanguageStore } from "~/stores/language";
 import { translate } from "~/utils/translate";
 
 const languageStore = useLanguageStore();
+const localePath = useLocalePath();
 const t = (key: string) => {
   const lang = languageStore.lang;
   return translate[lang][key] || key;
