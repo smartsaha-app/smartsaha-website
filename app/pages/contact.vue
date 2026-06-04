@@ -8,11 +8,16 @@
 </template>
 
 <script setup lang="ts">
+const localePath = useLocalePath();
 onMounted(() => {
-  navigateTo('/#contact');
+  navigateTo(localePath("/") + "#contact");
 });
 
 definePageMeta({
-  layout: false
+  layout: false,
+});
+
+useSeoMeta({
+  robots: "noindex, follow",
 });
 </script>
