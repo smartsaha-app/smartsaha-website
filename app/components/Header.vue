@@ -4,7 +4,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
         <div class="flex-shrink-0 flex items-center gap-2">
-          <NuxtLink to="/" class="flex items-center gap-3 group">
+          <NuxtLink :to="localePath('/')" class="flex items-center gap-3 group">
             <img
               src="/logo.png"
               alt="Logo"
@@ -139,7 +139,7 @@
       >
         <div class="flex-shrink-0 flex items-center gap-2 mb-6">
           <NuxtLink
-            to="/"
+            :to="localePath('/')"
             class="flex items-center gap-2 font-bold text-xl text-gray-800 dark:text-white"
           >
             <img class="h-12 w-auto" src="/logo.png" alt="SmartSaha Logo" />
@@ -235,6 +235,8 @@ const isOpen = ref(false);
 
 const languageStore = useLanguageStore();
 const route = useRoute();
+const localePath = useLocalePath();
+const switchLocalePath = useSwitchLocalePath();
 
 const t = (key: string) => {
   const lang = languageStore.lang;
@@ -261,8 +263,9 @@ const menuItems = computed(() => [
 ]);
 
 const selectLocale = (code: string) => {
-  languageStore.setLang(code);
   open.value = false;
+  const path = switchLocalePath(code);
+  navigateTo(path);
 };
 
 const updateScrollProgress = () => {
@@ -301,8 +304,11 @@ onUnmounted(() => {
 });
 
 const scrollTo = (id: string) => {
-  if (route.path !== "/") {
-    navigateTo(`/#${id}`);
+  const home = localePath("/");
+  const currentPath = route.path.replace(/\/$/, "") || "/";
+  const homePath = home.replace(/\/$/, "") || "/";
+  if (currentPath !== homePath) {
+    navigateTo(`${home}#${id}`);
   } else {
     const el = document.getElementById(id);
     if (el) {

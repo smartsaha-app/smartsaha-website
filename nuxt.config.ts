@@ -24,18 +24,20 @@ export default defineNuxtConfig({
   site: {
     url: 'https://smart-saha.com',
     name: 'SmartSaha',
-    description: 'SmartSaha is a digital platform transforming agriculture through smart technology, data-driven insights, and innovative tools.',
+    description: 'SmartSaha is a digital platform transforming agriculture through smart technology, data-driven insights, and innovative tools designed to empower farmers, cooperatives, and agribusinesses in Madagascar and Africa.',
     defaultLocale: 'en',
+    logo: 'https://smart-saha.com/logo.png',
+    twitter: '@smartsaha',
   },
 
   i18n: {
     locales: [
-      { code: 'en', iso: 'en-US', name: 'English' },
-      { code: 'fr', iso: 'fr-FR', name: 'Français' },
-      { code: 'mg', iso: 'mg-MG', name: 'Malagasy' }
+      { code: 'en', language: 'en-US', name: 'English' },
+      { code: 'fr', language: 'fr-FR', name: 'Français' },
+      { code: 'mg', language: 'mg-MG', name: 'Malagasy' }
     ],
     defaultLocale: 'en',
-    strategy: 'no_prefix', // Since they seem to use a custom switcher
+    strategy: 'prefix_except_default',
   },
 
   sitemap: {
@@ -55,6 +57,11 @@ export default defineNuxtConfig({
   },
 
   schemaOrg: {
-    identity: 'Organization',
+    identity: {
+      type: 'Organization',
+      name: 'SmartSaha',
+      logo: 'https://smart-saha.com/logo.png',
+      sameAs: ['https://www.facebook.com/share/1EHaGKpfnD/'],
+    },
   }
 })
