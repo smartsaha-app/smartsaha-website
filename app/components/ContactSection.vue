@@ -172,9 +172,9 @@ const toast = ref({
 });
 
 const contactInfos = computed(() => [
-  { icon: 'bx bx-envelope', label: t("general"), value: 'contact@smartsaha.com' },
-  { icon: 'bx bx-briefcase', label: t("sales"), value: 'sales@smartsaha.com' },
-  { icon: 'bx bx-user', label: t("ceo"), value: 'ceo@smartsaha.com' },
+  { icon: 'bx bx-envelope', label: t("general"), value: 'contact@smart-saha.com' },
+  { icon: 'bx bx-briefcase', label: t("sales"), value: 'ct@smart-saha.com' },
+  { icon: 'bx bx-user', label: t("ceo"), value: 'ceo@smart-saha.com' },
   { icon: 'bx bxl-whatsapp', label: t("whatsapp"), value: '+261 34 45 999 60' },
   { icon: 'bx bx-location-plus', label: t("address"), value: 'Antananarivo, Madagascar' }
 ]);
