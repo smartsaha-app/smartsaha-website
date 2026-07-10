@@ -99,14 +99,6 @@ const teamMembers = computed(() => [
     email: "smartsaapp@gmail.com"
   },
   {
-    name: "Hasina Andriatsitohaina",
-    role: t("teamJob3"),
-    description: t("teamJobDesc3"),
-    image: "/Hasina.jpg",
-    linkedin: "https://www.linkedin.com/in/hasina-henintsoa-andriatsitohaina-2b2042a6/",
-    email: "smartsaapp@gmail.com"
-  },
-  {
     name: "Rindra Ranaivosoa",
     role: t("teamJob4"),
     description: t("teamJobDesc4"),
