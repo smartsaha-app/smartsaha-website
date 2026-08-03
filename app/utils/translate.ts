@@ -2,6 +2,8 @@ export const translate = {
   en: {
     about: "About",
     services: "Services",
+    blogs: "Blogs",
+    portfolio: "Portfolio",
     team: "Team",
     contact: "Contact Us",
     getStarted: "Get Started",
@@ -45,6 +47,10 @@ export const translate = {
     mrv: "M.R.V System",
     mrvText:
       "Tools for Monitoring, Reporting, and Verification to support sustainable and efficient farming.",
+    sequora: "Satellite-Verified Carbon",
+    sequoraText: "Fusing optical, radar, LiDAR imagery and field data to produce verifiable carbon reports, starting with blue carbon ecosystems (mangroves, seagrass, saltmarsh)",
+    dataFusion: "Multi-Sensor Fusion",
+    dataFusionText: "Optical, radar and LiDAR imagery combined with calibrated field data to produce a single, repeatable, standards-aligned carbon number.",
     paTitle: "Empowering Crop Production with Smart Technology",
     paText:
       "Smart tools that help farmers grow more, waste less, and adapt to climate change.",
@@ -97,9 +103,6 @@ export const translate = {
     teamJob4: "Software Engineer & System Architect",
     teamJobDesc4:
       "Designs and develops user-friendly platforms for agricultural digital transformation.",
-    ctaTitle: "Ready to Transform Your Farm?",
-    ctaText:
-      "Join thousands of Malagasy farmers who are already benefiting from SmartSaha's digital agriculture solutions.",
     footerText:
       "Empowering farmers with smart, AI-powered solutions for sustainable agriculture.",
     company: "Company",
@@ -258,11 +261,52 @@ export const translate = {
       "Dedicated account manager"
     ],
     choosePlan: "Get Started",
+    ctaBadge: "Platform agricltural",
+    ctaTitle: "Access your agricultural management dashboard now",
+    ctaText: "Monitor your field parcels in real time, track crop health via satellite imagery, and centralize all your field data in one intuitive platform.",
+    getStartedCta: "Open Application",
+    contactCta: "Request a Demo",
+
+    ctaFeat1Title: "Interactive GIS Mapping",
+    ctaFeat1Desc: "Draw and visualize all your land parcels on satellite maps.",
+    ctaFeat2Title: "Vegetation Index (NDVI)",
+    ctaFeat2Desc: "Analyze crop health and detect anomalies early in the season.",
+    ctaFeat3Title: "Weather & Soil Insights",
+    ctaFeat3Desc: "Plan irrigation and monitor micro-climate conditions effortlessly.",
+    ctaFeat4Title: "History & Reporting",
+    ctaFeat4Desc: "Keep track of field operations and export data seamlessly.",
+
+    ctaFeature1: "Instant web access, no setup required",
+    ctaFeature2: "Mobile & desktop responsive interface",
+    ctaFeature3: "Secure access to your field data",
+
+    blogBadge: "Blog & News",
+    blogHeroTitle: "Explore our latest articles and insights",
+    blogHeroSubtitle: "Discover our analysis, case studies, and expert advice on innovation, technology, and our latest achievements.",
+    readFeatured: "Read Featured Article",
+    allArticles: "All Articles",
+    readMore: "Read More",
+    blogTitle: "Latest Publications",
+    blogViewAll: "View All Articles",
+    
+    blogPost1Title: "How Satellite Imagery Revolutions Precision Agriculture",
+    blogPost1Excerpt: "Discover how NDVI indices and spatial analysis help anticipate water stress and optimize crop inputs.",
+    
+    blogPost2Title: "Carbon Projects & MRV: Ensuring Credit Transparency",
+    blogPost2Excerpt: "Understand the importance of MRV methodology in evaluating agricultural carbon sinks.",
+    
+    blogPost3Title: "Artificial Intelligence for Automated Parcel Boundary Mapping",
+    blogPost3Excerpt: "Our deep learning algorithms make field boundary mapping automatic and highly accurate.",
+    
+    blogPost4Title: "Agroforestry and Climate Resilience in the Indian Ocean",
+    blogPost4Excerpt: "A look back at best sustainable land management practices to mitigate extreme rainfall variations."
   },
 
   fr: {
     about: "À propos",
     services: "Services",
+    blogs: "Blogs",
+    portfolio: "Portfolio",
     team: "Équipe",
     contact: "Contactez-nous",
     getStarted: "Commencer",
@@ -320,7 +364,10 @@ export const translate = {
     mrv: "Système M.R.V",
     mrvText:
       "Suivi, reporting et vérification pour une agriculture durable.",
-
+    sequora: "Carbone vérifié par satellite",
+    sequoraText: "Fusion d'imagerie optique, radar, LiDAR et de données de terrain pour produire des rapports carbone vérifiables, en commençant par les écosystèmes de carbone bleu (mangroves, herbiers marins, marais salants)",
+    dataFusion: "Fusion multi-capteurs",
+    dataFusionText: "Imagerie optique, radar et LiDAR combinées à des relevés de terrain calibrés pour produire un chiffre carbone unique, reproductible et aligné sur les standards internationaux.",
     paTitle: "Améliorer la production avec la technologie",
     paText:
       "Produire plus avec moins de ressources.",
@@ -381,10 +428,6 @@ export const translate = {
     teamJobDesc3: "Développement durable.",
     teamJob4: "Ingénieur logiciel",
     teamJobDesc4: "Développement de plateformes.",
-
-    ctaTitle: "Prêt à transformer votre ferme ?",
-    ctaText:
-      "Rejoignez les agriculteurs utilisant SmartSaha.",
 
     footerText:
       "Solutions intelligentes pour une agriculture durable.",
@@ -532,11 +575,54 @@ export const translate = {
       "Manager de compte dédié"
     ],
     choosePlan: "Commencer",
+    ctaBadge: "Plateforme d'agriculture",
+    ctaTitle: "Accédez dès maintenant à votre espace de gestion agricole",
+    ctaText: "Pilotez vos parcelles en temps réel, suivez l'état de santé de vos cultures par satellite et centralisez vos données de terrain sur une seule plateforme.",
+    getStartedCta: "Ouvrir l'application",
+    contactCta: "Demander une démonstration",
+
+    // Fonctionnalités de l'application (colonne de droite)
+    ctaFeat1Title: "Cartographie Interactive",
+    ctaFeat1Desc: "Délimitez et visualisez l'ensemble de vos parcelles sur carte satellite.",
+    ctaFeat2Title: "Suivi de la Végétation (NDVI)",
+    ctaFeat2Desc: "Analysez la santé de vos cultures et détectez les anomalies rapidement.",
+    ctaFeat3Title: "Données Météo & Sol",
+    ctaFeat3Desc: "Anticipez les besoins en irrigation et suivez les conditions locales.",
+    ctaFeat4Title: "Historique & Rapports",
+    ctaFeat4Desc: "Conservez la traçabilité de vos interventions et exportez vos données.",
+
+    // Puces de réassurance
+    ctaFeature1: "Accès immédiat sans installation",
+    ctaFeature2: "Interface optimisée mobile & ordinateur",
+    ctaFeature3: "Connexion sécurisée à vos parcelles",
+
+    blogBadge: "Blog & Actualités",
+    blogHeroTitle: "Explorez nos derniers articles et insights",
+    blogHeroSubtitle: "Découvrez nos analyses, études de cas et conseils d'experts sur l'innovation, la technologie et nos dernières réalisations.",
+    readFeatured: "Découvrir l'article à la une",
+    allArticles: "Tous les articles",
+    blogTitle: "Dernières publications",
+    blogViewAll: "Voir tous les articles",
+    readMore: "Lire l'article",
+    
+    blogPost1Title: "Comment l'imagerie satellite révolutionne l'agriculture de précision",
+    blogPost1Excerpt: "Découvrez comment l'indice NDVI et l'analyse spatiale permettent d'anticiper le stress hydrique et d'optimiser les intrants.",
+    
+    blogPost2Title: "Projets Carbone & MRV : Garantir la transparence des crédits",
+    blogPost2Excerpt: "Comprendre l'importance de la méthodologie MRV (Mesure, Rapportage, Vérification) dans la valorisation des puits de carbone agricoles.",
+    
+    blogPost3Title: "L'intelligence artificielle au service de la délimitation des parcelles",
+    blogPost3Excerpt: "Grâce à nos algorithmes d'apprentissage profond, la cartographie des limites de champ devient automatique et ultra-précise.",
+    
+    blogPost4Title: "Agroforesterie et résilience climatique dans l'Océan Indien",
+    blogPost4Excerpt: "Retour sur les meilleures pratiques de gestion durable des terres pour faire face aux variations pluviométriques extrêmes."
   },
 
   mg: {
     about: "Momba anay",
     services: "Tolotra",
+    blogs: "Vaovao",
+    portfolio: "Vokatra",
     team: "Ekipa",
     contact: "Mifandraisa aminay",
     getStarted: "Hanomboka",
@@ -594,7 +680,10 @@ export const translate = {
     mrv: "Rafitra MRV",
     mrvText:
       "Fanaraha-maso sy tatitra.",
-
+    sequora: "Karbaona voamarina avy amin'ny satelita",
+    sequoraText: "Fampitambarana sary optika, radara, LiDAR ary angon-drakitra an-toerana mba hamokarana tatitra karbaona azo antoka, manomboka amin'ny tontolo iainan'ny karbaona manga (honko, ahi-dranomasina, tanimboto sira)",
+    dataFusion: "Fampitambarana sensor maro",
+    dataFusionText: "Sary optika, radara ary LiDAR ampiarahina amin'ny angon-drakitra an-toerana voafehy, mba hamokarana isa karbaona tokana, azo averimberina ary mifanaraka amin'ny fenitra iraisam-pirenena.",
     paTitle: "Fanatsarana ny vokatra",
     paText:
       "Mamokatra bebe kokoa.",
@@ -655,11 +744,6 @@ export const translate = {
     teamJobDesc3: "Fampandrosoana.",
     teamJob4: "Ingénieur",
     teamJobDesc4: "Platform.",
-
-    ctaTitle: "Vonona hanova?",
-    ctaText:
-      "Midira amin’i SmartSaha.",
-
     footerText:
       "Teknolojia ho an’ny fambolena.",
 
@@ -786,5 +870,44 @@ export const translate = {
       "Mpitantana kaonty manokana"
     ],
     choosePlan: "Hanomboka",
+    ctaBadge: "Sehatra fambolena",
+    ctaTitle: "Midira avy hatrany amin'ny sehatra fitantanana ny fambolenanao",
+    ctaText: "Araho maso ny taninao amin'ny fotoana tena izy, jereo ny fahasalaman'ny voly amin'ny alalan'ny zanabolana ary boky iray ihany no hitantanana ny angon-drakitra rehetra.",
+    getStartedCta: "Hidirana ny fampiharana",
+    contactCta: "Mangataha fampisehoana",
+
+    ctaFeat1Title: "Saritanin-tany ifanakalozana",
+    ctaFeat1Desc: "Sary ary jereo amin'ny sarintany zanabolana ny tany rehetra.",
+    ctaFeat2Title: "Zahan-tany Végétation (NDVI)",
+    ctaFeat2Desc: "Fakafakao ny fahasalaman'ny voly ary tsindrio aloha ny olana.",
+    ctaFeat3Title: "Toetrandro sy Tany",
+    ctaFeat3Desc: "Ullah mialoha ny fampidirana rano sy ny toetrandro eny an-toerana.",
+    ctaFeat4Title: "Tantara sy Tatitra",
+    ctaFeat4Desc: "Tehirizo ny asa rehetra natao ary avoahy ny tatitra.",
+
+    ctaFeature1: "Fidirana avy hatrany tsy mila fampidirana rindrankajy",
+    ctaFeature2: "Mety amin'ny finday sy ny ordinatera",
+    ctaFeature3: "Azo antoka ny angon-drakitrao",
+
+    blogBadge: "Mba ho fantatrao & Vaovao",
+    blogHeroTitle: "Zahavo ireo lahatsoratra sy zava-baovao farany",
+    blogHeroSubtitle: "Hahita ny dadabentsika, ny fandalinana tranga ary ny torohevitry ny manam-pahaizana momba ny zava-baovao, ny teknolojia ary ny zava-vitantsika farany.",
+    readFeatured: "Hamaky ny lahatsoratra misongadina",
+    allArticles: "Lahatsoratra rehetra",
+    readMore: "Hamaky ny tohiny",
+    blogTitle: "Ireo Lahatsoratra Farany",
+    blogViewAll: "Hijery Lahatsoratra Rehetra",
+    
+    blogPost1Title: "Kajy zanabolana amin'ny fambolena ara-potoana",
+    blogPost1Excerpt: "Fikarohana ny fomba ampiasan'ny NDVI sy ny saritanin-tany hitantanana ny rano sy ny fambolena.",
+    
+    blogPost2Title: "Karbôna sy MRV: Antoka ho an'ny fahazavan'ny tsenan'ny karbôna",
+    blogPost2Excerpt: "Fahafantarana ny lanjan'ny MRV amin'ny fanaovana kajy ny karbôna amin'ny fambolena.",
+    
+    blogPost3Title: "Fampiasana IA amin'ny fanaovana saritanin-tany",
+    blogPost3Excerpt: "Lasa ho azy ary mazava tsara ny fanaovana sisin-tany noho ny algorithm marani-tsaina.",
+    
+    blogPost4Title: "Agroforesterie sy ny fanoherana ny fiovan'ny toetrandro",
+    blogPost4Excerpt: "Soso-kevitra amin'ny fitantanana ny tany mba hiadiana amin'ny fiovan meva amin'ny fizahan-toetrandro."
   },
 };
