@@ -121,6 +121,14 @@ h2, .h2 {
   color: #FAFAF9;
 }
 
+.text-header {
+  @apply font-manropeExtra;
+}
+
+.text-menu-bar {
+  @apply font-manropeExtra;
+}
+
 .light-subtitle {
   @apply font-manropeSemi leading-relaxed;
   color: #FAFAF9;

@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: false },
+
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
@@ -11,16 +12,8 @@ export default defineNuxtConfig({
     '@nuxtjs/robots',
     'nuxt-schema-org',
   ],
-  colorMode: {
-    classSuffix: '',
-    preference: 'light', // default value of $colorMode.preference
-    fallback: 'light', // fallback value if not system preference found
-  },
-  css: ['@/assets/css/main.css'],
-  tailwindcss: {
-    configPath: 'tailwind.config.ts',
-  },
 
+  // Configuration du site (utilisée par Sitemap, Robots et SchemaOrg)
   site: {
     url: 'https://smart-saha.com',
     name: 'SmartSaha',
@@ -30,38 +23,62 @@ export default defineNuxtConfig({
     twitter: '@smartsaha',
   },
 
+  colorMode: {
+    classSuffix: '',
+    preference: 'light',
+    fallback: 'light',
+  },
+
+  css: ['@/assets/css/main.css'],
+
+  tailwindcss: {
+    configPath: 'tailwind.config.ts',
+  },
+
+  // Configuration i18n
   i18n: {
     locales: [
-      { code: 'en', language: 'en-US', name: 'English' },
-      { code: 'fr', language: 'fr-FR', name: 'Français' },
-      { code: 'mg', language: 'mg-MG', name: 'Malagasy' }
+      { code: 'en', language: 'en-US', name: 'English', file: undefined },
+      { code: 'fr', language: 'fr-FR', name: 'Français', file: undefined },
+      { code: 'mg', language: 'mg-MG', name: 'Malagasy', file: undefined }
     ],
     defaultLocale: 'en',
     strategy: 'prefix_except_default',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      redirectOn: 'root',
+    }
   },
 
+  // Configuration Sitemap
   sitemap: {
-    strictNuxtContentAds: true,
     autoI18n: true,
     cacheMaxAgeSeconds: 3600,
     defaults: {
       changefreq: 'weekly',
       priority: 0.7,
-      lastmod: new Date().toISOString()
     }
   },
 
+  // Configuration Robots.txt
   robots: {
     disallow: ['/api/'],
     allow: ['/_nuxt/', '/'],
+    // Le sitemap est ajouté automatiquement par Nuxt SEO
   },
 
+  // Configuration Schema.org (Microdonnées Google)
   schemaOrg: {
     identity: {
       type: 'Organization',
       name: 'SmartSaha',
+      url: 'https://smart-saha.com',
       logo: 'https://smart-saha.com/logo.png',
-      sameAs: ['https://www.facebook.com/share/1EHaGKpfnD/'],
+      sameAs: [
+        'https://www.facebook.com/share/1EHaGKpfnD/',
+        'https://share.google/xF5gkcyYn6EsR5cPA'
+      ],
     },
   }
 })

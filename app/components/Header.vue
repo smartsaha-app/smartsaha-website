@@ -1,46 +1,43 @@
 <template>
   <header class="bg-[#fafaf9] dark:bg-[#112830] border-b border-transparent dark:border-white/5 fixed w-full z-50 py-2 mb-12 transition-colors duration-300">
-    <div id="scroll-progress" :style="{ width: scrollProgress + '%' }"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16">
-        <div class="flex-shrink-0 flex items-center gap-2">
-          <NuxtLink :to="localePath('/')" class="flex items-center gap-3 group">
+    
+    <div class="mx-auto px-1 py-1 sm:px-6">
+      <div class="flex justify-between items-center">
+        
+        <!-- Logo et Identité -->
+        <div class="flex-shrink-0 flex items-center">
+          <NuxtLink :to="localePath('/')" class="flex items-center gap-2 dark:text-white">
             <img
               src="/logo.png"
               alt="Logo"
-              class="w-12 h-12 object-contain flex-shrink-0 rounded-xl"
+              class="rounded-full object-cover border-2 border-[#10b481] size-12 dark:size-14 flex-shrink-0"
             />
-
-            <div class="leading-tight">
-              <h1 class="text-xl logo font-bold text-gray-700 dark:text-white">SmartSaha</h1>
-              <p class="sous-logo tracking-wide dark:text-gray-400">
+            <div class="leading-6">
+              <h1 class="text-[24px] capitalize text-header font-bold text-gray-700 dark:text-white">SmartSaha</h1>
+              <p class="text-[13px] dark:text-gray-400">
                 {{ t("tagline") }}
               </p>
             </div>
           </NuxtLink>
         </div>
 
+        <!-- Menu Desktop -->
         <div class="hidden md:flex items-center gap-6">
-          <div
-            v-for="item in menuItems"
-            :key="item.name"
-            class="relative group"
-          >
-            <button
-              @click="scrollTo(item.id)"
-              class="px-3 py-2 menu-item font-medium relative z-10 transition-colors duration-300"
-              :class="activeSection === item.id ? 'text-[#10b481] dark:text-white' : 'text-gray-700 dark:text-gray-300'"
+          <nav class="flex items-center gap-2">
+            <!-- Navigation page par page via NuxtLink avec indicateur visuel -->
+            <NuxtLink
+              v-for="item in menuItems"
+              :key="item.name"
+              :to="localePath(item.path)"
+              class="relative px-3 py-2 menu-item text-menu-bar font-medium transition-colors duration-300 text-gray-700 dark:text-gray-300 hover:text-[#10b481] dark:hover:text-[#10b481]"
+              :exact="item.path === '/'"
+              active-class="text-[#10b481] dark:text-[#10b481] font-bold active-link-indicator"
             >
               {{ item.name }}
-            </button>
+            </NuxtLink>
+          </nav>
 
-            <span
-              class="absolute left-0 bottom-0 h-0.5 bg-[#10b481] transition-all duration-300 group-hover:w-full"
-              :class="activeSection === item.id ? 'w-full' : 'w-0'"
-            ></span>
-          </div>
-
-          <!-- Theme Switcher -->
+          <!-- Selecteur de Thème -->
           <button
             @click="toggleTheme"
             class="p-2 rounded-full hover:bg-[#10b481]/10 text-gray-700 dark:text-gray-300 transition-all active:scale-90"
@@ -49,22 +46,21 @@
             <i :class="colorMode.preference === 'dark' ? 'bx bx-sun text-2xl' : 'bx bx-moon text-2xl'"></i>
           </button>
 
+          <!-- Selecteur de Langue -->
           <div class="relative">
             <button
               @click="open = !open"
               class="flex items-center justify-center gap-3 py-1.5 px-3 rounded hover:border-[#10b481] transition text-gray-700 dark:text-gray-300"
             >
               <img :src="currentLocale.flag" class="w-5 h-5 rounded-full" />
-              <span class="content dark:text-gray-300">{{
-                currentLocale.name
-              }}</span>
+              <span class="content dark:text-gray-300">{{ currentLocale.name }}</span>
               <i class="bx bx-chevron-down"></i>
             </button>
 
             <transition name="fade">
               <ul
                 v-if="open"
-                class="absolute mt-2 w-40 bg-white dark:bg-[#112830] border border-gray-100 dark:border-white/10 rounded shadow-md overflow-hidden"
+                class="absolute mt-2 w-40 bg-white dark:bg-[#112830] border border-gray-100 dark:border-white/10 rounded shadow-md overflow-hidden z-50"
               >
                 <li
                   v-for="loc in locales"
@@ -73,25 +69,15 @@
                   class="flex items-center gap-2 px-3 py-2 hover:bg-[#10b481]/10 cursor-pointer dark:hover:bg-white/5"
                 >
                   <img :src="loc.flag" class="w-5 h-5 rounded-full" />
-                  <span class="content dark:text-gray-300">{{
-                    loc.name
-                  }}</span>
+                  <span class="content dark:text-gray-300">{{ loc.name }}</span>
                 </li>
               </ul>
             </transition>
           </div>
-          <a
-            href="https://agriculture.smart-saha.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center btn-primary"
-          >
-            {{ t("getStarted") }}
-          </a>
         </div>
 
+        <!-- Bouton Menu Mobile & Thème -->
         <div class="md:hidden flex items-center gap-4">
-          <!-- Mobile Theme Switcher -->
           <button
             @click="toggleTheme"
             class="p-2 rounded-full text-gray-700 dark:text-gray-300"
@@ -132,6 +118,7 @@
       </div>
     </div>
 
+    <!-- Tiroir de Navigation Mobile -->
     <transition name="slide-left">
       <div
         v-if="isOpen"
@@ -140,6 +127,7 @@
         <div class="flex-shrink-0 flex items-center gap-2 mb-6">
           <NuxtLink
             :to="localePath('/')"
+            @click="isOpen = false"
             class="flex items-center gap-2 font-bold text-xl text-gray-800 dark:text-white"
           >
             <img class="h-12 w-auto" src="/logo.png" alt="SmartSaha Logo" />
@@ -147,15 +135,14 @@
           </NuxtLink>
         </div>
 
+        <!-- Selecteur de Langue Mobile -->
         <div class="relative mb-6 z-50">
           <button
             @click="open = !open"
             class="flex items-center gap-2 py-2 px-3 rounded border dark:border-white/10 hover:border-[#10b481] transition w-full text-gray-700 dark:text-gray-300"
           >
             <img :src="currentLocale.flag" class="w-5 h-5 rounded-full" />
-            <span class="font-medium">{{
-              currentLocale.name
-            }}</span>
+            <span class="font-medium">{{ currentLocale.name }}</span>
             <i class="bx bx-chevron-down text-sm"></i>
           </button>
 
@@ -171,36 +158,25 @@
                 class="flex items-center gap-2 px-3 py-2 hover:bg-[#10b481]/10 dark:hover:bg-white/5 cursor-pointer"
               >
                 <img :src="loc.flag" class="w-5 h-5 rounded-full" />
-                <span class="text-sm font-medium dark:text-gray-300">{{
-                  loc.name
-                }}</span>
+                <span class="text-sm font-medium dark:text-gray-300">{{ loc.name }}</span>
               </li>
             </ul>
           </transition>
         </div>
 
-        <nav class="flex flex-col gap-4 mb-6">
-          <div
+        <!-- Navigation Mobile avec indicateur visuel latéral -->
+        <nav class="flex flex-col gap-2 mb-6">
+          <NuxtLink
             v-for="item in menuItems"
             :key="item.name"
-            class="relative group"
+            :to="localePath(item.path)"
+            @click="isOpen = false"
+            class="w-full text-left px-4 py-2.5 rounded-r-lg font-medium transition-all duration-200 text-gray-700 dark:text-gray-300 hover:text-[#10b481] dark:hover:text-[#10b481]"
+            :exact="item.path === '/'"
+            active-class="bg-[#10b481]/10 text-[#10b481] dark:text-[#10b481] font-bold border-l-4 border-[#10b481]"
           >
-            <button
-              @click="
-                scrollTo(item.id);
-                isOpen = false;
-              "
-              class="w-full text-left px-4 py-2 font-medium transition-colors duration-300"
-              :class="activeSection === item.id ? 'text-[#10b481]' : 'text-gray-700 dark:text-gray-300'"
-            >
-              {{ item.name }}
-            </button>
-
-            <span
-              class="absolute left-0 bottom-0 h-0.5 bg-[#10b481] transition-all duration-300 group-hover:w-full"
-              :class="activeSection === item.id ? 'w-full' : 'w-0'"
-            ></span>
-          </div>
+            {{ item.name }}
+          </NuxtLink>
         </nav>
 
         <div class="flex flex-col gap-3 mt-auto">
@@ -208,7 +184,7 @@
             href="https://agriculture.smart-saha.com"
             target="_blank"
             rel="noopener noreferrer"
-            class="w-full flex items-center justify-center btn-primary"
+            class="w-full text-menu-bar flex items-center justify-center btn-primary"
           >
             {{ t("getStarted") }}
           </a>
@@ -223,26 +199,29 @@ import { ref, computed, onMounted, onUnmounted } from "vue";
 import { useLanguageStore } from "~/stores/language";
 import { translate } from "~/utils/translate";
 
+// Gestion du Dark/Light Mode
 const colorMode = useColorMode();
 const toggleTheme = () => {
   colorMode.preference = colorMode.preference === "dark" ? "light" : "dark";
 };
 
+// États réactifs du menu et des menus déroulants
 const scrollProgress = ref(0);
-const activeSection = ref("");
-const open = ref(false);
-const isOpen = ref(false);
+const open = ref(false); // Menu déroulant langue
+const isOpen = ref(false); // Menu mobile (tiroir)
 
+// Utilitaires I18n / Routage
 const languageStore = useLanguageStore();
-const route = useRoute();
 const localePath = useLocalePath();
 const switchLocalePath = useSwitchLocalePath();
 
+// Traduction personnalisée
 const t = (key: string) => {
   const lang = languageStore.lang;
   return translate[lang][key] || key;
 };
 
+// Liste des langues supportées
 const locales = [
   { code: "en", name: "English", flag: "/flags/en.png" },
   { code: "fr", name: "Français", flag: "/flags/fr.png" },
@@ -253,76 +232,54 @@ const currentLocale = computed(
   () => locales.find((l) => l.code === languageStore.lang) || locales[0]
 );
 
+// Configuration des liens de navigation page par page
 const menuItems = computed(() => [
-  { name: t("about"), id: "about" },
-  { name: t("services"), id: "services" },
-  { name: "MRV", id: "mrv" },
-  { name: t("pricing"), id: "pricing" },
-  { name: t("team"), id: "team" },
-  { name: t("contact"), id: "contact" },
+  { name: t("about"), path: "/" },
+  { name: t("services"), path: "/services" },
+  { name: t("blogs"), path: "/blogs" },
+  { name: t("portfolio"), path: "/portfolio" },
+  { name: t("contact"), path: "/contact" },
 ]);
 
+// Changement de langue
 const selectLocale = (code: string) => {
   open.value = false;
   const path = switchLocalePath(code);
   navigateTo(path);
 };
 
+// Calcul de la progression du défilement de la page active
 const updateScrollProgress = () => {
   const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
   const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-  scrollProgress.value = (winScroll / height) * 100;
+  scrollProgress.value = height > 0 ? (winScroll / height) * 100 : 0;
 };
 
-const updateActiveSection = () => {
-  const sections = ["about", "services", "mrv", "pricing", "team", "contact"];
-  const scrollPosition = window.scrollY + 100;
-
-  for (const section of sections) {
-    const el = document.getElementById(section);
-    if (el) {
-      const top = el.offsetTop;
-      const height = el.offsetHeight;
-      if (scrollPosition >= top && scrollPosition < top + height) {
-        activeSection.value = section;
-        return;
-      }
-    }
-  }
-  activeSection.value = "";
-};
-
+// Gestion des écouteurs d'événements
 onMounted(() => {
   window.addEventListener("scroll", updateScrollProgress);
-  window.addEventListener("scroll", updateActiveSection);
-  updateActiveSection();
 });
 
 onUnmounted(() => {
   window.removeEventListener("scroll", updateScrollProgress);
-  window.removeEventListener("scroll", updateActiveSection);
 });
-
-const scrollTo = (id: string) => {
-  const home = localePath("/");
-  const currentPath = route.path.replace(/\/$/, "") || "/";
-  const homePath = home.replace(/\/$/, "") || "/";
-  if (currentPath !== homePath) {
-    navigateTo(`${home}#${id}`);
-  } else {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  }
-};
 </script>
 
 <style scoped>
-html {
-  scroll-behavior: smooth;
+/* Indicateur visuel sous le lien actif (Desktop) */
+.active-link-indicator::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 2px;
+  background-color: #10b481;
+  border-radius: 9999px;
 }
 
+/* Animations de transition */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.2s;
