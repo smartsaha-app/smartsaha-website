@@ -275,7 +275,7 @@ const contactInfos = computed(() => [
   { icon: 'bx bx-envelope', label: t("general") || "Général", value: 'contact@smart-saha.com', href: 'mailto:contact@smart-saha.com' },
   { icon: 'bx bx-briefcase', label: t("sales") || "Commercial", value: 'cto@smart-saha.com', href: 'mailto:cto@smart-saha.com' },
   { icon: 'bx bx-user', label: t("ceo") || "Direction", value: 'ceo@smart-saha.com', href: 'mailto:ceo@smart-saha.com' },
-  { icon: 'bx bxl-whatsapp', label: t("whatsapp") || "WhatsApp", value: '+261 34 45 999 60', href: 'https://wa.me/261344599960' },
+  { icon: 'bx bxl-whatsapp', label: t("whatsapp") || "WhatsApp", value: '+261 32 78 746 17', href: 'https://wa.me/261327874617' },
 ]);
 
 const showToast = (message: string, type: "success" | "error" = "success") => {
