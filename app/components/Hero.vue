@@ -1,7 +1,7 @@
 <template>
   <section
     class="relative bg-cover bg-center bg-white/65 pt-16 sm:pt-20"
-    style="background-image: url('/bg-hero.jpeg')"
+    style="background-image: url('/bg-hero-1.jpg')"
   >
     <!-- Deep Premium Overlay -->
     <div
@@ -107,63 +107,6 @@
             </a>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div
-      class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 grid grid-cols-1 lg:grid-cols-2 gap-8 z-10 mb-20"
-    >
-      <div
-        class="bg-white/90 dark:bg-[#112830]/90 backdrop-blur-sm rounded-3xl shadow-xl flex flex-col lg:flex-row p-5 gap-6 hover-card transition-colors duration-300"
-        data-aos="fade-up"
-        data-aos-delay="400"
-      >
-        <div
-          class="lg:w-1/2 min-h-[200px] rounded-2xl bg-center bg-cover shadow-inner"
-          style="background-image: url('/precision-agriculture.jpg')"
-        ></div>
-
-        <div class="lg:w-1/2 flex flex-col justify-between py-2">
-          <div>
-            <h4 class="text-2xl subtitle text-[#10b481] uppercase mb-4 font-bold">
-              {{ t("precisonAgriculture") }}
-            </h4>
-            <p class="content text-gray-600 dark:text-gray-300">
-              {{ t("precisionText") }}
-            </p>
-          </div>
-
-          <a href="https://agriculture.smart-saha.com" target="_blank" class="inline-flex items-center w-max gap-3 btn-primary mt-6 group">
-            {{ t("learnMore") }}
-            <i class="bxr bx-arrow-right-stroke group-hover:translate-x-1 transition-transform"></i>
-          </a>
-        </div>
-      </div>
-
-      <div
-        class="bg-white/90 dark:bg-[#112830]/90 backdrop-blur-sm rounded-3xl shadow-xl flex flex-col lg:flex-row p-5 gap-6 hover-card transition-colors duration-300"
-        data-aos="fade-up"
-        data-aos-delay="500"
-      >
-        <div class="lg:w-1/2 flex flex-col justify-between py-2">
-          <div>
-            <h4 class="text-2xl subtitle text-gray-800 dark:text-white uppercase mb-4 font-bold">
-              {{ t("evaluation") }}
-            </h4>
-            <p class="content text-gray-600 dark:text-gray-300">
-              {{ t("evolutionText") }}
-            </p>
-          </div>
-
-          <button @click="scrollTo('mrv')" class="inline-flex items-center w-max gap-3 btn-primary mt-6 group bg-gray-100 text-[#112830]">
-            {{ t("explore") }}
-            <i class="bxr bx-arrow-right-stroke group-hover:translate-x-1 transition-transform"></i>
-          </button>
-        </div>
-        <div
-          class="lg:w-1/2 min-h-[200px] rounded-2xl bg-center bg-cover shadow-inner"
-          style="background-image: url('monitoring.jpeg')"
-        ></div>
       </div>
     </div>
   </section>

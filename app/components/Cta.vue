@@ -1,48 +1,114 @@
 <template>
-  <section id="cta" class="relative py-24 px-4 sm:px-6 lg:px-24 overflow-hidden transition-colors duration-300">
-    <!-- Premium Mesh Gradient Background -->
-    <div class="absolute inset-0 bg-gradient-to-br from-[#10b481] to-[#112830] dark:from-[#0e946f] dark:to-black"></div>
+  <section id="cta" class="relative py-20 px-4 sm:px-6 lg:px-12 bg-[#fafaf9] dark:bg-[#0a0a0a] transition-colors duration-300">
     
-    <!-- Decorative Mesh/Glass Elements -->
-    <div class="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-    <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#112830]/30 rounded-full blur-3xl translate-x-1/3 translate-y-1/3"></div>
+    <!-- Conteneur Flottant Style Card Sombre (Inspiré de l'image) -->
+    <div class="max-w-7xl mx-auto relative overflow-hidden bg-[#112830] dark:bg-[#112830]/90 rounded-[2.5rem] p-8 sm:p-12 lg:p-16 shadow-2xl border border-white/10">
+      
+      <!-- Effets de glow en arrière-plan -->
+      <div class="absolute -top-24 -left-24 w-96 h-96 bg-[#10b481]/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-[#10b481]/10 rounded-full blur-3xl pointer-events-none"></div>
 
-    <div class="relative max-w-5xl mx-auto text-center z-10">
-      <div class="inline-block px-4 py-1.5 mb-6 rounded-full bg-white/10 backdrop-blur-md border border-white/20" data-aos="fade-down">
-        <span class="text-white text-xs uppercase tracking-[0.2em] font-bold">Ready to transform</span>
+      <!-- Structure 2 Colonnes -->
+      <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
+        <!-- COLONNE GAUCHE : Titre + Call to Actions -->
+        <div class="lg:col-span-7 flex flex-col items-start" data-aos="fade-right">
+          
+          <!-- Badge Doré / Émeraude -->
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#10b481]/15 text-[#10b481] border border-[#10b481]/30 text-xs font-semibold mb-6">
+            <span>{{ t('ctaBadge') }}</span>
+          </div>
+
+          <!-- Titre Principal -->
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-manropeExtra text-white leading-tight mb-6 tracking-tight text-left">
+            {{ t('ctaTitle') }}
+          </h2>
+
+          <!-- Description -->
+          <p class="text-gray-300 font-inter text-base sm:text-lg leading-relaxed mb-8 max-w-xl text-left">
+            {{ t('ctaText') }}
+          </p>
+
+          <!-- Groupe de Boutons -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
+            
+            <!-- Bouton Principal avec effet Glow -->
+            <a 
+              href="https://agriculture.smart-saha.com" 
+              target="_blank" 
+              class="w-full sm:w-auto"
+            >
+              <button class="w-full sm:w-auto bg-[#10b481] hover:bg-[#0e9a6e] text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-[#10b481]/25 hover:shadow-xl hover:shadow-[#10b481]/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-3">
+                <span>{{ t('getStarted') }}</span>
+                <i class="bx bx-right-arrow-alt text-xl"></i>
+              </button>
+            </a>
+
+            <!-- Bouton Secondaire Transparent -->
+            <button 
+              @click="scrollTo('contact')" 
+              class="w-full sm:w-auto bg-white/5 hover:bg-white/10 text-white font-semibold px-8 py-4 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 flex items-center justify-center gap-2"
+            >
+              <i class="bx bx-calendar text-xl text-[#10b481]"></i>
+              <span>{{ t('contact') }}</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- COLONNE DROITE : Cartes Fonctionnalités / Avantages -->
+        <div class="lg:col-span-5 flex flex-col gap-4" data-aos="fade-left">
+          
+          <div 
+            v-for="(feature, idx) in ctaFeatures" 
+            :key="idx"
+            class="bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl p-4 sm:p-5 transition-all duration-300 flex items-center gap-4 group"
+          >
+            <!-- Icône encadrée -->
+            <div class="w-12 h-12 rounded-xl bg-[#10b481]/15 text-[#10b481] group-hover:bg-[#10b481] group-hover:text-white flex items-center justify-center text-2xl shrink-0 transition-colors duration-300">
+              <i :class="feature.icon"></i>
+            </div>
+
+            <!-- Texte de l'avantage -->
+            <div>
+              <h4 class="text-white font-manropeSemi text-base mb-0.5">
+                {{ feature.title }}
+              </h4>
+              <p class="text-xs text-gray-400 font-inter leading-relaxed">
+                {{ feature.desc }}
+              </p>
+            </div>
+          </div>
+
+        </div>
+
       </div>
 
-      <h2 class="text-4xl md:text-6xl font-manropeExtra text-white mb-8 leading-tight" data-aos="fade-up">
-        {{ t('ctaTitle') }}
-      </h2>
+      <!-- LIGNE INFÉRIEURE : Puces de réassurance avec coches vertes -->
+      <div class="relative z-10 mt-12 pt-8 border-t border-white/10 flex flex-wrap items-center justify-start lg:justify-between gap-6 text-xs sm:text-sm text-gray-300 font-inter">
+        
+        <div class="flex items-center gap-2">
+          <i class="bx bxs-check-circle text-[#10b481] text-lg"></i>
+          <span>{{ t('ctaFeature1') || 'Données cartographiques haute précision' }}</span>
+        </div>
 
-      <p class="text-white/80 text-lg md:text-xl font-inter max-w-3xl mx-auto mb-12 leading-relaxed" data-aos="fade-up" data-aos-delay="100">
-        {{ t('ctaText') }}
-      </p>
+        <div class="flex items-center gap-2">
+          <i class="bx bxs-check-circle text-[#10b481] text-lg"></i>
+          <span>{{ t('ctaFeature2') || 'Rapports carbone certifiés MRV' }}</span>
+        </div>
 
-      <div class="flex flex-col sm:flex-row justify-center items-center gap-6" data-aos="zoom-in" data-aos-delay="200">
-        <a 
-          href="https://agriculture.smart-saha.com" 
-          target="_blank" 
-          class="w-full sm:w-auto"
-        >
-          <button class="w-full sm:w-auto bg-white text-[#112830] px-12 py-5 rounded-2xl font-bold text-lg shadow-[0_20px_50px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_60px_rgba(255,255,255,0.1)] hover:-translate-y-1.5 transition-all duration-300 active:scale-95 flex items-center justify-center gap-3 group">
-            {{ t('getStarted') }}
-          </button>
-        </a>
+        <div class="flex items-center gap-2">
+          <i class="bx bxs-check-circle text-[#10b481] text-lg"></i>
+          <span>{{ t('ctaFeature3') || 'Accès instantané à la plateforme' }}</span>
+        </div>
 
-        <button 
-          @click="scrollTo('contact')" 
-          class="w-full sm:w-auto bg-white/10 backdrop-blur-md border-2 border-white/30 text-white px-12 py-5 rounded-2xl font-bold text-lg hover:bg-white hover:text-[#10b481] hover:border-white transition-all duration-300 active:scale-95"
-        >
-          {{ t('contact') }}
-        </button>
       </div>
+
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
 import { useLanguageStore } from "~/stores/language";
 import { translate } from "~/utils/translate";
 
@@ -51,6 +117,30 @@ const t = (key: string) => {
   const lang = languageStore.lang;
   return translate[lang][key] || key;
 };
+
+// Avantages listés dans la colonne de droite (adaptés à SmartSaha)
+const ctaFeatures = computed(() => [
+  {
+    icon: "bx bx-bolt-circle",
+    title: t("ctaFeat1Title"),
+    desc: t("ctaFeat1Desc")
+  },
+  {
+    icon: "bx bx-[#10b481] bx-shield-quarter",
+    title: t("ctaFeat2Title"),
+    desc: t("ctaFeat2Desc")
+  },
+  {
+    icon: "bx bx-line-chart",
+    title: t("ctaFeat3Title"),
+    desc: t("ctaFeat3Desc")
+  },
+  {
+    icon: "bx bx-support",
+    title: t("ctaFeat4Title"),
+    desc: t("ctaFeat4Desc")
+  }
+]);
 
 const scrollTo = (id: string) => {
   const el = document.getElementById(id);
@@ -62,7 +152,6 @@ const scrollTo = (id: string) => {
 
 <style scoped>
 section {
-  /* Ensure a smooth transition with neighboring sections */
   margin-top: -1px;
 }
 </style>
