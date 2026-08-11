@@ -2,6 +2,7 @@
 const bcrypt = require('bcrypt');
 const jwtUtils = require('../utils/jwt.utils');
 const models = require('../models');
+const { where } = require('sequelize');
 
 // Routes
 module.exports = {
@@ -9,9 +10,9 @@ module.exports = {
     register: async function(req, res) {
         try {
 
-            const { username, password } = req.body;
+            const { username, password, email } = req.body;
 
-            if (!username || !password) {
+            if (!username || !password || !email) {
                 return res.status(400).json({
                     message: "Veuillez remplir tous les champs"
                 });
@@ -29,13 +30,24 @@ module.exports = {
                 });
             }
 
+            const existingEmail = await models.User.findOne({
+                where: { email }
+            })
+
+            if (existingEmail) {
+                return res.status(400).json({
+                    message: "Cet email est déjà utilisé par un utilisateur"
+                });
+            }
+
 
             const hashedPassword = await bcrypt.hash(password, 10);
 
 
             const newUser = await models.User.create({
                 username,
-                password: hashedPassword
+                password: hashedPassword,
+                email
             });
 
 
@@ -125,7 +137,8 @@ module.exports = {
                 message: "Profil utilisateur récupéré avec succès",
                 user: {
                     id: user.id,
-                    username: user.username
+                    username: user.username,
+                    email: user.email
                 }
             });
         } catch(err) {
