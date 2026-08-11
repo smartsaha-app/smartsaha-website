@@ -104,10 +104,12 @@ module.exports = {
 
             const token = jwtUtils.generateToken(user);
 
+            const isProduction = process.env.NODE_ENV === "production";
+
             res.cookie("access_token", token, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
-                sameSite: "lax",
+                secure: isProduction,
+                sameSite: isProduction ? "none" : "lax",
                 maxAge: 60 * 60 * 1000
             });
 
@@ -152,15 +154,17 @@ module.exports = {
     // Déconnecter l'utilisateur
     logout: async function(req, res) {
         try {
-            res.clearCookie("access_token");
-            return res.status(200).json({
-                message: "Déconnexion réussie"
+            const isProduction = process.env.NODE_ENV === "production";
+
+            res.clearCookie("access_token", {
+                httpOnly: true,
+                secure: isProduction,
+                sameSite: isProduction ? "none" : "lax",
             });
+            return res.status(200).json({ message: "Déconnexion réussie" });
         } catch(err) {
             console.error(err);
-            return res.status(500).json({
-                message: "Erreur serveur"
-            });
+            return res.status(500).json({ message: "Erreur serveur" });
         }
     }
 };
