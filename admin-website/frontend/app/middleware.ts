@@ -11,13 +11,13 @@ export function middleware(request: NextRequest) {
 
   // Si l'utilisateur essaie d'accéder à une route protégée sans token
   if (isProtectedRoute && !token) {
-    const loginUrl = new URL('/login', request.url);
+    const loginUrl = new URL('/', request.url);
     loginUrl.searchParams.set('callbackUrl', pathname); // Permet de rediriger après connexion
     return NextResponse.redirect(loginUrl);
   }
 
   // Si l'utilisateur est déjà connecté et tente d'aller sur /login
-  if (pathname === '/login' && token) {
+  if (pathname === '/' && token) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
