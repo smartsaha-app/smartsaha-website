@@ -3,6 +3,7 @@ const models = require('../models');
 
 // Routes
 module.exports = {
+
     // Récupérer toutes les catégories
     getAllCategories: async function(req, res) {
         try {

@@ -12,7 +12,16 @@ module.exports = {
 
         try {
 
-            const blogs = await models.Blog.findAll();
+            const blogs = await models.Blog.findAll({
+                include: [
+                    {
+                        model: models.Category,
+                        as: 'category',
+                        attributes: ['id', 'name'] 
+                    }
+                ],
+                order: [['createdAt', 'DESC']]
+            });
 
             return res.status(200).json({
                 message: "Blogs récupérés avec succès",
@@ -35,13 +44,11 @@ module.exports = {
     // Ajouter un blog
     // =============================
     addBlog: async function (req, res) {
-
         let imagePublicId = null;
 
         const transaction = await models.sequelize.transaction();
 
         try {
-
             const {
                 title,
                 excerpt,
@@ -58,69 +65,51 @@ module.exports = {
                 !categorie_id ||
                 !user_id
             ) {
-
                 await transaction.rollback();
-
                 return res.status(400).json({
                     message: "Veuillez remplir tous les champs"
                 });
-
             }
 
             // Vérification image
             if (!req.file) {
-
                 await transaction.rollback();
-
                 return res.status(400).json({
                     message: "Veuillez importer une image"
                 });
-
             }
 
             // Vérification catégorie
             const category = await models.Category.findByPk(categorie_id);
-
             if (!category) {
-
                 await transaction.rollback();
-
                 return res.status(404).json({
                     message: "Catégorie introuvable"
                 });
-
             }
 
             // Vérification utilisateur
             const user = await models.User.findByPk(user_id);
-
             if (!user) {
-
                 await transaction.rollback();
-
                 return res.status(404).json({
                     message: "Utilisateur introuvable"
                 });
-
             }
 
-            // Image
+            // Assignation sans la mot-clé "const" pour préserver la variable globale du bloc
             const image = req.file.path;
             imagePublicId = req.file.filename;
 
             // Création
             const blog = await models.Blog.create({
-
                 title,
                 excerpt,
                 content,
-
                 image,
                 image_public_id: imagePublicId,
-
                 categorie_id: Number(categorie_id),
                 user_id: Number(user_id)
-
             }, {
                 transaction
             });
@@ -128,32 +117,23 @@ module.exports = {
             await transaction.commit();
 
             return res.status(201).json({
-
                 message: "Blog créé avec succès",
                 blog
-
             });
 
         } catch (err) {
-
             await transaction.rollback();
 
-            // Suppression de l'image si déjà uploadée
+            // Suppression de l'image si uploadée
             try {
-
                 if (imagePublicId) {
-
                     await deleteImage(imagePublicId);
-
                 }
-
             } catch (deleteErr) {
-
                 console.error(
                     "Erreur suppression image :",
                     deleteErr.message
                 );
-
             }
 
             console.error(
@@ -165,9 +145,7 @@ module.exports = {
             return res.status(500).json({
                 message: "Erreur serveur"
             });
-
         }
-
     },
 
     // =============================
