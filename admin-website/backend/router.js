@@ -11,6 +11,11 @@ const uploadService = require('./services/uploadService');
 exports.router = (function() {
     const router = express.Router();
 
+    // Public routes
+    router.route('/categories/list').get(categoryController.getAllCategories);
+    router.route('/blogs/list').get(blogController.getAllBlogs);
+    router.route('/portfolios/list').get(portfolioController.getAllPortfolios);
+
     // User routes
     router.route('/users/register').post(userController.register);
     router.route('/users/login').post(userController.login);
