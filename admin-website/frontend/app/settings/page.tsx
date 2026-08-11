@@ -1,20 +1,15 @@
 'use client';
 
-import { useState, useRef, useEffect, useCallback } from 'react';
-import Image from 'next/image';
+import { useState, useRef, useEffect } from 'react';
 import { 
   User, 
   Tag, 
   Plus, 
-  Trash2, 
-  Edit2, 
-  Check, 
-  X, 
-  Camera, 
+  Trash2,  
+  Check,  
   Save, 
   Lock, 
   Mail, 
-  ShieldCheck,
   Loader2,
   AlertCircle
 } from 'lucide-react';
@@ -37,11 +32,8 @@ export default function SettingsPage() {
   const [isPageLoading, setIsPageLoading] = useState(true);
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
-  // Référence pour le champ d'upload de photo
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
   // État du profil utilisateur
-  const [profile, setProfile] = useState<UserProfile>({name: 'Admin', email:'admin@example'});
+  const [profile, setProfile] = useState<UserProfile>({username: '', email:''});
 
   // Formulaire de mot de passe
   const [passwordForm, setPasswordForm] = useState({
@@ -79,7 +71,7 @@ export default function SettingsPage() {
     }
   };
 
-    useEffect(() => {
+  useEffect(() => {
     fetchInitialData();
   }, [])
 
