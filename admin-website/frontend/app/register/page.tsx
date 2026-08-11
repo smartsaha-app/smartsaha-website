@@ -43,7 +43,7 @@ export default function RegisterPage() {
 
     try {
       // Envoi des données vers le backend
-      await api.post('/register', formData);
+      await api.post('/users/register', formData);
       setSuccessMessage('Compte créé avec succès ! Redirection...');
       
       // Réinitialisation du formulaire

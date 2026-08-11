@@ -27,7 +27,7 @@ interface Category {
 }
 
 interface UserProfile {
-  name: string;
+  username: string;
   email: string;
 }
 
@@ -303,8 +303,8 @@ export default function SettingsPage() {
                     <User className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
                     <input
                       type="text"
-                      value={profile.name}
-                      onChange={(e) => setProfile({ ...profile, name: e.target.value })}
+                      value={profile?.username}
+                      onChange={(e) => setProfile({ ...profile, username: e.target.value })}
                       className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#0c1d23] pl-10 pr-4 py-2 text-sm text-gray-900 dark:text-gray-100 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
                       required
                     />
@@ -319,7 +319,7 @@ export default function SettingsPage() {
                     <Mail className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
                     <input
                       type="email"
-                      value={profile.email}
+                      value={profile?.email}
                       onChange={(e) => setProfile({ ...profile, email: e.target.value })}
                       className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#0c1d23] pl-10 pr-4 py-2 text-sm text-gray-900 dark:text-gray-100 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
                       required
