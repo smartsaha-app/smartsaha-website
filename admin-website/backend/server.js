@@ -4,6 +4,7 @@ dotenv.config();
 
 // Import des dépendances
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { router } = require('./router');
@@ -16,6 +17,11 @@ const app = express();
 // Configuration de cookie-parser
 app.use(cookieParser());
 
+// Configuration CORS pour autoriser l'envoi de cookies cross-origin
+app.use(cors({
+  origin: process.env.CORS_ORIGIN_URL, // URL exacte du frontend Next.js
+  credentials: true, // Permet l'envoi des cookies HTTP-Only
+}));
 
 // Configuration JSON
 app.use(bodyParser.json());
@@ -30,23 +36,8 @@ app.get('/', function (req, res){
 // Routes API
 app.use('/api', router);
 
-// Middleware de gestion d'erreurs (doit être défini APRÈS les routes)
-// app.use((err, req, res, next) => {
-//     console.error("=== ERREUR CAPTURÉE ===");
-//     console.error("Type:", err && err.constructor && err.constructor.name);
-//     console.error("Message:", err && err.message);
-//     console.error("HTTP code (Cloudinary):", err && err.http_code);
-//     console.error("Détail complet:", JSON.stringify(err, null, 2));
-//     if (err && err.stack) console.error(err.stack);
-//     console.error("========================");
-
-//     res.status(500).json({
-//         message: (err && err.message) || "Erreur serveur"
-//     });
-// });
-
 
 // Démarrage serveur
-app.listen(3001, () => {
+app.listen(process.env.LISTEN_PORT, () => {
     console.log('Serveur démarré sur le port 3001');
 });

@@ -110,7 +110,7 @@ module.exports = {
 
             // Image de couverture
             const coverImage = req.files.cover_image[0].path;
-            coverImagePublicId = req.files.cover_image[0].filename;
+            const coverImagePublicId = req.files.cover_image[0].filename;
 
             // Galerie
             let galleryImages = [];
