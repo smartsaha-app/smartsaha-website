@@ -1,19 +1,25 @@
 <template>
   <main class="min-h-screen bg-gray-50 dark:bg-[#0c1d23] transition-colors duration-300">
-    
+
+    <!-- État de chargement -->
+    <div v-if="pending" class="min-h-[70vh] flex items-center justify-center px-4">
+      <div class="text-center space-y-3">
+        <i class="bx bx-loader-alt bx-spin text-4xl text-[#10b481]"></i>
+        <p class="text-gray-500 text-sm">Chargement du projet...</p>
+      </div>
+    </div>
+
     <!-- Cas où le projet existe -->
-    <template v-if="project">
-      
+    <template v-else-if="project">
+
       <!-- Hero Section immersif -->
       <section class="relative bg-cover bg-center pt-24 pb-16 sm:pt-32 sm:pb-24 overflow-hidden">
-        <!-- Image de fond avec overlay dégradé sombre -->
         <div class="absolute inset-0 z-0">
           <img :src="project.coverImage" :alt="project.title" class="w-full h-full object-cover" />
           <div class="absolute inset-0 bg-gradient-to-t from-[#112830] via-[#112830]/90 to-[#112830]/70"></div>
         </div>
 
         <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6">
-          <!-- Bouton Retour avec fallback -->
           <button
             @click="handleBack"
             class="inline-flex items-center gap-2 text-white/80 hover:text-[#10b481] font-semibold text-sm mb-8 transition-colors group bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 cursor-pointer"
@@ -22,33 +28,18 @@
             <span>{{ t("back") || "Retour aux réalisations" }}</span>
           </button>
 
-          <!-- Métadonnées & Titre -->
           <div class="space-y-4">
             <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
               {{ project.title }}
             </h1>
 
-            <!-- Métadonnées rapides -->
-            <div class="flex flex-wrap items-center gap-6 pt-4 text-sm text-gray-200">
-              <div class="flex items-center gap-2">
-                <i class="bx bx-building text-[#10b481] text-lg"></i>
-                <span class="font-semibold text-white">{{ project.client }}</span>
-              </div>
-
-              <span class="text-gray-400">•</span>
-
+            <!-- Métadonnées rapides : uniquement celles disponibles
+            <div v-if="project.year" class="flex flex-wrap items-center gap-6 pt-4 text-sm text-gray-200">
               <div class="flex items-center gap-2">
                 <i class="bx bx-calendar text-[#10b481] text-lg"></i>
                 <span>{{ project.year }}</span>
               </div>
-
-              <span class="text-gray-400">•</span>
-
-              <div class="flex items-center gap-2">
-                <i class="bx bx-map-pin text-[#10b481] text-lg"></i>
-                <span>{{ project.location }}</span>
-              </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </section>
@@ -56,11 +47,10 @@
       <!-- Corps de la page projet (Case Study) -->
       <section class="max-w-5xl mx-auto px-4 sm:px-6 -mt-10 relative z-20 pb-20">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          
+
           <!-- Contenu Principal -->
           <div class="lg:col-span-8 bg-white dark:bg-[#112830] p-6 sm:p-10 rounded-3xl shadow-xl border border-gray-100 dark:border-white/5 space-y-8">
-            
-            <!-- Chapeau / Résumé -->
+
             <p class="text-lg sm:text-xl font-medium text-gray-700 dark:text-gray-200 leading-relaxed border-l-4 border-[#10b481] pl-4 italic bg-gray-50 dark:bg-white/5 py-3 rounded-r-lg">
               {{ project.summary }}
             </p>
@@ -93,21 +83,23 @@
               </p>
 
               <!-- Liste des fonctionnalités clés -->
-              <h3 class="text-sm font-bold text-gray-800 dark:text-white uppercase tracking-wider mb-4">
-                Fonctionnalités clés développées :
-              </h3>
-              <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
-                <li
-                  v-for="(item, idx) in project.keyFeatures"
-                  :key="idx"
-                  class="flex items-start gap-2.5 text-xs sm:text-sm text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-white/5 p-3.5 rounded-xl border border-gray-100 dark:border-white/5"
-                >
-                  <i class="bx bx-check-circle text-[#10b481] text-lg mt-0.5 flex-shrink-0"></i>
-                  <span>{{ item }}</span>
-                </li>
-              </ul>
+              <template v-if="project.keyFeatures.length > 0">
+                <h3 class="text-sm font-bold text-gray-800 dark:text-white uppercase tracking-wider mb-4">
+                  Fonctionnalités clés développées :
+                </h3>
+                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+                  <li
+                    v-for="(item, idx) in project.keyFeatures"
+                    :key="idx"
+                    class="flex items-start gap-2.5 text-xs sm:text-sm text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-white/5 p-3.5 rounded-xl border border-gray-100 dark:border-white/5"
+                  >
+                    <i class="bx bx-check-circle text-[#10b481] text-lg mt-0.5 flex-shrink-0"></i>
+                    <span>{{ item }}</span>
+                  </li>
+                </ul>
+              </template>
 
-              <!-- Impact & Résultats Chiffrés -->
+              <!-- Impact & Résultats Chiffrés (pas de données back-end pour l'instant) -->
               <div v-if="project.results && project.results.length > 0" class="grid grid-cols-3 gap-4 bg-[#10b481]/5 border border-[#10b481]/20 p-4 sm:p-6 rounded-2xl">
                 <div v-for="(res, idx) in project.results" :key="idx" class="text-center">
                   <span class="block text-2xl sm:text-3xl font-extrabold text-[#10b481]">
@@ -173,18 +165,14 @@
 
           <!-- Barre latérale / Sidebar -->
           <aside class="lg:col-span-4 space-y-6">
-            
+
             <!-- Carte Résumé Projet -->
-            <div class="bg-white dark:bg-[#112830] p-6 rounded-2xl border border-gray-100 dark:border-white/5 shadow-lg space-y-4">
+            <div v-if="project.technologies.length > 0" class="bg-white dark:bg-[#112830] p-6 rounded-2xl border border-gray-100 dark:border-white/5 shadow-lg space-y-4">
               <h3 class="text-lg font-bold text-gray-800 dark:text-white border-b border-gray-100 dark:border-white/10 pb-3">
                 Détails de la mission
               </h3>
 
               <div class="space-y-3 text-xs">
-                <div>
-                  <span class="text-gray-400 block mb-0.5">Rôle SmartSaha :</span>
-                  <span class="font-semibold text-gray-800 dark:text-white text-sm">{{ project.role }}</span>
-                </div>
                 <div>
                   <span class="text-gray-400 block mb-0.5">Technologies employées :</span>
                   <div class="flex flex-wrap gap-1.5 mt-1">
@@ -200,7 +188,7 @@
               </div>
             </div>
 
-            <!-- Témoignage Client si existant -->
+            <!-- Témoignage Client (pas de données back-end pour l'instant) -->
             <div v-if="project.testimonial" class="bg-white dark:bg-[#112830] p-6 rounded-2xl border border-gray-100 dark:border-white/5 shadow-lg text-center">
               <img
                 :src="project.testimonial.avatar"
@@ -236,7 +224,7 @@
         <!-- Navigation vers le projet suivant -->
         <div v-if="nextProject" class="mt-16 pt-8 border-t border-gray-200 dark:border-white/10 flex justify-end">
           <NuxtLink
-            :to="localePath(`/portfolio/${nextProject.id}`)"
+            :to="localePath({ name: 'portfolio-id', params: { id: nextProject.id } })"
             class="group flex items-center gap-4 bg-white dark:bg-[#112830] p-4 sm:p-6 rounded-2xl border border-gray-100 dark:border-white/5 shadow-md hover:shadow-xl transition-all"
           >
             <div class="text-right">
@@ -286,6 +274,7 @@ const languageStore = useLanguageStore();
 const localePath = useLocalePath();
 const router = useRouter();
 const route = useRoute();
+const config = useRuntimeConfig();
 
 const t = (key: string) => {
   const lang = languageStore.lang;
@@ -295,74 +284,53 @@ const t = (key: string) => {
 // 1. Récupération de l'ID depuis l'URL
 const projectId = Number(route.params.id);
 
-// 2. Mock des projets
-const allProjects = computed(() => [
-  {
-    id: 1,
-    title: "Plateforme MRV Carbone & Suivi Satellite",
-    summary: "Développement d'une application SaaS de mesure et certification de la séquestration de carbone pour 50 000 hectares de forêts et cultures.",
-    client: "AgroCarbon Initiative",
-    year: "2025 - 2026",
-    role: "Développement Fullstack & IA",
-    location: "Madagascar & Océan Indien",
-    coverImage: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1200&auto=format&fit=crop",
-    challenge: "Le client devait certifier les crédits carbone générés par des milliers de petites exploitations morcelées. Les audits manuels sur le terrain étaient lents, très coûteux et difficiles à auditer par les organismes internationaux.",
-    solution: "SmartSaha a conçu une plateforme web interconnectée à des APIs d'imagerie satellite multispectrale (Sentinel-2) et des modèles de Machine Learning. L'application calcule automatiquement l'évolution de la biomasse et génère des rapports d'audit prêts à être soumis aux standards de certification.",
-    keyFeatures: [
-      "Cartographie SIG dynamique des parcelles",
-      "Calcul d'indices de biomasse (NDVI, EVI)",
-      "Génération automatique des rapports certifiables",
-      "Tableau de bord de suivi financier des crédits"
-    ],
-    technologies: ["Nuxt 3", "Python / FastAPI", "Sentinel Satellite API", "PostgreSQL", "TailwindCSS"],
-    gallery: [
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop"
-    ],
-    results: [
-      { value: "-65%", label: "Coût des audits" },
-      { value: "50k Ha", label: "Surveillés" },
-      { value: "100%", label: "Conforme MRV" }
-    ],
-    testimonial: {
-      quote: "Grâce à la plateforme développée par SmartSaha, nous avons pu valoriser nos crédits carbone 3 fois plus vite qu'avec les méthodes traditionnelles.",
-      author: "Rivo Andriani",
-      position: "Directeur de Projet, AgroCarbon",
-      avatar: "/logo.png"
-    }
-  },
-  {
-    id: 2,
-    title: "Gestion d'Irrigation Intelligente IoT",
-    summary: "Système de pilotage automatique de l'irrigation via capteurs LoRaWAN connectés pour la culture de riz et maraîchage.",
-    client: "Coopérative GreenFields",
-    year: "2026",
-    role: "IoT, Hardware & Mobile App",
-    location: "Antsirabe, Madagascar",
-    coverImage: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop",
-    challenge: "Pénurie d'eau récurrente entraînant des baisses de rendement de près de 30% chez les membres de la coopérative.",
-    solution: "Déploiement d'un réseau de sondes capacitives de sol communicant en LoRaWAN couplé à une application mobile alertant en temps réel sur les besoins en eau.",
-    keyFeatures: [
-      "Alertes SMS / Push lors de stress hydrique",
-      "Pilote automatique des électrovannes à distance",
-      "Historique météorologique localisé"
-    ],
-    technologies: ["Vue.js", "LoRaWAN", "Node.js", "MQTT", "Flutter"],
-    gallery: [
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop"
-    ],
-    results: [
-      { value: "-40%", label: "Consommation d'eau" },
-      { value: "+22%", label: "Rendement" },
-      { value: "24/7", label: "Monitoring" }
-    ]
-  }
-]);
+// ---- Helper de mapping API -> format attendu par le template ----
+const formatYear = (isoString?: string) => {
+  if (!isoString) return "";
+  return new Date(isoString).getFullYear().toString();
+};
 
-// 3. Projet courant
-const project = computed(() => allProjects.value.find((p) => p.id === projectId));
+const mapPortfolio = (p: any) => ({
+  id: p.id,
+  title: p.title,
+  summary: p.summary ?? "",
+  coverImage: p.cover_image ?? "/bg-hero-1.jpg",
+  challenge: p.challenge ?? "",
+  solution: p.solution ?? "",
+  keyFeatures: Array.isArray(p.key_features) ? p.key_features : [],
+  technologies: Array.isArray(p.technologies) ? p.technologies : [],
+  gallery: Array.isArray(p.gallery) ? p.gallery : [],
+  year: formatYear(p.createdAt),
+  // Champs non fournis par l'API actuellement — restent vides tant que le backend ne les expose pas
+  results: null,
+  testimonial: null,
+});
 
-// 4. Projet suivant pour la navigation
+// 2. Récupération du projet courant via l'API
+const {
+  data: dataProject,
+  pending: pendingProject,
+} = await useFetch(`${config.public.apiBase}/portfolios/${projectId}`);
+
+// 3. Récupération de la liste complète (pour le projet suivant)
+const {
+  data: dataAllProjects,
+  pending: pendingAll,
+} = await useFetch(`${config.public.apiBase}/portfolios/list`);
+
+const pending = computed(() => pendingProject.value || pendingAll.value);
+
+const project = computed(() => {
+  const raw = dataProject.value?.portfolio;
+  return raw ? mapPortfolio(raw) : null;
+});
+
+const allProjects = computed(() => {
+  const raw = dataAllProjects.value?.portfolios ?? [];
+  return raw.map(mapPortfolio);
+});
+
+// 4. Projet suivant pour la navigation (ordre renvoyé par l'API)
 const nextProject = computed(() => {
   const currentIndex = allProjects.value.findIndex((p) => p.id === projectId);
   if (currentIndex !== -1 && currentIndex < allProjects.value.length - 1) {
@@ -395,18 +363,18 @@ const handleBack = () => {
 };
 
 // 7. Partage sur les réseaux sociaux
-const shareProject = (platform: "facebook" | "linkedin" | "twitter") => {
-  if (typeof window === "undefined") return;
-  const url = encodeURIComponent(window.location.href);
-  const title = encodeURIComponent(project.value?.title || "");
+// const shareProject = (platform: "facebook" | "linkedin" | "twitter") => {
+//   if (typeof window === "undefined") return;
+//   const url = encodeURIComponent(window.location.href);
 
-  const shareUrls = {
-    facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
-    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
-  };
+//   const shareUrls = {
+//     facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+//     linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+//     twitter: `https://twitter.com/intent/tweet?url=${url}`,
+//   };
 
-  window.open(shareUrls[platform], "_blank", "width=600,height=400");
-};
+//   window.open(shareUrls[platform], "_blank", "width=600,height=400");
+// };
 </script>
 
 <style scoped>

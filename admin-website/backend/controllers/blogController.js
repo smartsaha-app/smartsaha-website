@@ -148,6 +148,49 @@ module.exports = {
         }
     },
 
+
+    // =============================
+    // Récupérer un blog par ID
+    // =============================
+    getBlogById: async function (req, res) {
+
+        try {
+
+            const { id } = req.params;
+
+            const blog = await models.Blog.findByPk(id, {
+                include: [
+                    {
+                        model: models.Category,
+                        as: 'category',
+                        attributes: ['id', 'name']
+                    }
+                ]
+            });
+
+            if (!blog) {
+                return res.status(404).json({
+                    message: "Blog non trouvé"
+                });
+            }
+
+            return res.status(200).json({
+                message: "Blog récupéré avec succès",
+                blog
+            });
+
+        } catch (err) {
+
+            console.error(err);
+
+            return res.status(500).json({
+                message: "Erreur serveur"
+            });
+
+        }
+
+    },
+
     // =============================
     // Supprimer un blog
     // =============================
