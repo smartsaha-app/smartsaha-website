@@ -211,6 +211,44 @@ module.exports = {
     },
 
     // =============================
+    // Récupérer un portfolio par ID
+    // =============================
+    getPortfolioById: async function (req, res) {
+
+        try {
+
+            const { id } = req.params;
+
+            const portfolio = await models.Portfolio.findByPk(id);
+
+            if (!portfolio) {
+
+                return res.status(404).json({
+                    message: "Portfolio non trouvé"
+                });
+
+            }
+
+            return res.status(200).json({
+
+                message: "Portfolio récupéré avec succès",
+                portfolio
+
+            });
+
+        } catch (err) {
+
+            console.error(err);
+
+            return res.status(500).json({
+                message: "Erreur serveur"
+            });
+
+        }
+
+    },
+
+    // =============================
     // Supprimer un portfolio
     // =============================
     deletePortfolio: async function (req, res) {

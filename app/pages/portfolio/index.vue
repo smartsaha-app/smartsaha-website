@@ -5,7 +5,6 @@
       class="relative bg-cover bg-center bg-white/65 pt-16 sm:pt-20 min-h-[50vh] flex items-center"
       style="background-image: url('/bg-hero-1.jpg')"
     >
-      <!-- Deep Premium Overlay -->
       <div
         class="absolute inset-0 bg-gradient-to-t from-[#112830] via-[#112830]/70 to-[#10b481]/50 transition-colors duration-300"
       ></div>
@@ -18,7 +17,7 @@
             <span class="w-2 h-2 rounded-full bg-[#10b481] animate-pulse"></span>
             {{ t("portfolio") || "Notre Portfolio" }}
           </h5>
-          
+
           <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 tracking-tight max-w-4xl">
             {{ t("accrocheHero") || "Nos Réalisations & Projets Impactants" }}
           </h1>
@@ -39,7 +38,7 @@
     <!-- Section Projets / Portfolio -->
     <section id="projects" class="py-16 sm:py-24 bg-gray-50 dark:bg-[#0c1d23] transition-colors duration-300">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
-        
+
         <!-- En-tête de section -->
         <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
           <span class="text-[#10b481] font-bold text-xs sm:text-sm uppercase tracking-widest bg-[#10b481]/10 px-4 py-1.5 rounded-full border border-[#10b481]/20">
@@ -53,8 +52,33 @@
           </p>
         </div>
 
+        <!-- État de chargement -->
+        <div v-if="pending" class="text-center py-16">
+          <i class="bx bx-loader-alt bx-spin text-4xl text-[#10b481]" aria-hidden="true"></i>
+          <p class="text-gray-500 text-sm mt-2">Chargement des projets...</p>
+        </div>
+
+        <!-- État d'erreur -->
+        <div
+          v-else-if="error"
+          class="text-center py-16 bg-white dark:bg-[#112830] rounded-2xl border border-gray-100 dark:border-white/5"
+        >
+          <i class="bx bx-error-circle text-5xl text-red-400 mb-3" aria-hidden="true"></i>
+          <h2 class="text-lg font-bold text-gray-700 dark:text-white mb-1">Impossible de charger les projets</h2>
+          <p class="text-gray-500 text-sm">Veuillez réessayer plus tard.</p>
+        </div>
+
+        <!-- Aucun projet -->
+        <div
+          v-else-if="projects.length === 0"
+          class="text-center py-16 bg-white dark:bg-[#112830] rounded-2xl border border-gray-100 dark:border-white/5"
+        >
+          <i class="bx bx-briefcase-alt-2 text-5xl text-gray-400 mb-3" aria-hidden="true"></i>
+          <h2 class="text-lg font-bold text-gray-700 dark:text-white mb-1">Aucun projet pour le moment</h2>
+        </div>
+
         <!-- Grille des cartes de projets -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <article
             v-for="project in projects"
             :key="project.id"
@@ -62,8 +86,8 @@
             data-aos="fade-up"
           >
             <!-- Image du projet avec redirection vers la page détails -->
-            <NuxtLink 
-              :to="localePath(`/portfolio/${project.id}`)" 
+            <NuxtLink
+              :to="localePath({ name: 'portfolio-id', params: { id: project.id } })"
               class="relative overflow-hidden aspect-video cursor-pointer block"
               :aria-label="'Voir les détails du projet ' + project.title"
             >
@@ -75,14 +99,6 @@
               />
               <div class="absolute inset-0 bg-gradient-to-t from-[#112830] via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
 
-              <!-- Badge Catégorie sur Image -->
-              <div class="absolute top-4 left-4 z-10">
-                <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#112830]/80 backdrop-blur-md text-[#10b481] border border-[#10b481]/30">
-                  {{ project.categoryName }}
-                </span>
-              </div>
-
-              <!-- Icône Action au survol -->
               <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <span class="p-3 bg-white/20 backdrop-blur-md text-white rounded-full text-2xl hover:scale-110 transition-transform shadow-lg">
                   <i class="bx bx-right-arrow-alt"></i>
@@ -93,7 +109,7 @@
             <!-- Contenu de la Card -->
             <div class="p-6 flex-1 flex flex-col justify-between">
               <div>
-                <NuxtLink :to="localePath(`/portfolio/${project.id}`)">
+                <NuxtLink :to="localePath({ name: 'portfolio-id', params: { id: project.id } })">
                   <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2 group-hover:text-[#10b481] transition-colors leading-snug">
                     {{ project.title }}
                   </h3>
@@ -103,10 +119,9 @@
                 </p>
               </div>
 
-              <!-- Pied de Carte / Lien de navigation -->
               <div class="border-t border-gray-100 dark:border-white/10 pt-4 mt-auto flex items-center justify-between">
                 <NuxtLink
-                  :to="localePath(`/portfolio/${project.id}`)"
+                  :to="localePath({ name: 'portfolio-id', params: { id: project.id } })"
                   class="text-sm font-semibold text-[#10b481] hover:underline inline-flex items-center gap-1 cursor-pointer group/link"
                 >
                   <span>En savoir plus</span>
@@ -123,7 +138,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed } from "vue";
 import { useLanguageStore } from "~/stores/language";
 import { translate } from "~/utils/translate";
 
@@ -148,6 +163,7 @@ useSchemaOrg([
 
 const languageStore = useLanguageStore();
 const localePath = useLocalePath();
+const config = useRuntimeConfig();
 
 const t = (key: string) => {
   const lang = languageStore.lang;
@@ -161,27 +177,21 @@ const scrollTo = (id: string) => {
   }
 };
 
-// --- Données des projets SmartSaha ---
-const projects = ref([
-  {
-    id: 1,
-    title: "Plateforme MRV Carbone Forestier",
-    image: "/bg-hero-1.jpg",
-    description: "Système de Mesure, Notification et Vérification pour le suivi de la séquestration de carbone."
-  },
-  {
-    id: 2,
-    title: "Gestion d'Irrigation connectée (IoT)",
-    image: "/bg-hero-1.jpg",
-    description: "Monitoring en temps réel de l'humidité des sols et automatisation de l'arrosage."
-  },
-  {
-    id: 3,
-    title: "SmartSaha Agro-Dashboard",
-    image: "/bg-hero-1.jpg",
-    description: "Tableau de bord décisionnel pour les coopératives et exploitants agricoles."
-  }
-]);
+// ---- Récupération des projets depuis l'API ----
+const { data, pending, error } = await useFetch(
+  `${config.public.apiBase}/portfolios/list`
+);
+
+// ---- Normalisation des projets venant de l'API ----
+const projects = computed(() => {
+  const raw = data.value?.portfolios ?? [];
+  return raw.map((p: any) => ({
+    id: p.id,
+    title: p.title,
+    image: p.cover_image ?? "/bg-hero-1.jpg",
+    description: p.summary ?? "",
+  }));
+});
 </script>
 
 <style scoped>

@@ -14,7 +14,9 @@ exports.router = (function() {
     // Public routes
     router.route('/categories/list').get(categoryController.getAllCategories);
     router.route('/blogs/list').get(blogController.getAllBlogs);
+    router.route('/blogs/:id').get(blogController.getBlogById);
     router.route('/portfolios/list').get(portfolioController.getAllPortfolios);
+    router.route('/portfolios/:id').get(portfolioController.getPortfolioById);
 
     // User routes
     router.route('/users/register').post(userController.register);

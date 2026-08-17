@@ -80,5 +80,10 @@ export default defineNuxtConfig({
         'https://share.google/xF5gkcyYn6EsR5cPA'
       ],
     },
+  },
+  runtimeConfig : {
+    public: {
+      apiBase:''
+    }
   }
 })
