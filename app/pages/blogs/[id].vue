@@ -293,7 +293,7 @@ const shareLinks = computed(() => {
 watchEffect(() => {
   if (post.value) {
     useSeoMeta({
-      title: `${post.value.title} - SmartSaha`,
+      title: `${post.value.title}`,
       ogTitle: post.value.title,
       description: post.value.excerpt,
       ogDescription: post.value.excerpt,

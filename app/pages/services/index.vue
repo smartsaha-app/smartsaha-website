@@ -274,7 +274,7 @@ import { translate } from "~/utils/translate";
 
 // Configuration SEO Nuxt 3
 useHead({
-  title: "Services | SmartSaha",
+  title: "Services",
   meta: [
     {
       name: "description",
