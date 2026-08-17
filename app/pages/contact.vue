@@ -225,8 +225,8 @@ const localePath = useLocalePath();
 
 // SEO Natif Nuxt 3
 useSeoMeta({
-  title: "Contact | SmartSaha",
-  ogTitle: "Contact | SmartSaha",
+  title: "Contact",
+  ogTitle: "Contact",
   description: "Contactez l'équipe de SmartSaha pour toute demande d'information, partenariat ou service sur mesure.",
   ogDescription: "Contactez l'équipe de SmartSaha pour toute demande d'information, partenariat ou service sur mesure."
 });

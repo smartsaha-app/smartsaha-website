@@ -229,7 +229,7 @@ const canonicalUrl = `${siteUrl}${route.path}`;
 
 // Métadonnées SEO
 useSeoMeta({
-  title: "Blog & Actualités",
+  title: "Blog",
   description: "Explorez nos articles d'experts sur la digitalisation agricole, la traçabilité des filières, l'IA agronomique, les capteurs IoT et le carbone MRV.",
   ogTitle: "Blog & Innovation Agricole | SmartSaha",
   ogDescription: "Découvrez comment les technologies numériques et l'IA façonnent l'avenir de l'agriculture durable et la traçabilité des cultures.",
