@@ -18,7 +18,7 @@
             <span class="w-2 h-2 rounded-full bg-[#10b481] animate-pulse"></span>
             {{ t("blogBadge") }}
           </p>
-          
+
           <h1 class="text-hero text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-4">
             {{ t("blogHeroTitle") }}
           </h1>
@@ -40,10 +40,9 @@
     <!-- Section Liste des Articles -->
     <section id="articles" class="py-16 sm:py-24 bg-gray-50 dark:bg-[#0c1d23] transition-colors duration-300">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
-        
+
         <!-- Barre de recherche & Filtres -->
         <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-12" data-aos="fade-up">
-          <!-- Filtres par catégories -->
           <div class="flex flex-wrap items-center gap-2 w-full md:w-auto" role="group" aria-label="Filtrer les articles par catégorie">
             <button
               v-for="cat in categories"
@@ -60,7 +59,6 @@
             </button>
           </div>
 
-          <!-- Champ de recherche -->
           <div class="relative w-full md:w-72">
             <label for="search-input" class="sr-only">Rechercher un article</label>
             <input
@@ -74,127 +72,137 @@
           </div>
         </div>
 
-        <!-- Article à la une (Featured Article) -->
-        <article 
-          v-if="featuredPost && activeCategory === 'all' && !searchQuery" 
-          class="mb-14 group bg-white dark:bg-[#112830] rounded-3xl overflow-hidden border border-gray-100 dark:border-white/5 shadow-xl hover:shadow-2xl transition-all duration-500 grid grid-cols-1 lg:grid-cols-12"
-          data-aos="fade-up"
-        >
-          <div class="lg:col-span-7 relative overflow-hidden aspect-video lg:aspect-auto">
-            <img 
-              :src="featuredPost.image" 
-              :alt="`Image d'illustration : ${featuredPost.title}`"
-              width="800"
-              height="450"
-              loading="eager"
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-            />
-            <span class="absolute top-4 left-4 bg-[#10b481] text-white text-xs font-semibold px-3.5 py-1.5 rounded-full shadow">
-              À la une
-            </span>
-          </div>
-          <div class="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400 mb-3">
-                <span class="font-medium text-[#10b481]">{{ featuredPost.categoryName }}</span>
-                <span>•</span>
-                <time :datetime="featuredPost.isoDate">{{ featuredPost.date }}</time>
-                <span>•</span>
-                <span>{{ featuredPost.readTime }}</span>
-              </div>
-              <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white mb-4 group-hover:text-[#10b481] transition-colors">
-                <NuxtLink :to="localePath(`/blogs/${featuredPost.id}`)">
-                  {{ featuredPost.title }}
-                </NuxtLink>
-              </h2>
-              <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-6">
-                {{ featuredPost.excerpt }}
-              </p>
-            </div>
-            
-            <div class="flex items-center justify-between border-t border-gray-100 dark:border-white/10 pt-4">
-              <NuxtLink
-                :to="localePath(`/blogs/${featuredPost.id}`)"
-                class="inline-flex items-center gap-2 text-sm font-bold text-[#10b481] hover:translate-x-1 transition-transform"
-                :aria-label="`Lire la suite de l'article : ${featuredPost.title}`"
-              >
-                Lire la suite
-                <i class="bx bx-right-arrow-alt text-xl" aria-hidden="true"></i>
-              </NuxtLink>
-            </div>
-          </div>
-        </article>
+        <!-- État de chargement -->
+        <div v-if="pendingPosts || pendingCategories" class="text-center py-16">
+          <i class="bx bx-loader-alt bx-spin text-4xl text-[#10b481]" aria-hidden="true"></i>
+          <p class="text-gray-500 text-sm mt-2">Chargement des articles...</p>
+        </div>
 
-        <!-- Grille des cartes de blog -->
-        <div v-if="filteredPosts.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- État d'erreur -->
+        <div
+          v-else-if="errorPosts || errorCategories"
+          class="text-center py-16 bg-white dark:bg-[#112830] rounded-2xl border border-gray-100 dark:border-white/5"
+        >
+          <i class="bx bx-error-circle text-5xl text-red-400 mb-3" aria-hidden="true"></i>
+          <h2 class="text-lg font-bold text-gray-700 dark:text-white mb-1">Impossible de charger les articles</h2>
+          <p class="text-gray-500 text-sm">Veuillez réessayer plus tard.</p>
+        </div>
+
+        <template v-else>
+          <!-- Article à la une (Featured Article) -->
           <article
-            v-for="post in filteredPosts"
-            :key="post.id"
-            class="group bg-white dark:bg-[#112830] rounded-2xl overflow-hidden border border-gray-100 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500 flex flex-col"
+            v-if="featuredPost && activeCategory === 'all' && !searchQuery"
+            class="mb-14 group bg-white dark:bg-[#112830] rounded-3xl overflow-hidden border border-gray-100 dark:border-white/5 shadow-xl hover:shadow-2xl transition-all duration-500 grid grid-cols-1 lg:grid-cols-12"
             data-aos="fade-up"
           >
-            <!-- Image de couverture -->
-            <NuxtLink :to="localePath(`/blogs/${post.id}`)" class="relative overflow-hidden aspect-video block" :tabindex="-1">
+            <div class="lg:col-span-7 relative overflow-hidden aspect-video lg:aspect-auto">
               <img
-                :src="post.image"
-                :alt="`Illustration de l'article : ${post.title}`"
-                width="600"
-                height="338"
-                loading="lazy"
-                decoding="async"
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                :src="featuredPost.image"
+                :alt="`Image d'illustration : ${featuredPost.title}`"
+                width="800"
+                height="450"
+                loading="eager"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
-              <span class="absolute top-4 left-4 bg-black/50 backdrop-blur-md text-white text-xs font-semibold px-3 py-1 rounded-full border border-white/10">
-                {{ post.categoryName }}
+              <span class="absolute top-4 left-4 bg-[#10b481] text-white text-xs font-semibold px-3.5 py-1.5 rounded-full shadow">
+                À la une
               </span>
-            </NuxtLink>
-
-            <!-- Contenu de la carte -->
-            <div class="p-6 flex-1 flex flex-col justify-between">
+            </div>
+            <div class="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
               <div>
-                <!-- Méta-informations -->
-                <div class="flex items-center gap-2 text-xs text-gray-400 dark:text-gray-400 mb-3">
-                  <i class="bx bx-calendar" aria-hidden="true"></i>
-                  <time :datetime="post.isoDate">{{ post.date }}</time>
+                <div class="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400 mb-3">
+                  <span class="font-medium text-[#10b481]">{{ featuredPost.categoryName }}</span>
                   <span>•</span>
-                  <i class="bx bx-time-five" aria-hidden="true"></i>
-                  <span>{{ post.readTime }}</span>
+                  <time :datetime="featuredPost.isoDate">{{ featuredPost.date }}</time>
                 </div>
-
-                <!-- Titre (Contient H3 pour la hiérarchie) -->
-                <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3 group-hover:text-[#10b481] transition-colors line-clamp-2">
-                  <NuxtLink :to="localePath(`/blogs/${post.id}`)">
-                    {{ post.title }}
+                <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white mb-4 group-hover:text-[#10b481] transition-colors">
+                  <NuxtLink :to="localePath(`/blogs/${featuredPost.id}`)">
+                    {{ featuredPost.title }}
                   </NuxtLink>
-                </h3>
-
-                <!-- Extrait -->
-                <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-3 mb-6">
-                  {{ post.excerpt }}
+                </h2>
+                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-6">
+                  {{ featuredPost.excerpt }}
                 </p>
               </div>
 
-              <!-- Pied de carte -->
-              <div class="flex items-center justify-between border-t border-gray-100 dark:border-white/10 pt-4 mt-auto">
+              <div class="flex items-center justify-between border-t border-gray-100 dark:border-white/10 pt-4">
                 <NuxtLink
-                  :to="localePath(`/blogs/${post.id}`)"
-                  class="text-sm font-semibold text-[#10b481] hover:underline flex items-center gap-1"
-                  :aria-label="`Lire l'article : ${post.title}`"
+                  :to="localePath(`/blogs/${featuredPost.id}`)"
+                  class="inline-flex items-center gap-2 text-sm font-bold text-[#10b481] hover:translate-x-1 transition-transform"
+                  :aria-label="`Lire la suite de l'article : ${featuredPost.title}`"
                 >
-                  Lire
-                  <i class="bx bx-chevron-right" aria-hidden="true"></i>
+                  Lire la suite
+                  <i class="bx bx-right-arrow-alt text-xl" aria-hidden="true"></i>
                 </NuxtLink>
               </div>
             </div>
           </article>
-        </div>
 
-        <!-- Message si aucun article ne correspond -->
-        <div v-else class="text-center py-16 bg-white dark:bg-[#112830] rounded-2xl border border-gray-100 dark:border-white/5">
-          <i class="bx bx-news text-5xl text-gray-400 mb-3" aria-hidden="true"></i>
-          <h2 class="text-lg font-bold text-gray-700 dark:text-white mb-1">Aucun article trouvé</h2>
-          <p class="text-gray-500 text-sm">Essayez d'ajuster votre recherche ou vos filtres.</p>
-        </div>
+          <!-- Grille des cartes de blog -->
+          <div v-if="filteredPosts.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <article
+              v-for="post in filteredPosts"
+              :key="post.id"
+              class="group bg-white dark:bg-[#112830] rounded-2xl overflow-hidden border border-gray-100 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500 flex flex-col"
+              data-aos="fade-up"
+            >
+              <NuxtLink :to="localePath(`/blogs/${post.id}`)" class="relative overflow-hidden aspect-video block" :tabindex="-1">
+                <img
+                  :src="post.image"
+                  :alt="`Illustration de l'article : ${post.title}`"
+                  width="600"
+                  height="338"
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <span class="absolute top-4 left-4 bg-black/50 backdrop-blur-md text-white text-xs font-semibold px-3 py-1 rounded-full border border-white/10">
+                  {{ post.categoryName }}
+                </span>
+              </NuxtLink>
+
+              <div class="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center gap-2 text-xs text-gray-400 dark:text-gray-400 mb-3">
+                    <i class="bx bx-calendar" aria-hidden="true"></i>
+                    <time :datetime="post.isoDate">{{ post.date }}</time>
+                    <span>•</span>
+                    <i class="bx bx-time-five" aria-hidden="true"></i>
+                    <span>{{ post.readTime }}</span>
+                  </div>
+
+                  <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3 group-hover:text-[#10b481] transition-colors line-clamp-2">
+                    <NuxtLink :to="localePath(`/blogs/${post.id}`)">
+                      {{ post.title }}
+                    </NuxtLink>
+                  </h3>
+
+                  <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-3 mb-6">
+                    {{ post.excerpt }}
+                  </p>
+                </div>
+
+                <div class="flex items-center justify-between border-t border-gray-100 dark:border-white/10 pt-4 mt-auto">
+                  <NuxtLink
+                    :to="localePath(`/blogs/${post.id}`)"
+                    class="text-sm font-semibold text-[#10b481] hover:underline flex items-center gap-1"
+                    :aria-label="`Lire l'article : ${post.title}`"
+                  >
+                    Lire
+                    <i class="bx bx-chevron-right" aria-hidden="true"></i>
+                  </NuxtLink>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Message si aucun article ne correspond -->
+          <div v-else class="text-center py-16 bg-white dark:bg-[#112830] rounded-2xl border border-gray-100 dark:border-white/5">
+            <i class="bx bx-news text-5xl text-gray-400 mb-3" aria-hidden="true"></i>
+            <h2 class="text-lg font-bold text-gray-700 dark:text-white mb-1">Aucun article trouvé</h2>
+            <p class="text-gray-500 text-sm">Essayez d'ajuster votre recherche ou vos filtres.</p>
+          </div>
+        </template>
 
       </div>
     </section>
@@ -202,7 +210,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, watchEffect } from "vue";
 import { useLanguageStore } from "~/stores/language";
 import { translate } from "~/utils/translate";
 
@@ -216,12 +224,12 @@ const t = (key: string) => {
 };
 
 // URL Canonique dynamique
-const siteUrl = "https://smartsaha.com"; // Remplacez par votre domaine
+const siteUrl = "https://smartsaha.com";
 const canonicalUrl = `${siteUrl}${route.path}`;
 
-// 1. Métadonnées SEO Avancées pour Nuxt 3
+// Métadonnées SEO
 useSeoMeta({
-  title: "Blog & Actualités AgTech, MRV et IoT Agricole | SmartSaha",
+  title: "Blog & Actualités",
   description: "Explorez nos articles d'experts sur la digitalisation agricole, la traçabilité des filières, l'IA agronomique, les capteurs IoT et le carbone MRV.",
   ogTitle: "Blog & Innovation Agricole | SmartSaha",
   ogDescription: "Découvrez comment les technologies numériques et l'IA façonnent l'avenir de l'agriculture durable et la traçabilité des cultures.",
@@ -234,147 +242,140 @@ useSeoMeta({
   twitterImage: `${siteUrl}/og-blog.jpg`,
 });
 
-// Balise Canonical
 useHead({
-  link: [
-    { rel: "canonical", href: canonicalUrl }
-  ]
+  link: [{ rel: "canonical", href: canonicalUrl }],
 });
 
 const scrollTo = (id: string) => {
   const el = document.getElementById(id);
-  if (el) {
-    el.scrollIntoView({ behavior: "smooth" });
-  }
+  if (el) el.scrollIntoView({ behavior: "smooth" });
 };
+
+const config = useRuntimeConfig();
+
+// ---- Récupération des catégories depuis l'API ----
+const {
+  data: dataCategory,
+  pending: pendingCategories,
+  error: errorCategories,
+} = await useFetch(`${config.public.apiBase}/categories/list`);
+
+// ---- Récupération des articles de blog depuis l'API ----
+const {
+  data: dataPosts,
+  pending: pendingPosts,
+  error: errorPosts,
+} = await useFetch(`${config.public.apiBase}/blogs/list`);
 
 const activeCategory = ref("all");
 const searchQuery = ref("");
 
-const categories = [
-  { id: "all", name: "Tous les articles" },
-  { id: "agtech", name: "AgTech" },
-  { id: "mrv", name: "Carbone & MRV" },
-  { id: "iot", name: "IoT & Capteurs" },
-  { id: "ai", name: "IA & Agronomie" }
-];
+// ---- Helpers ----
+const formatDate = (isoString?: string) => {
+  if (!isoString) return "";
+  return new Date(isoString).toLocaleDateString("fr-FR", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+};
 
-// Article à la une
-const featuredPost = ref({
-  id: 1,
-  title: "Comment l'IA et l'imagerie satellite révolutionnent la mesure du carbone agricole",
-  category: "mrv",
-  categoryName: "Carbone & MRV",
-  image: "/bg-hero-1.jpg",
-  excerpt: "Découvrez les dernières avancées technologiques permettant de quantifier avec précision le carbone séquestré dans les sols et la biomasse végétale grâce aux données multispectrales.",
-  date: "12 Mai 2026",
-  isoDate: "2026-05-12",
-  readTime: "6 min de lecture",
-  author: {
-    name: "Équipe SmartSaha",
-    avatar: "/logo.png"
-  }
+const estimateReadTime = (content?: string) => {
+  if (!content) return "3 min de lecture";
+  const words = content.trim().split(/\s+/).length;
+  return `${Math.max(1, Math.round(words / 200))} min de lecture`;
+};
+
+// Génère un extrait tronqué depuis le contenu complet, pour inciter à lire la suite
+const truncateContent = (content?: string, maxLength = 140) => {
+  if (!content) return "";
+  const clean = content.trim();
+  if (clean.length <= maxLength) return clean;
+  const truncated = clean.slice(0, maxLength);
+  const lastSpace = truncated.lastIndexOf(" ");
+  return `${truncated.slice(0, lastSpace > 0 ? lastSpace : maxLength)}…`;
+};
+
+// ---- Normalisation des catégories venant de l'API ----
+const categories = computed(() => {
+  const apiCats = (dataCategory.value?.categories ?? []).map((c: any) => ({
+    id: c.id,
+    name: c.name,
+  }));
+  return [{ id: "all", name: "Tous les articles" }, ...apiCats];
 });
 
-// Liste des articles
-const posts = ref([
-  {
-    id: 2,
-    title: "Optimisation de l'irrigation grâce aux capteurs connectés LoRaWAN",
-    category: "iot",
-    categoryName: "IoT & Capteurs",
-    image: "/bg-hero-1.jpg",
-    excerpt: "Comment économiser jusqu'à 40% d'eau en surveillant le potentiel hydrique des sols en temps réel sur vos cultures.",
-    date: "28 Avril 2026",
-    isoDate: "2026-04-28",
-    readTime: "4 min de lecture",
-    author: {
-      name: "Jean Marc",
-      avatar: "/logo.png"
-    }
-  },
-  {
-    id: 3,
-    title: "Les défis du MRV pour les coopératives agricoles en Afrique",
-    category: "mrv",
-    categoryName: "Carbone & MRV",
-    image: "/bg-hero-1.jpg",
-    excerpt: "Analyse des obstacles techniques et financiers auxquels font face les petites exploitations pour certifier leurs crédits carbone.",
-    date: "15 Avril 2026",
-    isoDate: "2026-04-15",
-    readTime: "5 min de lecture",
-    author: {
-      name: "SmartSaha Research",
-      avatar: "/logo.png"
-    }
-  },
-  {
-    id: 4,
-    title: "Anticiper les attaques de ravageurs grâce aux modèles prédictifs",
-    category: "ai",
-    categoryName: "IA & Agronomie",
-    image: "/bg-hero-1.jpg",
-    excerpt: "L'apprentissage automatique au service de la protection intégrée des cultures : prévenir plutôt que traiter.",
-    date: "02 Avril 2026",
-    isoDate: "2026-04-02",
-    readTime: "7 min de lecture",
-    author: {
-      name: "Sarah L.",
-      avatar: "/logo.png"
-    }
-  },
-  {
-    id: 5,
-    title: "L'avenir de l’agronomie numérique à Madagascar et dans l'Océan Indien",
-    category: "agtech",
-    categoryName: "AgTech",
-    image: "/bg-hero-1.jpg",
-    excerpt: "Aperçu de la transformation digitale des chaînes de valeur agricoles locales et des opportunités d'innovation.",
-    date: "20 Mars 2026",
-    isoDate: "2026-03-20",
-    readTime: "5 min de lecture",
+// ---- Normalisation des articles venant de l'API ----
+const posts = computed(() => {
+  const raw = dataPosts.value?.blogs ?? [];
+
+  return raw.map((p: any) => ({
+    id: p.id,
+    title: p.title,
+    category: p.categorie_id,
+    categoryName: p.category?.name ?? "",
+    image: p.image ?? "/bg-hero-1.jpg",
+    excerpt: truncateContent(p.content, 140),
+    date: formatDate(p.createdAt),
+    isoDate: p.createdAt ?? "",
+    readTime: estimateReadTime(p.content),
     author: {
       name: "Équipe SmartSaha",
-      avatar: "/logo.png"
-    }
-  }
-]);
-
-// 2. Génération des données structurées JSON-LD (Schema.org) pour le blog
-useHead({
-  script: [
-    {
-      type: "application/ld+json",
-      children: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Blog",
-        "name": "Blog SmartSaha",
-        "description": "Articles et ressources sur la digitalisation, le carbone et l'agronomie numérique.",
-        "url": canonicalUrl,
-        "blogPost": [featuredPost.value, ...posts.value].map((post) => ({
-          "@type": "BlogPosting",
-          "headline": post.title,
-          "description": post.excerpt,
-          "image": `${siteUrl}${post.image}`,
-          "datePublished": post.isoDate,
-          "url": `${siteUrl}/blogs/${post.id}`,
-          "author": {
-            "@type": "Organization",
-            "name": post.author.name
-          }
-        }))
-      })
-    }
-  ]
+      avatar: "/logo.png",
+    },
+  }));
 });
 
-// Filtrage dynamique
+// ---- Article à la une : le plus récent (l'API trie déjà par createdAt DESC) ----
+const featuredPost = computed(() => posts.value[0] ?? null);
+
+// ---- Filtrage dynamique (catégorie + recherche) ----
 const filteredPosts = computed(() => {
   return posts.value.filter((post) => {
-    const matchesCategory = activeCategory.value === "all" || post.category === activeCategory.value;
-    const matchesSearch = post.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-                          post.excerpt.toLowerCase().includes(searchQuery.value.toLowerCase());
+    const isShownAsFeatured =
+      featuredPost.value &&
+      post.id === featuredPost.value.id &&
+      activeCategory.value === "all" &&
+      !searchQuery.value;
+    if (isShownAsFeatured) return false;
+
+    const matchesCategory =
+      activeCategory.value === "all" || post.category === activeCategory.value;
+    const matchesSearch =
+      post.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(searchQuery.value.toLowerCase());
     return matchesCategory && matchesSearch;
+  });
+});
+
+// ---- JSON-LD (Schema.org) généré à partir des données API ----
+watchEffect(() => {
+  if (!posts.value.length) return;
+  useHead({
+    script: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Blog",
+          name: "Blog SmartSaha",
+          description: "Articles et ressources sur la digitalisation, le carbone et l'agronomie numérique.",
+          url: canonicalUrl,
+          blogPost: posts.value.map((post) => ({
+            "@type": "BlogPosting",
+            headline: post.title,
+            description: post.excerpt,
+            image: post.image,
+            datePublished: post.isoDate,
+            url: `${siteUrl}/blogs/${post.id}`,
+            author: {
+              "@type": "Organization",
+              name: post.author.name,
+            },
+          })),
+        }),
+      },
+    ],
   });
 });
 </script>
