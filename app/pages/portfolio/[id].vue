@@ -343,7 +343,7 @@ const nextProject = computed(() => {
 watchEffect(() => {
   if (project.value) {
     useSeoMeta({
-      title: `${project.value.title} | SmartSaha`,
+      title: `${project.value.title}`,
       description: project.value.summary,
       ogTitle: project.value.title,
       ogDescription: project.value.summary,

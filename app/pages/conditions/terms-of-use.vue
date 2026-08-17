@@ -80,7 +80,7 @@ const t = (key: string) => {
 };
 
 useSeoMeta({
-  title: "Terms of Use - SmartSaha",
+  title: "Terms of Use",
   description: "Read the terms and conditions for using the SmartSaha platform.",
   robots: "noindex, follow",
 });

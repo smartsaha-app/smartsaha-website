@@ -143,7 +143,7 @@ const t = (key: string) => {
 };
 
 useSeoMeta({
-  title: "Privacy Policy - SmartSaha",
+  title: "Privacy Policy",
   description: "Learn how SmartSaha protects your data and respects your privacy.",
   robots: "noindex, follow",
 });
