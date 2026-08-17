@@ -18,9 +18,26 @@ const app = express();
 app.use(cookieParser());
 
 // Configuration CORS pour autoriser l'envoi de cookies cross-origin
+const allowedOrigins = process.env.CORS_ORIGIN_URL
+  .split(',')
+  .map(url => url.trim());
+
+console.log('Origines autorisées (au démarrage):', allowedOrigins);
+
 app.use(cors({
-  origin: process.env.CORS_ORIGIN_URL, // URL exacte du frontend Next.js
-  credentials: true, // Permet l'envoi des cookies HTTP-Only
+  origin: (origin, callback) => {
+    console.log('--- Nouvelle requête CORS ---');
+    console.log('Origin reçue:', origin);
+    console.log('Autorisée ?', !origin || allowedOrigins.includes(origin));
+
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.log('❌ Origine bloquée:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
 }));
 
 // Configuration JSON
