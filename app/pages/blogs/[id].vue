@@ -5,7 +5,7 @@
     <div v-if="pending" class="min-h-[70vh] flex items-center justify-center px-4">
       <div class="text-center space-y-3">
         <i class="bx bx-loader-alt bx-spin text-4xl text-[#10b481]"></i>
-        <p class="text-gray-500 text-sm">Chargement de l'article...</p>
+        <p class="text-gray-500 text-sm">{{ t("loadingArticle") }}</p>
       </div>
     </div>
 
@@ -24,7 +24,7 @@
             class="inline-flex items-center gap-2 text-white/80 hover:text-[#10b481] font-semibold text-sm mb-8 transition-colors group bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/10"
           >
             <i class="bx bx-left-arrow-alt text-xl group-hover:-translate-x-1 transition-transform"></i>
-            <span>{{ t("backToBlog") || "Retour aux articles" }}</span>
+            <span>{{ t("backToBlog") }}</span>
           </NuxtLink>
 
           <div class="space-y-4">
@@ -61,10 +61,6 @@
 
           <!-- Contenu Principal -->
           <div class="lg:col-span-8 bg-white dark:bg-[#112830] p-6 sm:p-10 rounded-3xl shadow-xl border border-gray-100 dark:border-white/5 space-y-8">
-            <!-- <p class="text-lg sm:text-xl font-medium text-gray-700 dark:text-gray-200 leading-relaxed border-l-4 border-[#10b481] pl-4 italic bg-gray-50 dark:bg-white/5 py-3 rounded-r-lg">
-              {{ post.excerpt }}
-            </p> -->
-
             <div class="overflow-hidden rounded-2xl shadow-md border border-gray-100 dark:border-white/5">
               <img :src="post.image" :alt="post.title" class="w-full h-auto object-cover" />
             </div>
@@ -75,13 +71,13 @@
             ></div>
 
             <div class="border-t border-gray-100 dark:border-white/10 pt-6 flex flex-wrap items-center justify-between gap-4">
-              <span class="text-sm font-bold text-gray-800 dark:text-white">Partager cet article :</span>
+              <span class="text-sm font-bold text-gray-800 dark:text-white">{{ t("shareArticle") }}</span>
               <div class="flex items-center gap-3">
                 <a
                   :href="shareLinks.facebook"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Partager sur Facebook"
+                  :aria-label="`${t('sharePrefix')} Facebook`"
                   class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-[#10b481] hover:text-white text-gray-600 dark:text-gray-300 flex items-center justify-center transition-colors"
                 >
                   <i class="bx bxl-facebook text-xl"></i>
@@ -90,7 +86,7 @@
                   :href="shareLinks.linkedin"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Partager sur LinkedIn"
+                  :aria-label="`${t('sharePrefix')} LinkedIn`"
                   class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-[#10b481] hover:text-white text-gray-600 dark:text-gray-300 flex items-center justify-center transition-colors"
                 >
                   <i class="bx bxl-linkedin text-xl"></i>
@@ -99,7 +95,7 @@
                   :href="shareLinks.twitter"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Partager sur Twitter"
+                  :aria-label="`${t('sharePrefix')} Twitter`"
                   class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-[#10b481] hover:text-white text-gray-600 dark:text-gray-300 flex items-center justify-center transition-colors"
                 >
                   <i class="bx bxl-twitter text-xl"></i>
@@ -121,15 +117,15 @@
 
             <div class="bg-gradient-to-br from-[#112830] to-[#10b481] p-6 rounded-2xl text-white shadow-lg space-y-4">
               <i class="bx bx-bulb text-4xl text-white/80"></i>
-              <h3 class="text-xl font-bold">Un projet AgriTech en tête ?</h3>
+              <h3 class="text-xl font-bold">{{ t("sidebarCtaTitle") }}</h3>
               <p class="text-xs text-gray-200 leading-relaxed">
-                SmartSaha vous accompagne dans la numérisation et l'optimisation de vos exploitations agricoles.
+                {{ t("sidebarCtaText") }}
               </p>
               <NuxtLink
                 :to="localePath('/contact')"
                 class="inline-block w-full text-center py-2.5 px-4 rounded-full bg-white text-[#112830] font-bold text-xs hover:bg-gray-100 transition-colors shadow"
               >
-                Contactez nos experts
+                {{ t("contactExperts") }}
               </NuxtLink>
             </div>
           </aside>
@@ -138,7 +134,7 @@
 
         <!-- Section Articles Connexes -->
         <div v-if="relatedPosts.length > 0" class="mt-20">
-          <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-8">Articles similaires</h2>
+          <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-8">{{ t("relatedArticles") }}</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <NuxtLink
               v-for="rel in relatedPosts"
@@ -173,15 +169,15 @@
         <div class="w-16 h-16 mx-auto rounded-full bg-red-500/10 text-red-500 flex items-center justify-center text-3xl">
           <i class="bx bx-error-circle"></i>
         </div>
-        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Article introuvable</h2>
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">{{ t("articleNotFound") }}</h2>
         <p class="text-sm text-gray-500 dark:text-gray-400">
-          Aucun article ne correspond à cet identifiant ou l'article a été déplacé.
+          {{ t("articleNotFoundText") }}
         </p>
         <NuxtLink
           :to="localePath('/blogs')"
           class="inline-block px-6 py-3 bg-[#10b481] text-white font-bold text-sm rounded-full hover:bg-[#0e9a6e] transition-colors shadow-lg"
         >
-          Retour au blog
+          {{ t("backToBlog") }}
         </NuxtLink>
       </div>
     </div>
@@ -190,29 +186,27 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, watchEffect } from "vue";
 import { useRoute } from "vue-router";
-import { useLanguageStore } from "~/stores/language";
-import { translate } from "~/utils/translate";
 
-const languageStore = useLanguageStore();
+const { t, locale } = useI18n();
 const localePath = useLocalePath();
 const route = useRoute();
 const currentUrl = useRequestURL();
 const config = useRuntimeConfig();
 
-const t = (key: string) => {
-  const lang = languageStore.lang;
-  return translate[lang]?.[key] || key;
-};
-
-// 1. Récupération de l'ID depuis l'URL
 const postId = Number(route.params.id);
 
 // ---- Helpers (identiques à la page liste) ----
+const dateLocaleMap: Record<string, string> = {
+  fr: "fr-FR",
+  en: "en-US",
+  mg: "fr-MG",
+};
+
 const formatDate = (isoString?: string) => {
   if (!isoString) return "";
-  return new Date(isoString).toLocaleDateString("fr-FR", {
+  return new Date(isoString).toLocaleDateString(dateLocaleMap[locale.value] || "fr-FR", {
     day: "2-digit",
     month: "long",
     year: "numeric",
@@ -220,9 +214,9 @@ const formatDate = (isoString?: string) => {
 };
 
 const estimateReadTime = (content?: string) => {
-  if (!content) return "3 min de lecture";
+  if (!content) return `3 ${t("minReadSuffix")}`;
   const words = content.trim().split(/\s+/).length;
-  return `${Math.max(1, Math.round(words / 200))} min de lecture`;
+  return `${Math.max(1, Math.round(words / 200))} ${t("minReadSuffix")}`;
 };
 
 const truncateContent = (content?: string, maxLength = 220) => {
@@ -246,25 +240,30 @@ const mapPost = (p: any) => ({
   isoDate: p.createdAt ?? "",
   readTime: estimateReadTime(p.content),
   author: {
-    name: "Équipe SmartSaha", // pas de nom/role/bio auteur renvoyés par l'API pour l'instant
-    role: "Pôle R&D & Agronomie",
+    name: t("teamName"),
+    role: t("authorRole"),
     avatar: "/logo.png",
-    bio: "Experts en agronomie numérique et digitalisation agricole.",
+    bio: t("authorBio"),
   },
 });
 
-// 2. Récupération de l'article via l'API
+// Récupération de l'article — réactif à la langue active
 const {
   data: dataPost,
   pending: pendingPost,
-  error: errorPost,
-} = await useFetch(`${config.public.apiBase}/blogs/${postId}`);
+} = await useFetch(`${config.public.apiBase}/blogs/${postId}`, {
+  query: { locale },
+  watch: [locale],
+});
 
-// 3. Récupération de la liste complète (pour les articles similaires)
+// Récupération de la liste complète (pour les articles similaires) — réactif à la langue
 const {
   data: dataAllPosts,
   pending: pendingAll,
-} = await useFetch(`${config.public.apiBase}/blogs/list`);
+} = await useFetch(`${config.public.apiBase}/blogs/list`, {
+  query: { locale },
+  watch: [locale],
+});
 
 const pending = computed(() => pendingPost.value || pendingAll.value);
 
@@ -278,7 +277,7 @@ const allPosts = computed(() => {
   return raw.map(mapPost);
 });
 
-// 4. Liens dynamiques de partage
+// Liens dynamiques de partage
 const shareLinks = computed(() => {
   const url = encodeURIComponent(currentUrl.href);
   const title = encodeURIComponent(post.value?.title || "");
@@ -289,11 +288,11 @@ const shareLinks = computed(() => {
   };
 });
 
-// 5. Méta-balises SEO dynamiques
+// Méta-balises SEO dynamiques — réactives au contenu ET à la langue
 watchEffect(() => {
   if (post.value) {
     useSeoMeta({
-      title: `${post.value.title}`,
+      title: post.value.title,
       ogTitle: post.value.title,
       description: post.value.excerpt,
       ogDescription: post.value.excerpt,
@@ -303,14 +302,13 @@ watchEffect(() => {
   }
 });
 
-// 6. Sélection d'articles connexes (même catégorie, article courant exclu)
+// Sélection d'articles connexes (même catégorie, article courant exclu)
 const relatedPosts = computed(() => {
   if (!post.value) return [];
   const sameCategory = allPosts.value.filter(
     (p) => p.id !== postId && p.category === post.value!.category
   );
   if (sameCategory.length > 0) return sameCategory.slice(0, 2);
-  // Fallback : si pas d'autre article dans la même catégorie, prendre les plus récents
   return allPosts.value.filter((p) => p.id !== postId).slice(0, 2);
 });
 </script>
