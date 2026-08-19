@@ -5,14 +5,9 @@
       class="relative bg-cover bg-center bg-white/65 pt-16 sm:pt-20"
       style="background-image: url('/bg-hero-1.jpg')"
     >
-      <!-- Deep Premium Overlay -->
-      <div
-        class="absolute inset-0 bg-gradient-to-t from-[#112830] via-[#112830]/70 to-[#10b481]/50 transition-colors duration-300"
-      ></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#112830] via-[#112830]/70 to-[#10b481]/50 transition-colors duration-300"></div>
 
-      <div
-        class="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 lg:py-28 flex flex-col items-start gap-6"
-      >
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 lg:py-28 flex flex-col items-start gap-6">
         <div class="flex-1 flex flex-col justify-center gap-2 text-white z-10" data-aos="fade-up">
           <p class="rounded-full w-max bg-white/10 backdrop-blur-md border border-white/20 inline-flex items-center gap-2 px-5 py-2 uppercase text-xs tracking-[0.2em] font-bold text-white">
             <span class="w-2 h-2 rounded-full bg-[#10b481] animate-pulse"></span>
@@ -27,7 +22,7 @@
           </p>
           <button
             @click="scrollTo('articles')"
-            aria-label="Parcourir la liste des articles du blog"
+            :aria-label="t('browseArticlesAriaLabel')"
             class="inline-flex items-center w-max gap-3 border-2 border-white bg-white text-[#112830] hover:bg-[#10b481] hover:border-[#10b481] hover:text-white px-8 py-3 rounded-full transition-all duration-300 mt-4 font-semibold group shadow-lg cursor-pointer"
           >
             {{ t("readMore") }}
@@ -60,12 +55,12 @@
           </div>
 
           <div class="relative w-full md:w-72">
-            <label for="search-input" class="sr-only">Rechercher un article</label>
+            <label for="search-input" class="sr-only">{{ t("searchArticlesPlaceholder") }}</label>
             <input
               id="search-input"
               v-model="searchQuery"
               type="text"
-              placeholder="Rechercher un article..."
+              :placeholder="t('searchArticlesPlaceholder')"
               class="w-full pl-10 pr-4 py-2.5 rounded-full bg-white dark:bg-[#112830] border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-200 text-sm focus:outline-none focus:border-[#10b481] transition-colors"
             />
             <i class="bx bx-search absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-lg" aria-hidden="true"></i>
@@ -75,7 +70,7 @@
         <!-- État de chargement -->
         <div v-if="pendingPosts || pendingCategories" class="text-center py-16">
           <i class="bx bx-loader-alt bx-spin text-4xl text-[#10b481]" aria-hidden="true"></i>
-          <p class="text-gray-500 text-sm mt-2">Chargement des articles...</p>
+          <p class="text-gray-500 text-sm mt-2">{{ t("loadingArticles") }}</p>
         </div>
 
         <!-- État d'erreur -->
@@ -84,8 +79,8 @@
           class="text-center py-16 bg-white dark:bg-[#112830] rounded-2xl border border-gray-100 dark:border-white/5"
         >
           <i class="bx bx-error-circle text-5xl text-red-400 mb-3" aria-hidden="true"></i>
-          <h2 class="text-lg font-bold text-gray-700 dark:text-white mb-1">Impossible de charger les articles</h2>
-          <p class="text-gray-500 text-sm">Veuillez réessayer plus tard.</p>
+          <h2 class="text-lg font-bold text-gray-700 dark:text-white mb-1">{{ t("blogErrorTitle") }}</h2>
+          <p class="text-gray-500 text-sm">{{ t("tryAgainLater") }}</p>
         </div>
 
         <template v-else>
@@ -105,7 +100,7 @@
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <span class="absolute top-4 left-4 bg-[#10b481] text-white text-xs font-semibold px-3.5 py-1.5 rounded-full shadow">
-                À la une
+                {{ t("featuredBadge") }}
               </span>
             </div>
             <div class="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
@@ -129,9 +124,9 @@
                 <NuxtLink
                   :to="localePath(`/blogs/${featuredPost.id}`)"
                   class="inline-flex items-center gap-2 text-sm font-bold text-[#10b481] hover:translate-x-1 transition-transform"
-                  :aria-label="`Lire la suite de l'article : ${featuredPost.title}`"
+                  :aria-label="`${t('readMore')} : ${featuredPost.title}`"
                 >
-                  Lire la suite
+                  {{ t("readMore") }}
                   <i class="bx bx-right-arrow-alt text-xl" aria-hidden="true"></i>
                 </NuxtLink>
               </div>
@@ -186,9 +181,9 @@
                   <NuxtLink
                     :to="localePath(`/blogs/${post.id}`)"
                     class="text-sm font-semibold text-[#10b481] hover:underline flex items-center gap-1"
-                    :aria-label="`Lire l'article : ${post.title}`"
+                    :aria-label="`${t('read')} : ${post.title}`"
                   >
-                    Lire
+                    {{ t("read") }}
                     <i class="bx bx-chevron-right" aria-hidden="true"></i>
                   </NuxtLink>
                 </div>
@@ -199,8 +194,8 @@
           <!-- Message si aucun article ne correspond -->
           <div v-else class="text-center py-16 bg-white dark:bg-[#112830] rounded-2xl border border-gray-100 dark:border-white/5">
             <i class="bx bx-news text-5xl text-gray-400 mb-3" aria-hidden="true"></i>
-            <h2 class="text-lg font-bold text-gray-700 dark:text-white mb-1">Aucun article trouvé</h2>
-            <p class="text-gray-500 text-sm">Essayez d'ajuster votre recherche ou vos filtres.</p>
+            <h2 class="text-lg font-bold text-gray-700 dark:text-white mb-1">{{ t("noArticlesFound") }}</h2>
+            <p class="text-gray-500 text-sm">{{ t("adjustSearchFilters") }}</p>
           </div>
         </template>
 
@@ -211,34 +206,27 @@
 
 <script setup lang="ts">
 import { ref, computed, watchEffect } from "vue";
-import { useLanguageStore } from "~/stores/language";
-import { translate } from "~/utils/translate";
 
-const languageStore = useLanguageStore();
+const { t, locale } = useI18n();
 const localePath = useLocalePath();
 const route = useRoute();
 
-const t = (key: string) => {
-  const lang = languageStore.lang;
-  return translate[lang]?.[key] || key;
-};
-
 // URL Canonique dynamique
-const siteUrl = "https://smartsaha.com";
+const siteUrl = "https://smart-saha.com";
 const canonicalUrl = `${siteUrl}${route.path}`;
 
-// Métadonnées SEO
+// Métadonnées SEO — réactives à la langue active
 useSeoMeta({
-  title: "Blog",
-  description: "Explorez nos articles d'experts sur la digitalisation agricole, la traçabilité des filières, l'IA agronomique, les capteurs IoT et le carbone MRV.",
-  ogTitle: "Blog & Innovation Agricole | SmartSaha",
-  ogDescription: "Découvrez comment les technologies numériques et l'IA façonnent l'avenir de l'agriculture durable et la traçabilité des cultures.",
+  title: () => t("blogMetaTitle"),
+  description: () => t("blogMetaDescription"),
+  ogTitle: () => t("blogOgTitle"),
+  ogDescription: () => t("blogOgDescription"),
   ogImage: `${siteUrl}/og-blog.jpg`,
   ogUrl: canonicalUrl,
   ogType: "website",
   twitterCard: "summary_large_image",
-  twitterTitle: "Blog SmartSaha - AgTech & Digitalisation Agricole",
-  twitterDescription: "Articles et guides sur la traçabilité, le carbone agricole et les technologies IoT.",
+  twitterTitle: () => t("blogOgTitle"),
+  twitterDescription: () => t("blogTwitterDescription"),
   twitterImage: `${siteUrl}/og-blog.jpg`,
 });
 
@@ -253,27 +241,40 @@ const scrollTo = (id: string) => {
 
 const config = useRuntimeConfig();
 
-// ---- Récupération des catégories depuis l'API ----
+// ---- Récupération des catégories depuis l'API — réactif à la langue ----
 const {
   data: dataCategory,
   pending: pendingCategories,
   error: errorCategories,
-} = await useFetch(`${config.public.apiBase}/categories/list`);
+} = await useFetch(`${config.public.apiBase}/categories/list`, {
+  query: { locale },
+  watch: [locale],
+});
 
-// ---- Récupération des articles de blog depuis l'API ----
+// ---- Récupération des articles de blog depuis l'API — réactif à la langue ----
 const {
   data: dataPosts,
   pending: pendingPosts,
   error: errorPosts,
-} = await useFetch(`${config.public.apiBase}/blogs/list`);
+} = await useFetch(`${config.public.apiBase}/blogs/list`, {
+  query: { locale },
+  watch: [locale],
+});
 
 const activeCategory = ref("all");
 const searchQuery = ref("");
 
 // ---- Helpers ----
+// Mappe le code i18n vers un tag de locale Intl valide pour le formatage de date
+const dateLocaleMap: Record<string, string> = {
+  fr: "fr-FR",
+  en: "en-US",
+  mg: "fr-MG", // Intl ne supporte pas mg-MG pour l'instant ; fr-MG donne un format correct pour Madagascar
+};
+
 const formatDate = (isoString?: string) => {
   if (!isoString) return "";
-  return new Date(isoString).toLocaleDateString("fr-FR", {
+  return new Date(isoString).toLocaleDateString(dateLocaleMap[locale.value] || "fr-FR", {
     day: "2-digit",
     month: "long",
     year: "numeric",
@@ -281,12 +282,11 @@ const formatDate = (isoString?: string) => {
 };
 
 const estimateReadTime = (content?: string) => {
-  if (!content) return "3 min de lecture";
+  if (!content) return `3 ${t("minReadSuffix")}`;
   const words = content.trim().split(/\s+/).length;
-  return `${Math.max(1, Math.round(words / 200))} min de lecture`;
+  return `${Math.max(1, Math.round(words / 200))} ${t("minReadSuffix")}`;
 };
 
-// Génère un extrait tronqué depuis le contenu complet, pour inciter à lire la suite
 const truncateContent = (content?: string, maxLength = 140) => {
   if (!content) return "";
   const clean = content.trim();
@@ -302,10 +302,11 @@ const categories = computed(() => {
     id: c.id,
     name: c.name,
   }));
-  return [{ id: "all", name: "Tous les articles" }, ...apiCats];
+  return [{ id: "all", name: t("allArticles") }, ...apiCats];
 });
 
 // ---- Normalisation des articles venant de l'API ----
+// Note : p.title et p.content sont déjà résolus dans la bonne langue par l'API (voir /blogs/list?locale=...)
 const posts = computed(() => {
   const raw = dataPosts.value?.blogs ?? [];
 
@@ -320,16 +321,14 @@ const posts = computed(() => {
     isoDate: p.createdAt ?? "",
     readTime: estimateReadTime(p.content),
     author: {
-      name: "Équipe SmartSaha",
+      name: t("teamName"),
       avatar: "/logo.png",
     },
   }));
 });
 
-// ---- Article à la une : le plus récent (l'API trie déjà par createdAt DESC) ----
 const featuredPost = computed(() => posts.value[0] ?? null);
 
-// ---- Filtrage dynamique (catégorie + recherche) ----
 const filteredPosts = computed(() => {
   return posts.value.filter((post) => {
     const isShownAsFeatured =
@@ -348,7 +347,7 @@ const filteredPosts = computed(() => {
   });
 });
 
-// ---- JSON-LD (Schema.org) généré à partir des données API ----
+// ---- JSON-LD (Schema.org) ----
 watchEffect(() => {
   if (!posts.value.length) return;
   useHead({
@@ -358,8 +357,8 @@ watchEffect(() => {
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Blog",
-          name: "Blog SmartSaha",
-          description: "Articles et ressources sur la digitalisation, le carbone et l'agronomie numérique.",
+          name: t("blogMetaTitle"),
+          description: t("blogMetaDescription"),
           url: canonicalUrl,
           blogPost: posts.value.map((post) => ({
             "@type": "BlogPosting",

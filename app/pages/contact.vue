@@ -9,13 +9,13 @@
       <div class="max-w-7xl mx-auto relative z-10 text-center">
         <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#10b481]/10 text-[#10b481] text-xs font-bold uppercase tracking-widest mb-4 border border-[#10b481]/20" data-aos="fade-down">
           <i class="bx bx-message-square-dots text-sm"></i>
-          Connect with us
+          {{ t("contactBadge") }}
         </span>
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-manropeExtra text-[#112830] dark:text-white mb-6 tracking-tight" data-aos="fade-up">
-          {{ t("contact") || "Contactez-nous" }}
+          {{ t("contact") }}
         </h1>
         <p class="text-base sm:text-lg text-gray-500 dark:text-gray-400 font-inter max-w-2xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="100">
-          {{ t("subtitle") || "Une question, une opportunité de partenariat ou un projet à nous soumettre ? Notre équipe est à votre écoute." }}
+          {{ t("subtitle") }}
         </p>
       </div>
     </header>
@@ -40,7 +40,7 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div class="space-y-2">
                   <label class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 ml-1">
-                    {{ t("name") || "Nom complet" }} <span class="text-[#10b481]">*</span>
+                    {{ t("name") }} <span class="text-[#10b481]">*</span>
                   </label>
                   <div class="relative">
                     <i class="bx bx-user absolute left-4 top-1/2 -translate-y-1/2 text-xl text-gray-400"></i>
@@ -56,7 +56,7 @@
 
                 <div class="space-y-2">
                   <label class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 ml-1">
-                    {{ t("company") || "Entreprise / Organisation" }}
+                    {{ t("company") }}
                   </label>
                   <div class="relative">
                     <i class="bx bx-buildings absolute left-4 top-1/2 -translate-y-1/2 text-xl text-gray-400"></i>
@@ -74,7 +74,7 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div class="space-y-2">
                   <label class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 ml-1">
-                    {{ t("email") || "Adresse e-mail" }} <span class="text-[#10b481]">*</span>
+                    {{ t("email") }} <span class="text-[#10b481]">*</span>
                   </label>
                   <div class="relative">
                     <i class="bx bx-envelope absolute left-4 top-1/2 -translate-y-1/2 text-xl text-gray-400"></i>
@@ -90,7 +90,7 @@
 
                 <div class="space-y-2">
                   <label class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 ml-1">
-                    {{ t("mobile") || "Téléphone" }}
+                    {{ t("mobile") }}
                   </label>
                   <div class="relative">
                     <i class="bx bx-phone absolute left-4 top-1/2 -translate-y-1/2 text-xl text-gray-400"></i>
@@ -107,7 +107,7 @@
               <!-- Choix des Intérêts (Badges Interactifs) -->
               <div class="space-y-3">
                 <label class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 ml-1">
-                  {{ t("interest") || "Sujet de votre message" }}
+                  {{ t("interest") }}
                 </label>
                 <div class="flex flex-wrap gap-3">
                   <button
@@ -131,7 +131,7 @@
               <!-- Message -->
               <div class="space-y-2">
                 <label class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 ml-1">
-                  {{ t("message") || "Votre message" }}
+                  {{ t("message") }}
                 </label>
                 <textarea
                   v-model="form.comments"
@@ -147,8 +147,8 @@
                 :disabled="isSubmitting"
                 class="w-full bg-[#10b481] hover:bg-[#0e9a6e] text-white font-bold py-4 px-8 rounded-xl shadow-lg shadow-[#10b481]/25 hover:shadow-xl hover:shadow-[#10b481]/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-3 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
-                <span v-if="!isSubmitting">{{ t("sendMessage") || "Envoyer le message" }}</span>
-                <span v-else>Envoi en cours...</span>
+                <span v-if="!isSubmitting">{{ t("sendMessage") }}</span>
+                <span v-else>{{ t("sendingInProgress") }}</span>
                 <i v-if="!isSubmitting" class="bx bx-paper-plane text-xl"></i>
                 <i v-else class="bx bx-loader-alt animate-spin text-xl"></i>
               </button>
@@ -192,8 +192,8 @@
                 <i class="bx bx-buildings"></i>
               </div>
               <div>
-                <h3 class="text-sm font-bold text-[#112830] dark:text-white">Siège Social</h3>
-                <p class="text-xs text-gray-500 dark:text-gray-400 font-inter">Antananarivo 101, Madagascar</p>
+                <h3 class="text-sm font-bold text-[#112830] dark:text-white">{{ t("headquartersTitle") }}</h3>
+                <p class="text-xs text-gray-500 dark:text-gray-400 font-inter">{{ t("headquartersAddress") }}</p>
               </div>
             </div>
           </div>
@@ -218,24 +218,17 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { useLanguageStore } from "~/stores/language";
-import { translate } from "~/utils/translate";
 
+const { t } = useI18n();
 const localePath = useLocalePath();
 
-// SEO Natif Nuxt 3
+// SEO Natif Nuxt 3 — réactif à la langue active
 useSeoMeta({
-  title: "Contact",
-  ogTitle: "Contact",
-  description: "Contactez l'équipe de SmartSaha pour toute demande d'information, partenariat ou service sur mesure.",
-  ogDescription: "Contactez l'équipe de SmartSaha pour toute demande d'information, partenariat ou service sur mesure."
+  title: () => t("contact"),
+  ogTitle: () => t("contact"),
+  description: () => t("contactMetaDescription"),
+  ogDescription: () => t("contactMetaDescription"),
 });
-
-const languageStore = useLanguageStore();
-const t = (key: string) => {
-  const lang = languageStore.lang;
-  return translate[lang]?.[key] || key;
-};
 
 const isSubmitting = ref(false);
 let toastTimer: NodeJS.Timeout | null = null;
@@ -249,12 +242,13 @@ const form = ref({
   comments: "",
 });
 
-const interestOptions = [
-  'Investing', 
-  'Work with us', 
-  'Test platform', 
-  'Tailored services'
-];
+// Réutilise les clés existantes invest/work/platform/tailor au lieu de texte anglais figé
+const interestOptions = computed(() => [
+  t("invest"),
+  t("work"),
+  t("platform"),
+  t("tailor"),
+]);
 
 const toggleInterest = (interest: string) => {
   const index = form.value.interests.indexOf(interest);
@@ -272,10 +266,10 @@ const toast = ref({
 });
 
 const contactInfos = computed(() => [
-  { icon: 'bx bx-envelope', label: t("general") || "Général", value: 'contact@smart-saha.com', href: 'mailto:contact@smart-saha.com' },
-  { icon: 'bx bx-briefcase', label: t("sales") || "Commercial", value: 'cto@smart-saha.com', href: 'mailto:cto@smart-saha.com' },
-  { icon: 'bx bx-user', label: t("ceo") || "Direction", value: 'ceo@smart-saha.com', href: 'mailto:ceo@smart-saha.com' },
-  { icon: 'bx bxl-whatsapp', label: t("whatsapp") || "WhatsApp", value: '+261 32 78 746 17', href: 'https://wa.me/261327874617' },
+  { icon: 'bx bx-envelope', label: t("general"), value: 'contact@smart-saha.com', href: 'mailto:contact@smart-saha.com' },
+  { icon: 'bx bx-briefcase', label: t("sales"), value: 'cto@smart-saha.com', href: 'mailto:cto@smart-saha.com' },
+  { icon: 'bx bx-user', label: t("ceo"), value: 'ceo@smart-saha.com', href: 'mailto:ceo@smart-saha.com' },
+  { icon: 'bx bxl-whatsapp', label: t("whatsapp"), value: '+261 32 78 746 17', href: 'https://wa.me/261327874617' },
 ]);
 
 const showToast = (message: string, type: "success" | "error" = "success") => {
@@ -296,11 +290,11 @@ const submitForm = async () => {
     });
     
     if (!res.ok) {
-      showToast("Échec de l'envoi du message.", "error");
+      showToast(t("contactErrorApi"), "error");
       return;
     }
     
-    showToast("Message envoyé avec succès !", "success");
+    showToast(t("contactSuccess"), "success");
     form.value = {
       name: "",
       company: "",
@@ -311,7 +305,7 @@ const submitForm = async () => {
     };
   } catch (err) {
     console.error(err);
-    showToast("Une erreur est survenue.", "error");
+    showToast(t("contactErrorGeneric"), "error");
   } finally {
     isSubmitting.value = false;
   }

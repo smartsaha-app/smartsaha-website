@@ -5,30 +5,26 @@
       class="relative bg-cover bg-center bg-white/65 pt-16 sm:pt-20 min-h-[50vh] flex items-center"
       style="background-image: url('/bg-hero-1.jpg')"
     >
-      <div
-        class="absolute inset-0 bg-gradient-to-t from-[#112830] via-[#112830]/70 to-[#10b481]/50 transition-colors duration-300"
-      ></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#112830] via-[#112830]/70 to-[#10b481]/50 transition-colors duration-300"></div>
 
-      <div
-        class="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 lg:py-28 flex flex-col items-start gap-6 w-full z-10"
-      >
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 lg:py-28 flex flex-col items-start gap-6 w-full z-10">
         <div class="flex-1 flex flex-col justify-center gap-2 text-white" data-aos="fade-up">
           <h5 class="rounded-full w-max bg-white/10 backdrop-blur-md border border-white/20 inline-flex items-center gap-2 px-5 py-2 uppercase text-xs tracking-[0.2em] font-bold text-white shadow-sm">
             <span class="w-2 h-2 rounded-full bg-[#10b481] animate-pulse"></span>
-            {{ t("portfolio") || "Notre Portfolio" }}
+            {{ t("portfolioHeroBadge") }}
           </h5>
 
           <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 tracking-tight max-w-4xl">
-            {{ t("accrocheHero") || "Nos Réalisations & Projets Impactants" }}
+            {{ t("portfolioHeroTitle") }}
           </h1>
           <p class="text-gray-200 max-w-2xl text-base sm:text-lg font-light leading-relaxed">
-            {{ t("heroText") || "Découvrez comment nous aidons les acteurs agricoles et environnementaux à digitaliser leurs opérations et valoriser leurs parcelles." }}
+            {{ t("portfolioHeroText") }}
           </p>
           <button
             @click="scrollTo('projects')"
             class="inline-flex items-center w-max gap-3 border-2 border-white bg-white text-[#112830] hover:bg-[#10b481] hover:border-[#10b481] hover:text-white px-8 py-3.5 rounded-full transition-all duration-300 mt-4 font-semibold group shadow-lg cursor-pointer"
           >
-            <span>Découvrir les projets</span>
+            <span>{{ t("portfolioHeroCta") }}</span>
             <i class="bx bx-down-arrow-alt text-2xl group-hover:translate-y-1 transition-transform"></i>
           </button>
         </div>
@@ -42,20 +38,20 @@
         <!-- En-tête de section -->
         <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
           <span class="text-[#10b481] font-bold text-xs sm:text-sm uppercase tracking-widest bg-[#10b481]/10 px-4 py-1.5 rounded-full border border-[#10b481]/20">
-            Projets Clés
+            {{ t("projectsBadge") }}
           </span>
           <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800 dark:text-white mt-4 mb-4">
-            L'innovation technologique au service du terrain
+            {{ t("projectsTitle") }}
           </h2>
           <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base leading-relaxed">
-            Un aperçu de nos déploiements récents alliant cartographie satellite, capteurs connectés et plateformes d'analyse de données.
+            {{ t("projectsSubtitle") }}
           </p>
         </div>
 
         <!-- État de chargement -->
         <div v-if="pending" class="text-center py-16">
           <i class="bx bx-loader-alt bx-spin text-4xl text-[#10b481]" aria-hidden="true"></i>
-          <p class="text-gray-500 text-sm mt-2">Chargement des projets...</p>
+          <p class="text-gray-500 text-sm mt-2">{{ t("loadingProjects") }}</p>
         </div>
 
         <!-- État d'erreur -->
@@ -64,8 +60,8 @@
           class="text-center py-16 bg-white dark:bg-[#112830] rounded-2xl border border-gray-100 dark:border-white/5"
         >
           <i class="bx bx-error-circle text-5xl text-red-400 mb-3" aria-hidden="true"></i>
-          <h2 class="text-lg font-bold text-gray-700 dark:text-white mb-1">Impossible de charger les projets</h2>
-          <p class="text-gray-500 text-sm">Veuillez réessayer plus tard.</p>
+          <h2 class="text-lg font-bold text-gray-700 dark:text-white mb-1">{{ t("projectsErrorTitle") }}</h2>
+          <p class="text-gray-500 text-sm">{{ t("tryAgainLater") }}</p>
         </div>
 
         <!-- Aucun projet -->
@@ -74,7 +70,7 @@
           class="text-center py-16 bg-white dark:bg-[#112830] rounded-2xl border border-gray-100 dark:border-white/5"
         >
           <i class="bx bx-briefcase-alt-2 text-5xl text-gray-400 mb-3" aria-hidden="true"></i>
-          <h2 class="text-lg font-bold text-gray-700 dark:text-white mb-1">Aucun projet pour le moment</h2>
+          <h2 class="text-lg font-bold text-gray-700 dark:text-white mb-1">{{ t("noProjectsYet") }}</h2>
         </div>
 
         <!-- Grille des cartes de projets -->
@@ -85,11 +81,10 @@
             class="group bg-white dark:bg-[#112830] rounded-2xl overflow-hidden border border-gray-100 dark:border-white/10 shadow-lg hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 flex flex-col"
             data-aos="fade-up"
           >
-            <!-- Image du projet avec redirection vers la page détails -->
             <NuxtLink
               :to="localePath({ name: 'portfolio-id', params: { id: project.id } })"
               class="relative overflow-hidden aspect-video cursor-pointer block"
-              :aria-label="'Voir les détails du projet ' + project.title"
+              :aria-label="`${t('viewProjectDetails')} ${project.title}`"
             >
               <img
                 :src="project.image"
@@ -124,7 +119,7 @@
                   :to="localePath({ name: 'portfolio-id', params: { id: project.id } })"
                   class="text-sm font-semibold text-[#10b481] hover:underline inline-flex items-center gap-1 cursor-pointer group/link"
                 >
-                  <span>En savoir plus</span>
+                  <span>{{ t("learnMore") }}</span>
                   <i class="bx bx-chevron-right text-lg group-hover/link:translate-x-1 transition-transform"></i>
                 </NuxtLink>
               </div>
@@ -139,50 +134,42 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { useLanguageStore } from "~/stores/language";
-import { translate } from "~/utils/translate";
 
-// Configuration SEO Nuxt 3
-useHead({
-  title: "Portfolio",
-  meta: [
-    {
-      name: "description",
-      content:
-        "Découvrez nos projets et réalisations dans le domaine de SmartSaha, l'AgTech malgache pionnière dans la digitalisation et la traçabilité agricole.",
-    },
-  ],
+const { t, locale } = useI18n();
+const localePath = useLocalePath();
+const config = useRuntimeConfig();
+
+// SEO — réactif à la langue active
+useSeoMeta({
+  title: () => t("portfolio"),
+  ogTitle: () => t("portfolio"),
+  description: () => t("portfolioMetaDescription"),
+  ogDescription: () => t("portfolioMetaDescription"),
 });
 
-// Structuration Schema.org pour le référencement du Portfolio
 useSchemaOrg([
   defineWebPage({
     name: "Portfolio - SmartSaha",
   }),
 ]);
 
-const languageStore = useLanguageStore();
-const localePath = useLocalePath();
-const config = useRuntimeConfig();
-
-const t = (key: string) => {
-  const lang = languageStore.lang;
-  return translate[lang]?.[key] || key;
-};
-
 const scrollTo = (id: string) => {
   const el = document.getElementById(id);
-  if (el) {
-    el.scrollIntoView({ behavior: "smooth" });
-  }
+  if (el) el.scrollIntoView({ behavior: "smooth" });
 };
 
-// ---- Récupération des projets depuis l'API ----
+// ---- Récupération des projets depuis l'API — réactif à la langue ----
 const { data, pending, error } = await useFetch(
-  `${config.public.apiBase}/portfolios/list`
+  `${config.public.apiBase}/portfolios/list`,
+  {
+    query: { locale },
+    watch: [locale],
+  }
 );
 
 // ---- Normalisation des projets venant de l'API ----
+// Note : p.title et p.summary doivent être résolus dans la bonne langue côté backend
+// (même logique title_fr/title_en/title_mg que pour les blogs)
 const projects = computed(() => {
   const raw = data.value?.portfolios ?? [];
   return raw.map((p: any) => ({

@@ -5,7 +5,7 @@
     <div v-if="pending" class="min-h-[70vh] flex items-center justify-center px-4">
       <div class="text-center space-y-3">
         <i class="bx bx-loader-alt bx-spin text-4xl text-[#10b481]"></i>
-        <p class="text-gray-500 text-sm">Chargement du projet...</p>
+        <p class="text-gray-500 text-sm">{{ t("loadingProject") }}</p>
       </div>
     </div>
 
@@ -25,21 +25,13 @@
             class="inline-flex items-center gap-2 text-white/80 hover:text-[#10b481] font-semibold text-sm mb-8 transition-colors group bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 cursor-pointer"
           >
             <i class="bx bx-left-arrow-alt text-xl group-hover:-translate-x-1 transition-transform"></i>
-            <span>{{ t("back") || "Retour aux réalisations" }}</span>
+            <span>{{ t("back") }}</span>
           </button>
 
           <div class="space-y-4">
             <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
               {{ project.title }}
             </h1>
-
-            <!-- Métadonnées rapides : uniquement celles disponibles
-            <div v-if="project.year" class="flex flex-wrap items-center gap-6 pt-4 text-sm text-gray-200">
-              <div class="flex items-center gap-2">
-                <i class="bx bx-calendar text-[#10b481] text-lg"></i>
-                <span>{{ project.year }}</span>
-              </div>
-            </div> -->
           </div>
         </div>
       </section>
@@ -61,7 +53,7 @@
                 <span class="w-8 h-8 rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center text-lg">
                   <i class="bx bx-target-lock"></i>
                 </span>
-                Le Défi
+                {{ t("challengeTitle") }}
               </h2>
               <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm sm:text-base">
                 {{ project.challenge }}
@@ -76,7 +68,7 @@
                 <span class="w-8 h-8 rounded-xl bg-[#10b481]/10 text-[#10b481] flex items-center justify-center text-lg">
                   <i class="bx bx-bulb"></i>
                 </span>
-                La Solution SmartSaha
+                {{ t("solutionTitle") }}
               </h2>
               <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm sm:text-base mb-6">
                 {{ project.solution }}
@@ -85,7 +77,7 @@
               <!-- Liste des fonctionnalités clés -->
               <template v-if="project.keyFeatures.length > 0">
                 <h3 class="text-sm font-bold text-gray-800 dark:text-white uppercase tracking-wider mb-4">
-                  Fonctionnalités clés développées :
+                  {{ t("keyFeaturesTitle") }}
                 </h3>
                 <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
                   <li
@@ -99,7 +91,7 @@
                 </ul>
               </template>
 
-              <!-- Impact & Résultats Chiffrés (pas de données back-end pour l'instant) -->
+              <!-- Impact & Résultats Chiffrés -->
               <div v-if="project.results && project.results.length > 0" class="grid grid-cols-3 gap-4 bg-[#10b481]/5 border border-[#10b481]/20 p-4 sm:p-6 rounded-2xl">
                 <div v-for="(res, idx) in project.results" :key="idx" class="text-center">
                   <span class="block text-2xl sm:text-3xl font-extrabold text-[#10b481]">
@@ -115,7 +107,7 @@
             <!-- Galerie d'images du projet -->
             <div v-if="project.gallery && project.gallery.length > 0">
               <h3 class="text-sm font-bold text-gray-800 dark:text-white uppercase tracking-wider mb-4">
-                Aperçu de l'interface :
+                {{ t("galleryTitle") }}
               </h3>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div
@@ -125,7 +117,7 @@
                 >
                   <img
                     :src="img"
-                    :alt="`Aperçu ${idx + 1}`"
+                    :alt="`${t('galleryTitle')} ${idx + 1}`"
                     loading="lazy"
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -135,25 +127,25 @@
 
             <!-- Partage Réseaux Sociaux -->
             <div class="border-t border-gray-100 dark:border-white/10 pt-6 flex flex-wrap items-center justify-between gap-4">
-              <span class="text-sm font-bold text-gray-800 dark:text-white">Partager ce projet :</span>
+              <span class="text-sm font-bold text-gray-800 dark:text-white">{{ t("shareProjectLabel") }}</span>
               <div class="flex items-center gap-3">
                 <button
                   @click="shareProject('facebook')"
-                  aria-label="Partager sur Facebook"
+                  :aria-label="`${t('sharePrefix')} Facebook`"
                   class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-[#10b481] hover:text-white text-gray-600 dark:text-gray-300 flex items-center justify-center transition-colors cursor-pointer"
                 >
                   <i class="bx bxl-facebook text-xl"></i>
                 </button>
                 <button
                   @click="shareProject('linkedin')"
-                  aria-label="Partager sur LinkedIn"
+                  :aria-label="`${t('sharePrefix')} LinkedIn`"
                   class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-[#10b481] hover:text-white text-gray-600 dark:text-gray-300 flex items-center justify-center transition-colors cursor-pointer"
                 >
                   <i class="bx bxl-linkedin text-xl"></i>
                 </button>
                 <button
                   @click="shareProject('twitter')"
-                  aria-label="Partager sur X (Twitter)"
+                  :aria-label="`${t('sharePrefix')} X (Twitter)`"
                   class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-[#10b481] hover:text-white text-gray-600 dark:text-gray-300 flex items-center justify-center transition-colors cursor-pointer"
                 >
                   <i class="bx bxl-twitter text-xl"></i>
@@ -169,12 +161,12 @@
             <!-- Carte Résumé Projet -->
             <div v-if="project.technologies.length > 0" class="bg-white dark:bg-[#112830] p-6 rounded-2xl border border-gray-100 dark:border-white/5 shadow-lg space-y-4">
               <h3 class="text-lg font-bold text-gray-800 dark:text-white border-b border-gray-100 dark:border-white/10 pb-3">
-                Détails de la mission
+                {{ t("missionDetailsTitle") }}
               </h3>
 
               <div class="space-y-3 text-xs">
                 <div>
-                  <span class="text-gray-400 block mb-0.5">Technologies employées :</span>
+                  <span class="text-gray-400 block mb-0.5">{{ t("technologiesUsedLabel") }}</span>
                   <div class="flex flex-wrap gap-1.5 mt-1">
                     <span
                       v-for="(tech, idx) in project.technologies"
@@ -188,7 +180,7 @@
               </div>
             </div>
 
-            <!-- Témoignage Client (pas de données back-end pour l'instant) -->
+            <!-- Témoignage Client -->
             <div v-if="project.testimonial" class="bg-white dark:bg-[#112830] p-6 rounded-2xl border border-gray-100 dark:border-white/5 shadow-lg text-center">
               <img
                 :src="project.testimonial.avatar"
@@ -205,15 +197,15 @@
             <!-- Encadré Call to Action -->
             <div class="bg-gradient-to-br from-[#112830] to-[#10b481] p-6 rounded-2xl text-white shadow-lg space-y-4">
               <i class="bx bx-rocket text-4xl text-white/80"></i>
-              <h3 class="text-xl font-bold">Inspiré par ce projet ?</h3>
+              <h3 class="text-xl font-bold">{{ t("inspiredTitle") }}</h3>
               <p class="text-xs text-gray-200 leading-relaxed">
-                SmartSaha développe votre solution sur-mesure dans l'agriculture connectée et la finance carbone.
+                {{ t("inspiredText") }}
               </p>
               <NuxtLink
                 :to="localePath('/contact')"
                 class="inline-block w-full text-center py-2.5 px-4 rounded-full bg-white text-[#112830] font-bold text-xs hover:bg-gray-100 transition-colors shadow"
               >
-                Discuter de votre projet
+                {{ t("discussProject") }}
               </NuxtLink>
             </div>
 
@@ -228,7 +220,7 @@
             class="group flex items-center gap-4 bg-white dark:bg-[#112830] p-4 sm:p-6 rounded-2xl border border-gray-100 dark:border-white/5 shadow-md hover:shadow-xl transition-all"
           >
             <div class="text-right">
-              <span class="text-[11px] text-[#10b481] font-bold uppercase tracking-wider">Projet suivant</span>
+              <span class="text-[11px] text-[#10b481] font-bold uppercase tracking-wider">{{ t("nextProjectLabel") }}</span>
               <h4 class="text-base font-bold text-gray-800 dark:text-white group-hover:text-[#10b481] transition-colors">
                 {{ nextProject.title }}
               </h4>
@@ -248,15 +240,15 @@
         <div class="w-16 h-16 mx-auto rounded-full bg-red-500/10 text-red-500 flex items-center justify-center text-3xl">
           <i class="bx bx-folder-minus"></i>
         </div>
-        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Projet introuvable</h2>
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">{{ t("projectNotFound") }}</h2>
         <p class="text-sm text-gray-500 dark:text-gray-400">
-          La réalisation que vous cherchez n'existe pas ou a été archivée.
+          {{ t("projectNotFoundText") }}
         </p>
         <NuxtLink
           :to="localePath('/portfolio')"
           class="inline-block px-6 py-3 bg-[#10b481] text-white font-bold text-sm rounded-full hover:bg-[#0e9a6e] transition-colors shadow-lg"
         >
-          Retour aux réalisations
+          {{ t("back") }}
         </NuxtLink>
       </div>
     </div>
@@ -267,24 +259,15 @@
 <script setup lang="ts">
 import { computed, watchEffect } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useLanguageStore } from "~/stores/language";
-import { translate } from "~/utils/translate";
 
-const languageStore = useLanguageStore();
+const { t, locale } = useI18n();
 const localePath = useLocalePath();
 const router = useRouter();
 const route = useRoute();
 const config = useRuntimeConfig();
 
-const t = (key: string) => {
-  const lang = languageStore.lang;
-  return translate[lang]?.[key] || key;
-};
-
-// 1. Récupération de l'ID depuis l'URL
 const projectId = Number(route.params.id);
 
-// ---- Helper de mapping API -> format attendu par le template ----
 const formatYear = (isoString?: string) => {
   if (!isoString) return "";
   return new Date(isoString).getFullYear().toString();
@@ -301,22 +284,27 @@ const mapPortfolio = (p: any) => ({
   technologies: Array.isArray(p.technologies) ? p.technologies : [],
   gallery: Array.isArray(p.gallery) ? p.gallery : [],
   year: formatYear(p.createdAt),
-  // Champs non fournis par l'API actuellement — restent vides tant que le backend ne les expose pas
   results: null,
   testimonial: null,
 });
 
-// 2. Récupération du projet courant via l'API
+// Récupération du projet courant — réactif à la langue active
 const {
   data: dataProject,
   pending: pendingProject,
-} = await useFetch(`${config.public.apiBase}/portfolios/${projectId}`);
+} = await useFetch(`${config.public.apiBase}/portfolios/${projectId}`, {
+  query: { locale },
+  watch: [locale],
+});
 
-// 3. Récupération de la liste complète (pour le projet suivant)
+// Récupération de la liste complète (pour le projet suivant) — réactif à la langue
 const {
   data: dataAllProjects,
   pending: pendingAll,
-} = await useFetch(`${config.public.apiBase}/portfolios/list`);
+} = await useFetch(`${config.public.apiBase}/portfolios/list`, {
+  query: { locale },
+  watch: [locale],
+});
 
 const pending = computed(() => pendingProject.value || pendingAll.value);
 
@@ -330,7 +318,6 @@ const allProjects = computed(() => {
   return raw.map(mapPortfolio);
 });
 
-// 4. Projet suivant pour la navigation (ordre renvoyé par l'API)
 const nextProject = computed(() => {
   const currentIndex = allProjects.value.findIndex((p) => p.id === projectId);
   if (currentIndex !== -1 && currentIndex < allProjects.value.length - 1) {
@@ -339,11 +326,10 @@ const nextProject = computed(() => {
   return null;
 });
 
-// 5. SEO / Metatags dynamiques
 watchEffect(() => {
   if (project.value) {
     useSeoMeta({
-      title: `${project.value.title}`,
+      title: project.value.title,
       description: project.value.summary,
       ogTitle: project.value.title,
       ogDescription: project.value.summary,
@@ -353,7 +339,6 @@ watchEffect(() => {
   }
 });
 
-// 6. Gestion du retour (historique ou fallback)
 const handleBack = () => {
   if (window.history.length > 1) {
     router.back();
@@ -362,19 +347,18 @@ const handleBack = () => {
   }
 };
 
-// 7. Partage sur les réseaux sociaux
-// const shareProject = (platform: "facebook" | "linkedin" | "twitter") => {
-//   if (typeof window === "undefined") return;
-//   const url = encodeURIComponent(window.location.href);
+const shareProject = (platform: "facebook" | "linkedin" | "twitter") => {
+  if (typeof window === "undefined") return;
+  const url = encodeURIComponent(window.location.href);
 
-//   const shareUrls = {
-//     facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
-//     linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
-//     twitter: `https://twitter.com/intent/tweet?url=${url}`,
-//   };
+  const shareUrls = {
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+    twitter: `https://twitter.com/intent/tweet?url=${url}`,
+  };
 
-//   window.open(shareUrls[platform], "_blank", "width=600,height=400");
-// };
+  window.open(shareUrls[platform], "_blank", "width=600,height=400");
+};
 </script>
 
 <style scoped>

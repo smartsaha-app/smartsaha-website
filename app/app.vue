@@ -33,14 +33,12 @@ const i18nHead = useLocaleHead({
 useHead(
   computed(() => ({
     htmlAttrs: {
-      lang: locale.value || "fr",
-      dir: "ltr",
+      ...i18nHead.value.htmlAttrs,  // lang + dir gérés par i18n directement
     },
     link: [
       ...(i18nHead.value.link || []),
       { rel: "icon", type: "image/png", href: "/logo.png" },
       { rel: "apple-touch-icon", href: "/icon.png" },
-      // CDN Icônes
       { rel: "stylesheet", href: "https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" },
       { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" },
     ],
@@ -61,11 +59,11 @@ useSeoMeta({
   author: "SmartSaha Team",
   ogType: "website",
   ogSiteName: "SmartSaha",
-  ogImage: "https://smart-saha.com/dashboard.png",
+  ogImage: "https://www.smart-saha.com/dashboard.png",
   ogImageWidth: 1200,
   ogImageHeight: 630,
   twitterCard: "summary_large_image",
-  twitterImage: "https://smart-saha.com/dashboard.png",
+  twitterImage: "https://www.smart-saha.com/dashboard.png",
   // Empêche le duplicate content si des paramètres d'URL sont ajoutés
   robots: "index, follow",
 });
