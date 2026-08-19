@@ -15,7 +15,7 @@
             <div class="leading-6">
               <h1 class="text-[24px] capitalize text-header font-bold text-gray-700 dark:text-white">SmartSaha</h1>
               <p class="text-[13px] dark:text-gray-400">
-                {{ t("tagline") }}
+                {{ $t("tagline") }}
               </p>
             </div>
           </NuxtLink>
@@ -24,10 +24,9 @@
         <!-- Menu Desktop -->
         <div class="hidden md:flex items-center gap-6">
           <nav class="flex items-center gap-2">
-            <!-- Navigation page par page via NuxtLink avec indicateur visuel -->
             <NuxtLink
               v-for="item in menuItems"
-              :key="item.name"
+              :key="item.path"
               :to="localePath(item.path)"
               class="relative px-3 py-2 menu-item text-menu-bar font-medium transition-colors duration-300 text-gray-700 dark:text-gray-300 hover:text-[#10b481] dark:hover:text-[#10b481]"
               :exact="item.path === '/'"
@@ -52,8 +51,8 @@
               @click="open = !open"
               class="flex items-center justify-center gap-3 py-1.5 px-3 rounded hover:border-[#10b481] transition text-gray-700 dark:text-gray-300"
             >
-              <img :src="currentLocale.flag" class="w-5 h-5 rounded-full" />
-              <span class="content dark:text-gray-300">{{ currentLocale.name }}</span>
+              <img :src="currentLocale?.flag" class="w-5 h-5 rounded-full" />
+              <span class="content dark:text-gray-300">{{ currentLocale?.name }}</span>
               <i class="bx bx-chevron-down"></i>
             </button>
 
@@ -141,8 +140,8 @@
             @click="open = !open"
             class="flex items-center gap-2 py-2 px-3 rounded border dark:border-white/10 hover:border-[#10b481] transition w-full text-gray-700 dark:text-gray-300"
           >
-            <img :src="currentLocale.flag" class="w-5 h-5 rounded-full" />
-            <span class="font-medium">{{ currentLocale.name }}</span>
+            <img :src="currentLocale?.flag" class="w-5 h-5 rounded-full" />
+            <span class="font-medium">{{ currentLocale?.name }}</span>
             <i class="bx bx-chevron-down text-sm"></i>
           </button>
 
@@ -168,7 +167,7 @@
         <nav class="flex flex-col gap-2 mb-6">
           <NuxtLink
             v-for="item in menuItems"
-            :key="item.name"
+            :key="item.path"
             :to="localePath(item.path)"
             @click="isOpen = false"
             class="w-full text-left px-4 py-2.5 rounded-r-lg font-medium transition-all duration-200 text-gray-700 dark:text-gray-300 hover:text-[#10b481] dark:hover:text-[#10b481]"
@@ -178,17 +177,6 @@
             {{ item.name }}
           </NuxtLink>
         </nav>
-
-        <div class="flex flex-col gap-3 mt-auto">
-          <a
-            href="https://agriculture.smart-saha.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="w-full text-menu-bar flex items-center justify-center btn-primary"
-          >
-            {{ t("getStarted") }}
-          </a>
-        </div>
       </div>
     </transition>
   </header>
@@ -196,8 +184,6 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from "vue";
-import { useLanguageStore } from "~/stores/language";
-import { translate } from "~/utils/translate";
 
 // Gestion du Dark/Light Mode
 const colorMode = useColorMode();
@@ -210,26 +196,14 @@ const scrollProgress = ref(0);
 const open = ref(false); // Menu déroulant langue
 const isOpen = ref(false); // Menu mobile (tiroir)
 
-// Utilitaires I18n / Routage
-const languageStore = useLanguageStore();
+// I18n / Routage — locale, locales (avec le flag custom) et t() viennent tous du module
+const { locale, locales, t } = useI18n();
 const localePath = useLocalePath();
 const switchLocalePath = useSwitchLocalePath();
 
-// Traduction personnalisée
-const t = (key: string) => {
-  const lang = languageStore.lang;
-  return translate[lang][key] || key;
-};
-
-// Liste des langues supportées
-const locales = [
-  { code: "en", name: "English", flag: "/flags/en.png" },
-  { code: "fr", name: "Français", flag: "/flags/fr.png" },
-  { code: "mg", name: "Malagasy", flag: "/flags/mg.png" },
-];
-
-const currentLocale = computed(
-  () => locales.find((l) => l.code === languageStore.lang) || locales[0]
+// Langue active — dérivée directement de la config i18n, plus de liste dupliquée
+const currentLocale = computed(() =>
+  locales.value.find((l) => l.code === locale.value)
 );
 
 // Configuration des liens de navigation page par page

@@ -142,7 +142,7 @@
           </p>
           <form @submit.prevent="subscribe" class="flex flex-col sm:flex-row gap-2 max-w-md">
             <div class="relative flex-1">
-              <label for="footer-email" class="sr-only">Votre adresse e-mail</label>
+              <label for="footer-email" class="sr-only">{{ t("email") }}</label>
               <input
                 id="footer-email"
                 v-model.trim="email"
@@ -156,7 +156,7 @@
             <button
               type="submit"
               :disabled="isLoading"
-              aria-label="S'abonner à la newsletter"
+              :aria-label="t('subscribeAriaLabel')"
               class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-[#10b481] text-white font-semibold hover:bg-[#0e946f] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md cursor-pointer"
             >
               <i v-if="!isLoading" class="bx bx-paper-plane text-xl" aria-hidden="true"></i>
@@ -198,18 +198,11 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { useLanguageStore } from "~/stores/language";
-import { translate } from "~/utils/translate";
 
-const languageStore = useLanguageStore();
+const { t } = useI18n();
 const localePath = useLocalePath();
 
 const currentYear = computed(() => new Date().getFullYear());
-
-const t = (key: string) => {
-  const lang = languageStore.lang;
-  return translate[lang]?.[key] || key;
-};
 
 const email = ref("");
 const isLoading = ref(false);
@@ -238,14 +231,14 @@ const subscribe = async () => {
     });
 
     if (!error.value) {
-      showToast("Subscription successful. Thank you!", "success");
+      showToast(t("newsletterSuccess"), "success");
       email.value = "";
     } else {
-      showToast("Subscription failed. Please try again.", "error");
+      showToast(t("newsletterErrorApi"), "error");
     }
   } catch (err) {
     console.error(err);
-    showToast("Something went wrong. Please try again later.", "error");
+    showToast(t("newsletterErrorGeneric"), "error");
   } finally {
     isLoading.value = false;
   }

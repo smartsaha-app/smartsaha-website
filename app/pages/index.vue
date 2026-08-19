@@ -47,17 +47,17 @@
           <!-- Badge Category -->
           <div class="rounded-full bg-white/10 backdrop-blur-md border border-white/20 inline-flex items-center gap-2.5 px-4 py-1.5 uppercase text-xs tracking-[0.2em] font-bold text-white shadow-sm">
             <span class="w-2 h-2 rounded-full bg-[#10b481] animate-pulse"></span>
-            {{ t("titleHero") || "À propos de nous" }}
+            {{ t("titleHero") }}
           </div>
           
           <!-- Main Heading -->
           <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-2 tracking-tight max-w-4xl">
-            {{ t("accrocheHero") || "Pionniers de la Digitalisation Agricole à Madagascar" }}
+            {{ t("accrocheHero") }}
           </h1>
 
           <!-- Description -->
           <p class="text-gray-200 text-base sm:text-lg max-w-2xl leading-relaxed font-light">
-            {{ t("heroText") || "SmartSaha combine géospatial, données agricoles et solutions mobiles pour renforcer la résilience des producteurs et valoriser leurs activités." }}
+            {{ t("heroText") }}
           </p>
 
           <!-- CTA Button -->
@@ -65,7 +65,7 @@
             @click="scrollTo('about')"
             class="inline-flex items-center gap-3 border-2 border-white bg-white text-[#112830] hover:bg-[#10b481] hover:border-[#10b481] hover:text-white px-8 py-3.5 rounded-full transition-all duration-300 mt-4 font-semibold group shadow-xl cursor-pointer"
           >
-            <span>{{ t("learnMore") || "Découvrir notre histoire" }}</span>
+            <span>{{ t("learnMore") }}</span>
             <i class="bx bx-right-arrow-alt text-2xl group-hover:translate-x-1.5 transition-transform duration-300"></i>
           </button>
 
@@ -82,25 +82,26 @@
           <div class="space-y-6" data-aos="fade-right">
             <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#10b481]/10 text-[#10b481] text-xs font-bold uppercase tracking-widest border border-[#10b481]/20">
               <span class="w-2 h-2 rounded-full bg-[#10b481]"></span>
-              Qui sommes-nous ?
+              {{ t("aboutBadge") }}
             </span>
             <h2 class="text-3xl sm:text-4xl font-extrabold text-[#112830] dark:text-white leading-tight">
-              Une AgTech malgache engagée pour une agriculture intelligente et durable
+              {{ t("aboutHeading") }}
             </h2>
-            <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-base sm:text-lg">
-              Créée le <strong class="text-[#10b481]">09 janvier 2025</strong>, <strong>SmartSaha</strong> est née de l'association d'experts passionnés par les chaînes de valeur agricoles, les systèmes d'information géographique (SIG), l'analyse de données et le développement logiciel.
-            </p>
+            <i18n-t keypath="aboutParagraph1" tag="p" class="text-gray-600 dark:text-gray-300 leading-relaxed text-base sm:text-lg">
+              <template #date><strong class="text-[#10b481]">09 janvier 2025</strong></template>
+              <template #brand><strong>SmartSaha</strong></template>
+            </i18n-t>
             <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-base">
-              Formalisée à Madagascar, l'entreprise se positionne comme un partenaire technologique incontournable pour les producteurs, coopératives, ONG et entreprises du secteur agronomique.
+              {{ t("aboutParagraph2") }}
             </p>
 
             <!-- Box Mission -->
             <div class="p-6 rounded-2xl bg-white dark:bg-[#112830] border-l-4 border-[#10b481] shadow-md dark:shadow-none dark:border-y dark:border-r dark:border-white/10 space-y-2">
               <h3 class="font-bold text-lg text-[#112830] dark:text-white flex items-center gap-2">
-                <i class="bx bx-target-lock text-[#10b481] text-2xl"></i> Notre Mission
+                <i class="bx bx-target-lock text-[#10b481] text-2xl"></i> {{ t("missionTitle") }}
               </h3>
               <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                Proposer une plateforme numérique intégrée, multilingue et utilisable hors connexion, combinant l'agriculture de précision, la traçabilité et un accompagnement technique sur mesure.
+                {{ t("missionText") }}
               </p>
             </div>
           </div>
@@ -111,32 +112,32 @@
               <div class="w-12 h-12 rounded-xl bg-[#10b481]/10 flex items-center justify-center text-[#10b481] text-2xl font-bold">
                 <i class="bx bx-map-alt"></i>
               </div>
-              <h4 class="font-bold text-[#112830] dark:text-white text-base">Géospatial & SIG</h4>
-              <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Cartographie précise des parcelles et suivi par satellite.</p>
+              <h4 class="font-bold text-[#112830] dark:text-white text-base">{{ t("pillar1Title") }}</h4>
+              <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">{{ t("pillar1Text") }}</p>
             </div>
 
             <div class="p-6 bg-white dark:bg-[#112830] rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-md transition-shadow space-y-3">
               <div class="w-12 h-12 rounded-xl bg-[#10b481]/10 flex items-center justify-center text-[#10b481] text-2xl font-bold">
                 <i class="bx bx-wifi-off"></i>
               </div>
-              <h4 class="font-bold text-[#112830] dark:text-white text-base">Mode Hors-Ligne</h4>
-              <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Collecte fluide des données même en zones rurales isolées.</p>
+              <h4 class="font-bold text-[#112830] dark:text-white text-base">{{ t("pillar2Title") }}</h4>
+              <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">{{ t("pillar2Text") }}</p>
             </div>
 
             <div class="p-6 bg-white dark:bg-[#112830] rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-md transition-shadow space-y-3">
               <div class="w-12 h-12 rounded-xl bg-[#10b481]/10 flex items-center justify-center text-[#10b481] text-2xl font-bold">
                 <i class="bx bx-store-alt"></i>
               </div>
-              <h4 class="font-bold text-[#112830] dark:text-white text-base">Marketplace</h4>
-              <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Mise en relation directe entre producteurs et acheteurs.</p>
+              <h4 class="font-bold text-[#112830] dark:text-white text-base">{{ t("pillar3Title") }}</h4>
+              <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">{{ t("pillar3Text") }}</p>
             </div>
 
             <div class="p-6 bg-white dark:bg-[#112830] rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-md transition-shadow space-y-3">
               <div class="w-12 h-12 rounded-xl bg-[#10b481]/10 flex items-center justify-center text-[#10b481] text-2xl font-bold">
                 <i class="bx bx-cloud-rain"></i>
               </div>
-              <h4 class="font-bold text-[#112830] dark:text-white text-base">Alertes & Climat</h4>
-              <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Suivi météorologique et alertes feux de brousse en temps réel.</p>
+              <h4 class="font-bold text-[#112830] dark:text-white text-base">{{ t("pillar4Title") }}</h4>
+              <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">{{ t("pillar4Text") }}</p>
             </div>
           </div>
         </div>
@@ -145,11 +146,11 @@
         <div class="space-y-12" data-aos="fade-up">
           <div class="text-center max-w-2xl mx-auto space-y-3">
             <h2 class="text-3xl sm:text-4xl font-extrabold text-[#112830] dark:text-white">
-              Ce que fait SmartSaha
+              {{ t("activitiesTitle") }}
             </h2>
             <div class="w-16 h-1 bg-[#10b481] mx-auto rounded-full mb-4"></div>
             <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base leading-relaxed">
-              Nos fonctionnalités et outils numériques répondent directement aux enjeux du terrain pour moderniser le secteur agricole.
+              {{ t("activitiesSubtitle") }}
             </p>
           </div>
 
@@ -188,10 +189,10 @@
         <div class="text-center mb-20" data-aos="fade-up">
           <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#10b481]/10 text-[#10b481] text-xs font-bold uppercase tracking-widest mb-4 border border-[#10b481]/20">
             <span class="w-2 h-2 rounded-full bg-[#10b481] animate-pulse"></span>
-            Our Visionaries
+            {{ t("teamBadge") }}
           </span>
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#112830] dark:text-white mb-4">
-            {{ t("teamTitle") || "Notre Équipe Dirigeante" }}
+            {{ t("teamTitle") }}
           </h2>
           <div class="w-20 h-1 bg-[#10b481] mx-auto rounded-full"></div>
         </div>
@@ -268,17 +269,17 @@
     <section class="relative py-20 bg-[#112830] text-white overflow-hidden">
       <div class="relative max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-8 z-10" data-aos="zoom-in">
         <h2 class="text-3xl sm:text-5xl font-extrabold leading-tight tracking-tight text-white">
-          Prêt à moderniser vos activités agricoles ?
+          {{ t("finalCtaTitle") }}
         </h2>
         <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto font-light leading-relaxed">
-          Que vous soyez un producteur, une coopérative, une ONG ou un investisseur, découvrez comment nos solutions numériques peuvent propulser vos projets.
+          {{ t("finalCtaText") }}
         </p>
         <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
           <NuxtLink 
-            to="/contact" 
+            :to="localePath('/contact')" 
             class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#10b481] hover:bg-[#0e9b6f] text-white font-bold transition-all duration-300 shadow-xl hover:scale-105"
           >
-            <span>Demander une démonstration</span>
+            <span>{{ t("contactCta") }}</span>
             <i class="bx bx-right-arrow-alt text-2xl"></i>
           </NuxtLink>
         </div>
@@ -293,11 +294,11 @@
             FAQ
           </span>
           <h2 class="text-3xl sm:text-4xl font-extrabold text-[#112830] dark:text-white mb-3">
-            {{ t("faqTitle") || "Questions Fréquentes" }}
+            {{ t("faqTitle") }}
           </h2>
           <div class="w-16 h-1 bg-[#10b481] mx-auto rounded-full mb-4"></div>
           <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base">
-            Toutes les réponses à vos questions sur SmartSaha et nos solutions.
+            {{ t("faqSubtitle") }}
           </p>
         </div>
 
@@ -334,20 +335,20 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { useLanguageStore } from "~/stores/language";
-import { translate } from "~/utils/translate";
 
-// Configuration SEO Nuxt 3
-useHead({
-  title: "À propos",
+const { t } = useI18n();
+const localePath = useLocalePath();
+
+// Configuration SEO Nuxt 3 — réactif à la langue active
+useHead(() => ({
+  title: t("aboutUs"),
   meta: [
     {
       name: "description",
-      content:
-        "Découvrez l'histoire, la mission et l'équipe de SmartSaha, l'AgTech malgache pionnière dans la digitalisation et la traçabilité agricole.",
+      content: t("aboutMetaDescription"),
     },
   ],
-});
+}));
 
 // Déclare la page comme site officiel
 useSchemaOrg([
@@ -364,13 +365,6 @@ useSchemaOrg([
   })
 ]);
 
-const languageStore = useLanguageStore();
-
-const t = (key: string) => {
-  const lang = languageStore.lang;
-  return translate[lang]?.[key] || key;
-};
-
 const scrollTo = (id: string) => {
   const el = document.getElementById(id);
   if (el) {
@@ -386,64 +380,28 @@ const toggleFaq = (index: number) => {
 
 // Questions fréquentes
 const faqs = computed(() => [
-  {
-    question: "À qui s'adressent les solutions de SmartSaha ?",
-    answer: "Nos solutions sont conçues pour l'ensemble des acteurs de la chaîne de valeur agricole à Madagascar : les producteurs individuels, les coopératives, les entreprises agro-industrielles, ainsi que les ONG et projets de développement."
-  },
-  {
-    question: "Comment fonctionne l'application dans les zones sans connexion internet ?",
-    answer: "SmartSaha intègre une architecture 'Offline-First'. Vous pouvez effectuer des collectes de données, géolocaliser des parcelles et enregistrer des informations sur le terrain sans réseau. Dès qu'une connexion internet est détectée, les données sont automatiquement synchronisées."
-  },
-  {
-    question: "Quels sont les avantages de la cartographie parcellaire SIG ?",
-    answer: "La cartographie SIG permet de calculer la superficie exacte des exploitations, de suivre l'état de santé de la végétation via l'imagerie satellite et de garantir une traçabilité rigoureuse exigée par les marchés locaux et internationaux."
-  },
-  {
-    question: "Comment puis-je bénéficier d'une démonstration de la plateforme ?",
-    answer: "Il vous suffit de cliquer sur le bouton 'Demander une démonstration' ou de nous contacter directement via notre formulaire. Notre équipe planifiera une présentation adaptée à vos besoins spécifiques."
-  }
+  { question: t("faq1Question"), answer: t("faq1Answer") },
+  { question: t("faq2Question"), answer: t("faq2Answer") },
+  { question: t("faq3Question"), answer: t("faq3Answer") },
+  { question: t("faq4Question"), answer: t("faq4Answer") },
 ]);
 
 // Activités de l'entreprise
-const activities = ref([
-  {
-    icon: "bx bx-data",
-    title: "Collecte & Analyse de données",
-    description: "Centralisation des données agricoles terrain pour alimenter les indicateurs de performance."
-  },
-  {
-    icon: "bx bx-map",
-    title: "Cartographie des parcelles",
-    description: "Délimitation précise des périmètres d'exploitation et analyse de la santé végétale."
-  },
-  {
-    icon: "bx bx-line-chart",
-    title: "Suivi des exploitations",
-    description: "Accompagnement continu des producteurs et coopératives au fil de la campagne agricole."
-  },
-  {
-    icon: "bx bx-qr-scan",
-    title: "Traçabilité des cultures",
-    description: "Assurance de la provenance et du respect des normes pour chaque récolte."
-  },
-  {
-    icon: "bx bx-file",
-    title: "Tableaux de bord & Reporting",
-    description: "Génération automatique de rapports de suivi-évaluation pour la prise de décision."
-  },
-  {
-    icon: "bx bx-cloud-light-rain",
-    title: "Informations climatiques & Feux",
-    description: "Diffusion d'alertes précoces de feux de brousse et prévisions météo localisées."
-  }
+const activities = computed(() => [
+  { icon: "bx bx-data", title: t("activity1Title"), description: t("activity1Text") },
+  { icon: "bx bx-map", title: t("activity2Title"), description: t("activity2Text") },
+  { icon: "bx bx-line-chart", title: t("activity3Title"), description: t("activity3Text") },
+  { icon: "bx bx-qr-scan", title: t("activity4Title"), description: t("activity4Text") },
+  { icon: "bx bx-file", title: t("activity5Title"), description: t("activity5Text") },
+  { icon: "bx bx-cloud-light-rain", title: t("activity6Title"), description: t("activity6Text") },
 ]);
 
-// Nuances de couleurs pour le fond incliné derrière chaque carte
+// Équipe — noms propres non traduits, rôle/description via i18n
 const teamMembers = computed(() => [
   {
     name: "Michel Raherimenanantsoa",
-    role: t("teamJob1") || "Expert Chaînes de Valeur",
-    description: t("teamJobDesc1") || "Spécialiste en développement des chaînes de valeur agricoles et investissements à impact.",
+    role: t("teamJob1"),
+    description: t("teamJobDesc1"),
     image: "/Michel.jpg",
     bgAccent: "bg-[#099268]",
     linkedin: "https://www.linkedin.com/in/michel-raherimanantsoa-2bab19a9",
@@ -451,8 +409,8 @@ const teamMembers = computed(() => [
   },
   {
     name: "Fitahiana Rahetimazava",
-    role: t("teamJob2") || "Responsable Données Géospatiales",
-    description: t("teamJobDesc2") || "Expert en télédétection, SIG et traitement d'imagerie satellite pour l'agriculture.",
+    role: t("teamJob2"),
+    description: t("teamJobDesc2"),
     image: "/Fitahiana.jpg",
     bgAccent: "bg-[#10b481]",
     linkedin: "https://www.linkedin.com/in/fitahiana-rahetimazava-ramangamihanta-b77758145/",
@@ -460,8 +418,8 @@ const teamMembers = computed(() => [
   },
   {
     name: "Rindra Ranaivosoa",
-    role: t("teamJob4") || "Architecte Logiciel & Lead Dev",
-    description: t("teamJobDesc4") || "Ingénieur logiciel concevant les architectures système et les applications mobiles hors-ligne.",
+    role: t("teamJob4"),
+    description: t("teamJobDesc4"),
     image: "/Rindra.jpg",
     bgAccent: "bg-[#20c997]",
     linkedin: "https://www.linkedin.com/in/g%C3%A9rald-rindra-ranaivosoa-454549202/",
