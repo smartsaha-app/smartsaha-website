@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Blog.belongsTo(models.Category, { foreignKey: "categorie_id", as: "category" });
       Blog.belongsTo(models.User, { foreignKey: "user_id",  as: "user" });
+      Blog.hasMany(models.Blogtranslate, {foreignKey: "blog_id", as: "blogtranslates"});
     }
   }
   Blog.init({
