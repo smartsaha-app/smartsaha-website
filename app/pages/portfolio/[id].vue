@@ -262,102 +262,256 @@ import { useRoute, useRouter } from "vue-router";
 
 const { t, locale } = useI18n();
 const localePath = useLocalePath();
+
 const router = useRouter();
 const route = useRoute();
 const config = useRuntimeConfig();
 
+/* =========================================================
+   ID DU PORTFOLIO
+========================================================= */
+
 const projectId = Number(route.params.id);
+
+/* =========================================================
+   FORMATAGE ANNÉE
+========================================================= */
 
 const formatYear = (isoString?: string) => {
   if (!isoString) return "";
-  return new Date(isoString).getFullYear().toString();
+
+  return new Date(isoString)
+    .getFullYear()
+    .toString();
 };
+
+/* =========================================================
+   NORMALISATION PORTFOLIO
+========================================================= */
 
 const mapPortfolio = (p: any) => ({
   id: p.id,
-  title: p.title,
+
+  /*
+   * Champs traduits par le backend
+   */
+  title: p.title ?? "",
   summary: p.summary ?? "",
-  coverImage: p.cover_image ?? "/bg-hero-1.jpg",
   challenge: p.challenge ?? "",
   solution: p.solution ?? "",
-  keyFeatures: Array.isArray(p.key_features) ? p.key_features : [],
-  technologies: Array.isArray(p.technologies) ? p.technologies : [],
-  gallery: Array.isArray(p.gallery) ? p.gallery : [],
+
+  /*
+   * Tableaux
+   */
+  keyFeatures: Array.isArray(p.key_features)
+    ? p.key_features
+    : [],
+
+  /*
+   * Ces champs ne sont pas traduits
+   */
+  technologies: Array.isArray(p.technologies)
+    ? p.technologies
+    : [],
+
+  gallery: Array.isArray(p.gallery)
+    ? p.gallery
+    : [],
+
+  coverImage:
+    p.cover_image ?? "/bg-hero-1.jpg",
+
   year: formatYear(p.createdAt),
+
+  /*
+   * Pas encore gérés par ton backend actuel
+   */
   results: null,
   testimonial: null,
 });
 
-// Récupération du projet courant — réactif à la langue active
+/* =========================================================
+   PORTFOLIO COURANT
+========================================================= */
+
 const {
   data: dataProject,
   pending: pendingProject,
-} = await useFetch(`${config.public.apiBase}/portfolios/${projectId}`, {
-  query: { locale },
-  watch: [locale],
-});
+  error: errorProject,
+} = await useFetch(
+  `${config.public.apiBase}/portfolios/${projectId}`,
+  {
+    query: {
+      locale,
+    },
 
-// Récupération de la liste complète (pour le projet suivant) — réactif à la langue
+    /*
+     * Recharge lorsque la langue change
+     */
+    watch: [locale],
+
+    key: `portfolio-${projectId}`,
+  }
+);
+
+/* =========================================================
+   TOUS LES PORTFOLIOS
+   Pour "Projet suivant"
+========================================================= */
+
 const {
   data: dataAllProjects,
   pending: pendingAll,
-} = await useFetch(`${config.public.apiBase}/portfolios/list`, {
-  query: { locale },
-  watch: [locale],
-});
+} = await useFetch(
+  `${config.public.apiBase}/portfolios/list`,
+  {
+    query: {
+      locale,
+    },
 
-const pending = computed(() => pendingProject.value || pendingAll.value);
+    watch: [locale],
+
+    key: "portfolios-list-detail",
+  }
+);
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+const pending = computed(
+  () =>
+    pendingProject.value ||
+    pendingAll.value
+);
+
+/* =========================================================
+   PORTFOLIO COURANT
+========================================================= */
 
 const project = computed(() => {
-  const raw = dataProject.value?.portfolio;
-  return raw ? mapPortfolio(raw) : null;
+  const raw =
+    dataProject.value?.portfolio;
+
+  return raw
+    ? mapPortfolio(raw)
+    : null;
 });
 
+/* =========================================================
+   TOUS LES PORTFOLIOS
+========================================================= */
+
 const allProjects = computed(() => {
-  const raw = dataAllProjects.value?.portfolios ?? [];
+  const raw =
+    dataAllProjects.value?.portfolios ?? [];
+
   return raw.map(mapPortfolio);
 });
 
+/* =========================================================
+   PROJET SUIVANT
+========================================================= */
+
 const nextProject = computed(() => {
-  const currentIndex = allProjects.value.findIndex((p) => p.id === projectId);
-  if (currentIndex !== -1 && currentIndex < allProjects.value.length - 1) {
-    return allProjects.value[currentIndex + 1];
+  const currentIndex =
+    allProjects.value.findIndex(
+      (p) => p.id === projectId
+    );
+
+  if (
+    currentIndex !== -1 &&
+    currentIndex <
+      allProjects.value.length - 1
+  ) {
+    return allProjects.value[
+      currentIndex + 1
+    ];
   }
+
   return null;
 });
 
+/* =========================================================
+   SEO DYNAMIQUE
+========================================================= */
+
 watchEffect(() => {
-  if (project.value) {
-    useSeoMeta({
-      title: project.value.title,
-      description: project.value.summary,
-      ogTitle: project.value.title,
-      ogDescription: project.value.summary,
-      ogImage: project.value.coverImage,
-      twitterCard: "summary_large_image",
-    });
-  }
+  if (!project.value) return;
+
+  useSeoMeta({
+    title: project.value.title,
+
+    description:
+      project.value.summary,
+
+    ogTitle:
+      project.value.title,
+
+    ogDescription:
+      project.value.summary,
+
+    ogImage:
+      project.value.coverImage,
+
+    twitterCard:
+      "summary_large_image",
+  });
 });
 
+/* =========================================================
+   RETOUR
+========================================================= */
+
 const handleBack = () => {
-  if (window.history.length > 1) {
+  if (
+    typeof window !== "undefined" &&
+    window.history.length > 1
+  ) {
     router.back();
   } else {
-    router.push(localePath("/portfolio"));
+    router.push(
+      localePath("/portfolio")
+    );
   }
 };
 
-const shareProject = (platform: "facebook" | "linkedin" | "twitter") => {
-  if (typeof window === "undefined") return;
-  const url = encodeURIComponent(window.location.href);
+/* =========================================================
+   PARTAGE
+========================================================= */
+
+const shareProject = (
+  platform:
+    | "facebook"
+    | "linkedin"
+    | "twitter"
+) => {
+  if (
+    typeof window === "undefined"
+  ) {
+    return;
+  }
+
+  const url = encodeURIComponent(
+    window.location.href
+  );
 
   const shareUrls = {
-    facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
-    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
-    twitter: `https://twitter.com/intent/tweet?url=${url}`,
+    facebook:
+      `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+
+    linkedin:
+      `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+
+    twitter:
+      `https://twitter.com/intent/tweet?url=${url}`,
   };
 
-  window.open(shareUrls[platform], "_blank", "width=600,height=400");
+  window.open(
+    shareUrls[platform],
+    "_blank",
+    "width=600,height=400"
+  );
 };
 </script>
 

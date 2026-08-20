@@ -1,78 +1,181 @@
 <template>
-  <main class="min-h-screen bg-gray-50 dark:bg-[#0c1d23] transition-colors duration-300">
+  <main
+    class="min-h-screen bg-gray-50 dark:bg-[#0c1d23] transition-colors duration-300"
+  >
 
-    <!-- État de chargement -->
-    <div v-if="pending" class="min-h-[70vh] flex items-center justify-center px-4">
+    <!-- Loading -->
+    <div
+      v-if="pending"
+      class="min-h-[70vh] flex items-center justify-center px-4"
+    >
       <div class="text-center space-y-3">
-        <i class="bx bx-loader-alt bx-spin text-4xl text-[#10b481]"></i>
-        <p class="text-gray-500 text-sm">{{ t("loadingArticle") }}</p>
+        <i
+          class="bx bx-loader-alt bx-spin text-4xl text-[#10b481]"
+        ></i>
+
+        <p class="text-gray-500 text-sm">
+          {{ t("loadingArticle") }}
+        </p>
       </div>
     </div>
 
-    <!-- Cas où l'article existe -->
+    <!-- Article -->
     <template v-else-if="post">
-      <!-- Hero Section immersif -->
-      <section class="relative bg-cover bg-center pt-24 pb-16 sm:pt-32 sm:pb-24">
+
+      <!-- HERO -->
+      <section
+        class="relative bg-cover bg-center pt-24 pb-16 sm:pt-32 sm:pb-24"
+      >
         <div class="absolute inset-0 z-0">
-          <img :src="post.image" :alt="post.title" class="w-full h-full object-cover" />
-          <div class="absolute inset-0 bg-gradient-to-t from-[#112830] via-[#112830]/85 to-[#112830]/60"></div>
+          <img
+            :src="post.image"
+            :alt="post.title"
+            class="w-full h-full object-cover"
+          />
+
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-[#112830] via-[#112830]/85 to-[#112830]/60"
+          ></div>
         </div>
 
-        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6">
+        <div
+          class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6"
+        >
+
+          <!-- Retour -->
           <NuxtLink
             :to="localePath('/blogs')"
             class="inline-flex items-center gap-2 text-white/80 hover:text-[#10b481] font-semibold text-sm mb-8 transition-colors group bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/10"
           >
-            <i class="bx bx-left-arrow-alt text-xl group-hover:-translate-x-1 transition-transform"></i>
-            <span>{{ t("backToBlog") }}</span>
+            <i
+              class="bx bx-left-arrow-alt text-xl group-hover:-translate-x-1 transition-transform"
+            ></i>
+
+            <span>
+              {{ t("backToBlog") }}
+            </span>
           </NuxtLink>
 
           <div class="space-y-4">
-            <span class="inline-block px-4 py-1.5 rounded-full bg-[#10b481] text-white text-xs font-bold uppercase tracking-wider shadow-lg">
+
+            <!-- Catégorie -->
+            <span
+              class="inline-block px-4 py-1.5 rounded-full bg-[#10b481] text-white text-xs font-bold uppercase tracking-wider shadow-lg"
+            >
               {{ post.categoryName }}
             </span>
 
-            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
+            <!-- Titre -->
+            <h1
+              class="text-3xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight"
+            >
               {{ post.title }}
             </h1>
 
-            <div class="flex flex-wrap items-center gap-6 pt-4 text-sm text-gray-200">
+            <!-- Meta -->
+            <div
+              class="flex flex-wrap items-center gap-6 pt-4 text-sm text-gray-200"
+            >
+
               <div class="flex items-center gap-3">
-                <img :src="post.author.avatar" :alt="post.author.name" class="w-10 h-10 rounded-full object-cover border-2 border-[#10b481]" />
+
+                <img
+                  :src="post.author.avatar"
+                  :alt="post.author.name"
+                  class="w-10 h-10 rounded-full object-cover border-2 border-[#10b481]"
+                />
+
                 <div>
-                  <p class="font-semibold text-white leading-none">{{ post.author.name }}</p>
+                  <p
+                    class="font-semibold text-white leading-none"
+                  >
+                    {{ post.author.name }}
+                  </p>
                 </div>
+
               </div>
 
-              <span class="text-gray-400">•</span>
+              <span class="text-gray-400">
+                •
+              </span>
 
               <div class="flex items-center gap-1.5">
-                <i class="bx bx-calendar text-[#10b481] text-lg"></i>
-                <span>{{ post.date }}</span>
+
+                <i
+                  class="bx bx-calendar text-[#10b481] text-lg"
+                ></i>
+
+                <span>
+                  {{ post.date }}
+                </span>
+
               </div>
+
+              <span class="text-gray-400">
+                •
+              </span>
+
+              <div class="flex items-center gap-1.5">
+
+                <i
+                  class="bx bx-time-five text-[#10b481] text-lg"
+                ></i>
+
+                <span>
+                  {{ post.readTime }}
+                </span>
+
+              </div>
+
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Corps de l'article -->
-      <section class="max-w-5xl mx-auto px-4 sm:px-6 -mt-10 relative z-20 pb-20">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <!-- CORPS -->
+      <section
+        class="max-w-5xl mx-auto px-4 sm:px-6 -mt-10 relative z-20 pb-20"
+      >
 
-          <!-- Contenu Principal -->
-          <div class="lg:col-span-8 bg-white dark:bg-[#112830] p-6 sm:p-10 rounded-3xl shadow-xl border border-gray-100 dark:border-white/5 space-y-8">
-            <div class="overflow-hidden rounded-2xl shadow-md border border-gray-100 dark:border-white/5">
-              <img :src="post.image" :alt="post.title" class="w-full h-auto object-cover" />
+        <div
+          class="grid grid-cols-1 lg:grid-cols-12 gap-8"
+        >
+
+          <!-- CONTENU -->
+          <div
+            class="lg:col-span-8 bg-white dark:bg-[#112830] p-6 sm:p-10 rounded-3xl shadow-xl border border-gray-100 dark:border-white/5 space-y-8"
+          >
+
+            <!-- Image -->
+            <div
+              class="overflow-hidden rounded-2xl shadow-md border border-gray-100 dark:border-white/5"
+            >
+              <img
+                :src="post.image"
+                :alt="post.title"
+                class="w-full h-auto object-cover"
+              />
             </div>
 
+            <!-- Contenu traduit -->
             <div
               class="article-body prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 font-inter leading-relaxed"
               v-html="post.content"
             ></div>
 
-            <div class="border-t border-gray-100 dark:border-white/10 pt-6 flex flex-wrap items-center justify-between gap-4">
-              <span class="text-sm font-bold text-gray-800 dark:text-white">{{ t("shareArticle") }}</span>
+            <!-- Partage -->
+            <div
+              class="border-t border-gray-100 dark:border-white/10 pt-6 flex flex-wrap items-center justify-between gap-4"
+            >
+
+              <span
+                class="text-sm font-bold text-gray-800 dark:text-white"
+              >
+                {{ t("shareArticle") }}
+              </span>
+
               <div class="flex items-center gap-3">
+
                 <a
                   :href="shareLinks.facebook"
                   target="_blank"
@@ -80,8 +183,11 @@
                   :aria-label="`${t('sharePrefix')} Facebook`"
                   class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-[#10b481] hover:text-white text-gray-600 dark:text-gray-300 flex items-center justify-center transition-colors"
                 >
-                  <i class="bx bxl-facebook text-xl"></i>
+                  <i
+                    class="bx bxl-facebook text-xl"
+                  ></i>
                 </a>
+
                 <a
                   :href="shareLinks.linkedin"
                   target="_blank"
@@ -89,8 +195,11 @@
                   :aria-label="`${t('sharePrefix')} LinkedIn`"
                   class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-[#10b481] hover:text-white text-gray-600 dark:text-gray-300 flex items-center justify-center transition-colors"
                 >
-                  <i class="bx bxl-linkedin text-xl"></i>
+                  <i
+                    class="bx bxl-linkedin text-xl"
+                  ></i>
                 </a>
+
                 <a
                   :href="shareLinks.twitter"
                   target="_blank"
@@ -98,218 +207,597 @@
                   :aria-label="`${t('sharePrefix')} Twitter`"
                   class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-[#10b481] hover:text-white text-gray-600 dark:text-gray-300 flex items-center justify-center transition-colors"
                 >
-                  <i class="bx bxl-twitter text-xl"></i>
+                  <i
+                    class="bx bxl-twitter text-xl"
+                  ></i>
                 </a>
+
               </div>
             </div>
           </div>
 
-          <!-- Barre latérale -->
-          <aside class="lg:col-span-4 space-y-6">
-            <div class="bg-white dark:bg-[#112830] p-6 rounded-2xl border border-gray-100 dark:border-white/5 shadow-lg text-center">
-              <img :src="post.author.avatar" :alt="post.author.name" class="w-20 h-20 rounded-full object-cover mx-auto mb-4 border-2 border-[#10b481]" />
-              <h3 class="text-lg font-bold text-gray-800 dark:text-white">{{ post.author.name }}</h3>
-              <p class="text-xs text-[#10b481] font-semibold mb-3">{{ post.author.role }}</p>
-              <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+          <!-- SIDEBAR -->
+          <aside
+            class="lg:col-span-4 space-y-6"
+          >
+
+            <!-- Auteur -->
+            <div
+              class="bg-white dark:bg-[#112830] p-6 rounded-2xl border border-gray-100 dark:border-white/5 shadow-lg text-center"
+            >
+
+              <img
+                :src="post.author.avatar"
+                :alt="post.author.name"
+                class="w-20 h-20 rounded-full object-cover mx-auto mb-4 border-2 border-[#10b481]"
+              />
+
+              <h3
+                class="text-lg font-bold text-gray-800 dark:text-white"
+              >
+                {{ post.author.name }}
+              </h3>
+
+              <p
+                class="text-xs text-[#10b481] font-semibold mb-3"
+              >
+                {{ post.author.role }}
+              </p>
+
+              <p
+                class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-4"
+              >
                 {{ post.author.bio }}
               </p>
+
             </div>
 
-            <div class="bg-gradient-to-br from-[#112830] to-[#10b481] p-6 rounded-2xl text-white shadow-lg space-y-4">
-              <i class="bx bx-bulb text-4xl text-white/80"></i>
-              <h3 class="text-xl font-bold">{{ t("sidebarCtaTitle") }}</h3>
-              <p class="text-xs text-gray-200 leading-relaxed">
+            <!-- CTA -->
+            <div
+              class="bg-gradient-to-br from-[#112830] to-[#10b481] p-6 rounded-2xl text-white shadow-lg space-y-4"
+            >
+
+              <i
+                class="bx bx-bulb text-4xl text-white/80"
+              ></i>
+
+              <h3 class="text-xl font-bold">
+                {{ t("sidebarCtaTitle") }}
+              </h3>
+
+              <p
+                class="text-xs text-gray-200 leading-relaxed"
+              >
                 {{ t("sidebarCtaText") }}
               </p>
+
               <NuxtLink
                 :to="localePath('/contact')"
                 class="inline-block w-full text-center py-2.5 px-4 rounded-full bg-white text-[#112830] font-bold text-xs hover:bg-gray-100 transition-colors shadow"
               >
                 {{ t("contactExperts") }}
               </NuxtLink>
-            </div>
-          </aside>
 
+            </div>
+
+          </aside>
         </div>
 
-        <!-- Section Articles Connexes -->
-        <div v-if="relatedPosts.length > 0" class="mt-20">
-          <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-8">{{ t("relatedArticles") }}</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- ARTICLES CONNEXES -->
+        <div
+          v-if="relatedPosts.length > 0"
+          class="mt-20"
+        >
+
+          <h2
+            class="text-2xl font-bold text-gray-800 dark:text-white mb-8"
+          >
+            {{ t("relatedArticles") }}
+          </h2>
+
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 gap-8"
+          >
+
             <NuxtLink
-              v-for="rel in relatedPosts"
-              :key="rel.id"
-              :to="localePath(`/blogs/${rel.id}`)"
+              v-for="related in relatedPosts"
+              :key="related.id"
+              :to="localePath(`/blogs/${related.id}`)"
               class="group bg-white dark:bg-[#112830] rounded-2xl overflow-hidden border border-gray-100 dark:border-white/5 shadow-md hover:shadow-xl transition-all flex flex-col"
             >
-              <div class="aspect-video relative overflow-hidden">
-                <img :src="rel.image" :alt="rel.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+
+              <div
+                class="aspect-video relative overflow-hidden"
+              >
+                <img
+                  :src="related.image"
+                  :alt="related.title"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
               </div>
-              <div class="p-6 flex-1 flex flex-col justify-between">
+
+              <div
+                class="p-6 flex-1 flex flex-col justify-between"
+              >
+
                 <div>
-                  <span class="text-xs text-[#10b481] font-bold uppercase">{{ rel.categoryName }}</span>
-                  <h3 class="text-lg font-bold text-gray-800 dark:text-white mt-1 group-hover:text-[#10b481] transition-colors line-clamp-2">
-                    {{ rel.title }}
+
+                  <span
+                    class="text-xs text-[#10b481] font-bold uppercase"
+                  >
+                    {{ related.categoryName }}
+                  </span>
+
+                  <h3
+                    class="text-lg font-bold text-gray-800 dark:text-white mt-1 group-hover:text-[#10b481] transition-colors line-clamp-2"
+                  >
+                    {{ related.title }}
                   </h3>
+
+                  <p
+                    class="text-sm text-gray-500 dark:text-gray-400 mt-2 line-clamp-2"
+                  >
+                    {{ related.excerpt }}
+                  </p>
+
                 </div>
-                <div class="flex items-center gap-2 text-xs text-gray-400 mt-4">
+
+                <div
+                  class="flex items-center gap-2 text-xs text-gray-400 mt-4"
+                >
+
                   <i class="bx bx-calendar"></i>
-                  <span>{{ rel.date }}</span>
+
+                  <span>
+                    {{ related.date }}
+                  </span>
+
                 </div>
+
               </div>
             </NuxtLink>
+
           </div>
         </div>
       </section>
     </template>
 
-    <!-- Erreur si l'article n'existe pas -->
-    <div v-else class="min-h-[70vh] flex items-center justify-center px-4">
-      <div class="text-center py-20 space-y-4 max-w-md bg-white dark:bg-[#112830] p-8 rounded-3xl shadow-xl border border-gray-100 dark:border-white/5">
-        <div class="w-16 h-16 mx-auto rounded-full bg-red-500/10 text-red-500 flex items-center justify-center text-3xl">
+    <!-- ERREUR -->
+    <div
+      v-else
+      class="min-h-[70vh] flex items-center justify-center px-4"
+    >
+
+      <div
+        class="text-center py-20 max-w-md bg-white dark:bg-[#112830] p-8 rounded-3xl shadow-xl border border-gray-100 dark:border-white/5"
+      >
+
+        <div
+          class="w-16 h-16 mx-auto rounded-full bg-red-500/10 text-red-500 flex items-center justify-center text-3xl"
+        >
           <i class="bx bx-error-circle"></i>
         </div>
-        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">{{ t("articleNotFound") }}</h2>
-        <p class="text-sm text-gray-500 dark:text-gray-400">
+
+        <h2
+          class="text-2xl font-bold text-gray-800 dark:text-white mt-4"
+        >
+          {{ t("articleNotFound") }}
+        </h2>
+
+        <p
+          class="text-sm text-gray-500 dark:text-gray-400 mt-2"
+        >
           {{ t("articleNotFoundText") }}
         </p>
+
         <NuxtLink
           :to="localePath('/blogs')"
-          class="inline-block px-6 py-3 bg-[#10b481] text-white font-bold text-sm rounded-full hover:bg-[#0e9a6e] transition-colors shadow-lg"
+          class="inline-block mt-5 px-6 py-3 bg-[#10b481] text-white font-bold text-sm rounded-full hover:bg-[#0e9a6e] transition-colors shadow-lg"
         >
           {{ t("backToBlog") }}
         </NuxtLink>
+
       </div>
     </div>
-
   </main>
 </template>
 
 <script setup lang="ts">
-import { computed, watchEffect } from "vue";
-import { useRoute } from "vue-router";
+import {
+  computed,
+  watchEffect,
+} from "vue";
 
-const { t, locale } = useI18n();
-const localePath = useLocalePath();
-const route = useRoute();
-const currentUrl = useRequestURL();
-const config = useRuntimeConfig();
+const {
+  t,
+  locale,
+} = useI18n();
 
-const postId = Number(route.params.id);
+const localePath =
+  useLocalePath();
 
-// ---- Helpers (identiques à la page liste) ----
-const dateLocaleMap: Record<string, string> = {
-  fr: "fr-FR",
-  en: "en-US",
-  mg: "fr-MG",
+const route =
+  useRoute();
+
+const currentUrl =
+  useRequestURL();
+
+const config =
+  useRuntimeConfig();
+
+const postId =
+  Number(route.params.id);
+
+// =====================================================
+// DATE
+// =====================================================
+
+const dateLocaleMap:
+  Record<string, string> = {
+    fr: "fr-FR",
+    en: "en-US",
+    mg: "fr-MG",
+  };
+
+const formatDate = (
+  isoString?: string
+) => {
+
+  if (!isoString) {
+    return "";
+  }
+
+  return new Date(
+    isoString
+  ).toLocaleDateString(
+    dateLocaleMap[
+      locale.value
+    ] || "fr-FR",
+    {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    }
+  );
 };
 
-const formatDate = (isoString?: string) => {
-  if (!isoString) return "";
-  return new Date(isoString).toLocaleDateString(dateLocaleMap[locale.value] || "fr-FR", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
+// =====================================================
+// TEMPS DE LECTURE
+// =====================================================
+
+const estimateReadTime = (
+  content?: string
+) => {
+
+  if (!content) {
+    return `3 ${t(
+      "minReadSuffix"
+    )}`;
+  }
+
+  const words =
+    content
+      .trim()
+      .split(/\s+/)
+      .length;
+
+  return `${Math.max(
+    1,
+    Math.round(words / 200)
+  )} ${t(
+    "minReadSuffix"
+  )}`;
 };
 
-const estimateReadTime = (content?: string) => {
-  if (!content) return `3 ${t("minReadSuffix")}`;
-  const words = content.trim().split(/\s+/).length;
-  return `${Math.max(1, Math.round(words / 200))} ${t("minReadSuffix")}`;
+// =====================================================
+// TRONCATURE
+// =====================================================
+
+const truncateContent = (
+  content?: string,
+  maxLength = 220
+) => {
+
+  if (!content) {
+    return "";
+  }
+
+  const clean =
+    content.trim();
+
+  if (
+    clean.length <=
+    maxLength
+  ) {
+    return clean;
+  }
+
+  const truncated =
+    clean.slice(
+      0,
+      maxLength
+    );
+
+  const lastSpace =
+    truncated.lastIndexOf(
+      " "
+    );
+
+  return `${truncated.slice(
+    0,
+    lastSpace > 0
+      ? lastSpace
+      : maxLength
+  )}…`;
 };
 
-const truncateContent = (content?: string, maxLength = 220) => {
-  if (!content) return "";
-  const clean = content.trim();
-  if (clean.length <= maxLength) return clean;
-  const truncated = clean.slice(0, maxLength);
-  const lastSpace = truncated.lastIndexOf(" ");
-  return `${truncated.slice(0, lastSpace > 0 ? lastSpace : maxLength)}…`;
+// =====================================================
+// NORMALISATION BLOG
+// =====================================================
+
+const mapPost = (
+  p: any
+) => {
+
+  return {
+
+    id: p.id,
+
+    // Ces données sont déjà traduites
+    // par le backend
+    title:
+      p.title ?? "",
+
+    excerpt:
+      p.excerpt
+        ? truncateContent(
+            p.excerpt,
+            220
+          )
+        : truncateContent(
+            p.content,
+            220
+          ),
+
+    content:
+      p.content ?? "",
+
+    category:
+      p.categorie_id,
+
+    categoryName:
+      p.category?.name ?? "",
+
+    image:
+      p.image ??
+      "/bg-hero-1.jpg",
+
+    date:
+      formatDate(
+        p.createdAt
+      ),
+
+    isoDate:
+      p.createdAt ?? "",
+
+    readTime:
+      estimateReadTime(
+        p.content
+      ),
+
+    author: {
+
+      name:
+        t("teamName"),
+
+      role:
+        t("authorRole"),
+
+      avatar:
+        "/logo.png",
+
+      bio:
+        t("authorBio"),
+    },
+  };
 };
 
-const mapPost = (p: any) => ({
-  id: p.id,
-  title: p.title,
-  category: p.categorie_id,
-  categoryName: p.category?.name ?? "",
-  image: p.image ?? "/bg-hero-1.jpg",
-  excerpt: truncateContent(p.content, 220),
-  content: p.content ?? "",
-  date: formatDate(p.createdAt),
-  isoDate: p.createdAt ?? "",
-  readTime: estimateReadTime(p.content),
-  author: {
-    name: t("teamName"),
-    role: t("authorRole"),
-    avatar: "/logo.png",
-    bio: t("authorBio"),
-  },
-});
+// =====================================================
+// BLOG COURANT
+// =====================================================
 
-// Récupération de l'article — réactif à la langue active
 const {
   data: dataPost,
   pending: pendingPost,
+  error: errorPost,
 } = await useFetch(`${config.public.apiBase}/blogs/${postId}`, {
-  query: { locale },
+  query: computed(() => ({
+    locale: locale.value,
+  })),
   watch: [locale],
 });
 
-// Récupération de la liste complète (pour les articles similaires) — réactif à la langue
+// =====================================================
+// TOUS LES BLOGS
+// =====================================================
+
 const {
   data: dataAllPosts,
   pending: pendingAll,
 } = await useFetch(`${config.public.apiBase}/blogs/list`, {
-  query: { locale },
+  query: computed(() => ({
+    locale: locale.value,
+  })),
   watch: [locale],
 });
 
-const pending = computed(() => pendingPost.value || pendingAll.value);
+// =====================================================
+// LOADING
+// =====================================================
 
-const post = computed(() => {
-  const raw = dataPost.value?.blog;
-  return raw ? mapPost(raw) : null;
-});
-
-const allPosts = computed(() => {
-  const raw = dataAllPosts.value?.blogs ?? [];
-  return raw.map(mapPost);
-});
-
-// Liens dynamiques de partage
-const shareLinks = computed(() => {
-  const url = encodeURIComponent(currentUrl.href);
-  const title = encodeURIComponent(post.value?.title || "");
-  return {
-    facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
-    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
-    twitter: `https://twitter.com/intent/tweet?url=${url}&text=${title}`,
-  };
-});
-
-// Méta-balises SEO dynamiques — réactives au contenu ET à la langue
-watchEffect(() => {
-  if (post.value) {
-    useSeoMeta({
-      title: post.value.title,
-      ogTitle: post.value.title,
-      description: post.value.excerpt,
-      ogDescription: post.value.excerpt,
-      ogImage: post.value.image,
-      twitterCard: "summary_large_image",
-    });
-  }
-});
-
-// Sélection d'articles connexes (même catégorie, article courant exclu)
-const relatedPosts = computed(() => {
-  if (!post.value) return [];
-  const sameCategory = allPosts.value.filter(
-    (p) => p.id !== postId && p.category === post.value!.category
+const pending =
+  computed(
+    () =>
+      pendingPost.value ||
+      pendingAll.value
   );
-  if (sameCategory.length > 0) return sameCategory.slice(0, 2);
-  return allPosts.value.filter((p) => p.id !== postId).slice(0, 2);
+
+// =====================================================
+// BLOG
+// =====================================================
+
+const post =
+  computed(() => {
+
+    const raw =
+      dataPost.value?.blog;
+
+    if (!raw) {
+      return null;
+    }
+
+    return mapPost(raw);
+  });
+
+// =====================================================
+// TOUS LES BLOGS
+// =====================================================
+
+const allPosts =
+  computed(() => {
+
+    const raw =
+      dataAllPosts.value?.blogs ??
+      [];
+
+    return raw.map(
+      mapPost
+    );
+  });
+
+// =====================================================
+// ARTICLES CONNEXES
+// =====================================================
+
+const relatedPosts =
+  computed(() => {
+
+    if (!post.value) {
+      return [];
+    }
+
+    const sameCategory =
+      allPosts.value.filter(
+        (p) =>
+          p.id !== postId &&
+          Number(p.category) ===
+            Number(
+              post.value!.category
+            )
+      );
+
+    if (
+      sameCategory.length
+    ) {
+      return sameCategory.slice(
+        0,
+        2
+      );
+    }
+
+    return allPosts.value
+      .filter(
+        (p) =>
+          p.id !== postId
+      )
+      .slice(0, 2);
+  });
+
+// =====================================================
+// PARTAGE
+// =====================================================
+
+const shareLinks =
+  computed(() => {
+
+    const url =
+      encodeURIComponent(
+        currentUrl.href
+      );
+
+    const title =
+      encodeURIComponent(
+        post.value?.title ||
+          ""
+      );
+
+    return {
+
+      facebook:
+        `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+
+      linkedin:
+        `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+
+      twitter:
+        `https://twitter.com/intent/tweet?url=${url}&text=${title}`,
+    };
+  });
+
+// =====================================================
+// SEO
+// =====================================================
+
+watchEffect(() => {
+
+  if (!post.value) {
+    return;
+  }
+
+  useSeoMeta({
+
+    title:
+      post.value.title,
+
+    ogTitle:
+      post.value.title,
+
+    description:
+      post.value.excerpt,
+
+    ogDescription:
+      post.value.excerpt,
+
+    ogImage:
+      post.value.image,
+
+    twitterCard:
+      "summary_large_image",
+
+    twitterTitle:
+      post.value.title,
+
+    twitterDescription:
+      post.value.excerpt,
+
+    twitterImage:
+      post.value.image,
+  });
+
+  useHead({
+    htmlAttrs: {
+      lang:
+        locale.value,
+    },
+
+    link: [
+      {
+        rel: "canonical",
+        href:
+          currentUrl.href,
+      },
+    ],
+  });
 });
 </script>
 
@@ -324,5 +812,20 @@ const relatedPosts = computed(() => {
 .article-body p {
   margin-bottom: 1.25rem;
   line-height: 1.75;
+}
+
+.article-body h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.article-body h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.article-body ul,
+.article-body ol {
+  margin-bottom: 1.25rem;
 }
 </style>
