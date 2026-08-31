@@ -12,7 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Portfolio.belongsTo(models.User, { foreignKey: "user_id", as: "user" });
-      Portfolio.hasMany(models.Portfoliotranslate, { foreignKey: "portfolio_id", as: "portfoliotranslates"});
+      Portfolio.hasMany(models.Portfoliotranslate, {
+        foreignKey: "portfolio_id", as: "portfoliotranslates", onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      });
     }
   }
   Portfolio.init({

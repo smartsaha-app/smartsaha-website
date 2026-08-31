@@ -2,15 +2,17 @@
 
 import { useState, FormEvent } from 'react';
 import Link from 'next/link';
-import { 
-  Mail, 
-  KeyRound, 
-  Loader2, 
-  ArrowLeft, 
-  CheckCircle2, 
-  RefreshCw 
+import {
+  Mail,
+  KeyRound,
+  Loader2,
+  ArrowLeft,
+  CheckCircle2,
+  RefreshCw
 } from 'lucide-react';
 import { api } from '@/lib/api';
+import Image from 'next/image';
+import Logo from '@/public/logo.png';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
@@ -30,7 +32,7 @@ export default function ForgotPasswordPage() {
     } catch (err: any) {
       console.error('Erreur lors de la demande de réinitialisation:', err);
       setErrorMessage(
-        err.response?.data?.message || 
+        err.response?.data?.message ||
         'Impossible d\'envoyer le lien de réinitialisation. Veuillez vérifier l\'adresse email.'
       );
     } finally {
@@ -42,16 +44,23 @@ export default function ForgotPasswordPage() {
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <div className="h-12 w-12 rounded-xl bg-green-600 flex items-center justify-center text-white shadow-lg shadow-green-600/30">
-            <KeyRound className="h-6 w-6" />
+          <div className="relative mb-3 h-14 w-14 overflow-hidden rounded-full border-2 border-[#10b481]/30 p-0.5 shadow-sm">
+            <Image
+              src={Logo}
+              alt="Logo Smartsaha"
+              fill
+              sizes="60px"
+              className="rounded-full object-cover"
+            />
           </div>
+
         </div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Mot de passe oublié ?
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          {isSubmitted 
-            ? 'Vérifiez votre boîte de réception' 
+          {isSubmitted
+            ? 'Vérifiez votre boîte de réception'
             : 'Entrez votre adresse e-mail pour recevoir un lien de réinitialisation'
           }
         </p>
@@ -59,12 +68,12 @@ export default function ForgotPasswordPage() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow-sm border border-gray-100 sm:rounded-2xl sm:px-10">
-          
+
           {/* Écran de confirmation après envoi */}
           {isSubmitted ? (
             <div className="text-center space-y-6">
               <div className="p-4 rounded-2xl bg-green-50 border border-green-100 flex flex-col items-center gap-3">
-                <CheckCircle2 className="h-10 w-10 text-green-600" />
+                <CheckCircle2 className="h-10 w-10 text-[#10b481]" />
                 <p className="text-sm text-gray-700">
                   Un e-mail contenant les instructions de réinitialisation a été envoyé à <br />
                   <span className="font-semibold text-gray-900">{email}</span>.
@@ -86,8 +95,8 @@ export default function ForgotPasswordPage() {
                 </button>
 
                 <Link
-                  href="/login"
-                  className="w-full flex justify-center items-center gap-2 py-2.5 px-4 rounded-xl text-sm font-semibold text-green-600 hover:text-green-700 transition"
+                  href="/"
+                  className="w-full flex justify-center items-center gap-2 py-2.5 px-4 rounded-xl text-sm font-semibold text-[#10b481] hover:text-[#10b481] transition"
                 >
                   <ArrowLeft className="h-4 w-4" />
                   Retour à la connexion
@@ -120,7 +129,7 @@ export default function ForgotPasswordPage() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="jean.dupont@example.com"
-                      className="block w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-gray-200 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/20 transition"
+                      className="block w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-gray-200 focus:border-[#10b481] focus:outline-none focus:ring-2 focus:ring-green-500/20 transition"
                     />
                   </div>
                 </div>
@@ -128,7 +137,7 @@ export default function ForgotPasswordPage() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full flex justify-center items-center gap-2 py-2.5 px-4 border border-transparent rounded-xl shadow-sm text-sm font-semibold text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 transition cursor-pointer"
+                  className="w-full flex justify-center items-center gap-2 py-2.5 px-4 border border-transparent rounded-xl shadow-sm text-sm font-semibold text-white bg-[#10b481] hover:bg-[#10b481] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#10b481] disabled:opacity-50 transition cursor-pointer"
                 >
                   {isLoading ? (
                     <>

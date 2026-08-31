@@ -11,7 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Portfoliotranslate.belongsTo(models.Portfolio, {foreignKey: "portfolio_id", as: "portfolio"});
+      Portfoliotranslate.belongsTo(models.Portfolio, {
+        foreignKey: "portfolio_id", as: "portfolio", onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      });
     }
   }
   Portfoliotranslate.init({
