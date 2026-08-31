@@ -267,9 +267,11 @@ module.exports = {
                 challenge,
                 solution,
                 key_features,
-                technologies,
-                user_id
+                technologies
             } = req.body;
+
+            // ID de l'utilisateur authentifié
+            const user_id = req.user.id;
 
             // =================================================
             // VALIDATION

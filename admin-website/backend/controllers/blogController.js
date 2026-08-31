@@ -131,9 +131,11 @@ module.exports = {
                 title,
                 excerpt,
                 content,
-                categorie_id,
-                user_id
+                categorie_id
             } = req.body;
+
+            // ID de l'utilisateur authentifié
+            const user_id = req.user.id;
 
             if (
                 !title ||
