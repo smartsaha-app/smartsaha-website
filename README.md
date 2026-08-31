@@ -15,7 +15,6 @@ Site web officiel de **SmartSaha**, plateforme AgTech malgache dédiée à l'agr
 - [Scripts disponibles](#-scripts-disponibles)
 - [Internationalisation (i18n)](#-internationalisation-i18n)
 - [Déploiement](#-déploiement)
-- [Contribution](#-contribution)
 
 ## 🌱 À propos
 
