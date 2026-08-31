@@ -110,6 +110,7 @@ L'API est alors disponible sur `http://localhost:<LISTEN_PORT>`, avec toutes les
 | GET | `/api/blogs/:id` | Détail d'un article |
 | GET | `/api/portfolios/list` | Liste des projets du portfolio |
 | GET | `/api/portfolios/:id` | Détail d'un projet |
+| PUT | `/api/forgot-password` | Mot de passe oublié |
 
 ### Authentification
 
@@ -118,6 +119,7 @@ L'API est alors disponible sur `http://localhost:<LISTEN_PORT>`, avec toutes les
 | POST | `/api/users/register` | Créer un compte administrateur |
 | POST | `/api/users/login` | Connexion (émet le cookie JWT) |
 | GET | `/api/users/profile` | Profil de l'utilisateur connecté 🔒 |
+| PUT | `/api/users/profile/password` | Modification du mot de passe |
 | POST | `/api/users/logout` | Déconnexion 🔒 |
 
 ### Routes protégées (🔒 authentification requise)
