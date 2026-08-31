@@ -17,11 +17,14 @@ exports.router = (function() {
     router.route('/blogs/:id').get(blogController.getBlogById);
     router.route('/portfolios/list').get(portfolioController.getAllPortfolios);
     router.route('/portfolios/:id').get(portfolioController.getPortfolioById);
+    router.route('/forgot-password').post(userController.forgotPassword);
 
     // User routes
     router.route('/users/register').post(userController.register);
     router.route('/users/login').post(userController.login);
     router.route('/users/profile').get(authMiddleware, userController.getProfile);
+    router.route('/users/profile').put(authMiddleware, userController.updateProfile);
+    router.route('/users/profile/password').put(authMiddleware, userController.updatePassword);
     router.route('/users/logout').post(authMiddleware, userController.logout);
 
     // Category routes
