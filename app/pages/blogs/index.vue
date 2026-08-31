@@ -204,7 +204,7 @@
                 <p
                   class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-6"
                 >
-                  {{ featuredPost.excerpt }}
+                  {{ featuredPost.content?.slice(0, 250) }}...
                 </p>
               </div>
 
