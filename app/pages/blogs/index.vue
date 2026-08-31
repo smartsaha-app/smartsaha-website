@@ -293,7 +293,7 @@
                   <p
                     class="text-gray-600 dark:text-gray-300 text-sm line-clamp-3 mb-6"
                   >
-                    {{ post.excerpt }}
+                    {{ post.content?.slice(0, 250) }}...
                   </p>
                 </div>
 
