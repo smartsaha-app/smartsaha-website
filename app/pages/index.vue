@@ -340,15 +340,17 @@ const { t } = useI18n();
 const localePath = useLocalePath();
 
 // Configuration SEO Nuxt 3 — réactif à la langue active
-useHead(() => ({
-  title: t("aboutUs"),
-  meta: [
-    {
-      name: "description",
-      content: t("aboutMetaDescription"),
-    },
-  ],
-}));
+useSeoMeta({
+  // Le titre de l'accueil contient déjà « SmartSaha ».
+  // app.vue ajoute « | SmartSaha » à tous les titres : on le désactive ici
+  
+  titleTemplate: "%s", // Désactive le suffixe « | SmartSaha » sur l'accueil
+  title: () => t("homeSeoTitle"),
+  description: () => t("homeSeoDescription"),
+  ogTitle: () => t("homeSeoTitle"),
+  ogDescription: () => t("homeSeoDescription"),
+  ogType: "website",
+});
 
 // Déclare la page comme site officiel
 useSchemaOrg([
