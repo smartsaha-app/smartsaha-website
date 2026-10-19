@@ -15,11 +15,11 @@ export default defineNuxtConfig({
 
   // Configuration du site (utilisée par Sitemap, Robots, SchemaOrg et i18n hreflang)
   site: {
-    url: 'https://smart-saha.com',
+    url: 'https://www.smart-saha.com',
     name: 'SmartSaha',
     description: 'SmartSaha est une plateforme numérique qui transforme l\'agriculture grâce à la technologie intelligente, l\'analyse de données et des outils innovants dédiés aux producteurs, coopératives et agro-entreprises à Madagascar et en Afrique.',
     defaultLocale: 'fr',
-    logo: 'https://smart-saha.com/logo.png',
+    logo: 'https://www.smart-saha.com/logo.png',
     twitter: '@smartsaha',
   },
 
@@ -76,8 +76,8 @@ export default defineNuxtConfig({
     identity: {
       type: 'Organization',
       name: 'SmartSaha',
-      url: 'https://smart-saha.com',
-      logo: 'https://smart-saha.com/logo.png',
+      url: 'https://www.smart-saha.com',
+      logo: 'https://www.smart-saha.com/logo.png',
       sameAs: [
         'https://www.facebook.com/share/1EHaGKpfnD/',
         'https://share.google/xF5gkcyYn6EsR5cPA',

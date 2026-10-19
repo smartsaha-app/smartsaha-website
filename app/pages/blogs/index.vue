@@ -355,7 +355,7 @@ const config = useRuntimeConfig();
 // SEO
 // =====================================================
 
-const siteUrl = "https://smart-saha.com";
+const siteUrl = "https://www.smart-saha.com";
 
 const canonicalUrl = computed(
   () => `${siteUrl}${localePath("/blogs")}`
