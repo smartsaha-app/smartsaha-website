@@ -62,6 +62,7 @@ export default defineNuxtConfig({
       changefreq: 'weekly',
       priority: 0.7,
     },
+    sources: ['/api/__sitemap__/urls'],
   },
 
   // Configuration Robots.txt
