@@ -19,10 +19,10 @@ API REST du panneau d'administration SmartSaha. Elle gère l'authentification, l
 ```
 backend/
 ├── config/          # Configuration Sequelize (connexion DB)
-├── controllers/      # Logique métier (blog, portfolio, catégorie, user, traductions)
+├── controllers/      # Logique métier (blog, portfolio, catégorie, user, traductions, plaintes, développeurs, tâches)
 ├── middleware/        # Middleware d'authentification (vérification JWT)
-├── migrations/         # Migrations Sequelize (tables : users, categories, blogs, portfolios, blogtranslates, portfoliotranslates)
-├── models/              # Modèles Sequelize (Blog, Blogtranslate, Category, Portfolio, Portfoliotranslate, User)
+├── migrations/         # Migrations Sequelize (tables : users, categories, blogs, portfolios, blogtranslates, portfoliotranslates, developers, complaints, tasks)
+├── models/              # Modèles Sequelize (Blog, Blogtranslate, Category, Portfolio, Portfoliotranslate, User, Developer, Complaint, Task)
 ├── services/             # Services (upload Cloudinary/local, suppression fichiers, traduction)
 ├── utils/                 # Utilitaires (JWT)
 ├── router.js               # Déclaration de toutes les routes API
@@ -90,6 +90,9 @@ Modèles principaux :
 - **Category** — catégories de blog
 - **Blog** / **Blogtranslate** — articles et leurs traductions par langue
 - **Portfolio** / **Portfoliotranslate** — projets du portfolio et leurs traductions par langue
+- **Complaint** — plaintes / retours envoyés depuis le site (`title`, `description`, `page`)
+- **Developer** — développeurs à qui l'on peut assigner des tâches (`name`, `email` unique)
+- **Task** — tâches liées à une plainte (`complaint_id`, `developer_id`, `title`, `status` : `not_started` | `in_progress` | `done`). Supprimer une plainte supprime ses tâches ; supprimer un développeur désassigne ses tâches.
 
 ## ▶️ Lancer le serveur
 
@@ -111,6 +114,7 @@ L'API est alors disponible sur `http://localhost:<LISTEN_PORT>`, avec toutes les
 | GET | `/api/portfolios/list` | Liste des projets du portfolio |
 | GET | `/api/portfolios/:id` | Détail d'un projet |
 | PUT | `/api/forgot-password` | Mot de passe oublié |
+| POST | `/api/complaints` | Envoyer une plainte |
 
 ### Authentification
 
@@ -132,6 +136,53 @@ L'API est alors disponible sur `http://localhost:<LISTEN_PORT>`, avec toutes les
 | DELETE | `/api/blogs/:id` | Supprimer un article |
 | GET / POST | `/api/portfolios` | Lister / créer un projet (image de couverture + galerie) |
 | DELETE | `/api/portfolios/:id` | Supprimer un projet |
+| GET | `/api/complaints` | Lister les plaintes (avec leurs tâches et développeurs assignés) |
+| GET | `/api/complaints/:id` | Détail d'une plainte |
+| DELETE | `/api/complaints/:id` | Supprimer une plainte (et ses tâches) |
+| GET / POST | `/api/developers` | Lister / créer un développeur |
+| PUT / DELETE | `/api/developers/:id` | Modifier / supprimer un développeur |
+| GET / POST | `/api/tasks` | Lister / créer une tâche |
+| PUT / DELETE | `/api/tasks/:id` | Modifier / supprimer une tâche |
+
+### 📮 Boîte à plaintes — détail des requêtes
+
+**`POST /api/complaints`** (public)
+
+```json
+{ "title": "Le formulaire de contact ne marche pas", "description": "Erreur au clic sur Envoyer", "page": "/contact" }
+```
+
+`title` est obligatoire (200 caractères max), `description` et `page` sont optionnels.
+
+**`POST /api/developers`** 🔒
+
+```json
+{ "name": "Jean Rakoto", "email": "jean@example.com" }
+```
+
+Les deux champs sont obligatoires ; l'email doit être valide et unique. `PUT /api/developers/:id` accepte les mêmes champs, tous optionnels.
+
+**`POST /api/tasks`** 🔒
+
+```json
+{ "complaint_id": 1, "title": "Corriger l'envoi du formulaire", "developer_id": 2, "status": "not_started" }
+```
+
+`complaint_id` et `title` sont obligatoires. `developer_id` est optionnel ; `status` vaut `not_started` par défaut.
+
+**`PUT /api/tasks/:id`** 🔒 — tous les champs sont optionnels :
+
+```json
+{ "title": "...", "status": "in_progress", "developer_id": 3 }
+```
+
+Envoyer `"developer_id": null` désassigne la tâche.
+
+**`GET /api/tasks`** 🔒 — filtres optionnels en query string :
+
+```
+/api/tasks?status=in_progress&complaint_id=1&developer_id=2
+```
 
 ## 🔐 Sécurité
 

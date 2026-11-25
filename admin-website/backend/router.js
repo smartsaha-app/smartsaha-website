@@ -5,6 +5,9 @@ const userController = require('./controllers/userController');
 const categoryController = require('./controllers/categoryController');
 const blogController = require('./controllers/blogController');
 const portfolioController = require('./controllers/portfolioController');
+const complaintController = require('./controllers/complaintController');
+const developerController = require('./controllers/developerController');
+const taskController = require('./controllers/taskController');
 const uploadService = require('./services/uploadService');
 
 // Définition des routes
@@ -50,6 +53,24 @@ exports.router = (function() {
         }
     ]), portfolioController.addPortfolio);
     router.route('/portfolios/:id').delete(authMiddleware, portfolioController.deletePortfolio);
+
+    // Complaint routes (l'envoi d'une plainte est public, le reste est réservé aux admins)
+    router.route('/complaints').post(complaintController.addComplaint);
+    router.route('/complaints').get(authMiddleware, complaintController.getAllComplaints);
+    router.route('/complaints/:id').get(authMiddleware, complaintController.getComplaintById);
+    router.route('/complaints/:id').delete(authMiddleware, complaintController.deleteComplaint);
+
+    // Developer routes
+    router.route('/developers').get(authMiddleware, developerController.getAllDevelopers);
+    router.route('/developers').post(authMiddleware, developerController.addDeveloper);
+    router.route('/developers/:id').put(authMiddleware, developerController.updateDeveloper);
+    router.route('/developers/:id').delete(authMiddleware, developerController.deleteDeveloper);
+
+    // Task routes
+    router.route('/tasks').get(authMiddleware, taskController.getAllTasks);
+    router.route('/tasks').post(authMiddleware, taskController.addTask);
+    router.route('/tasks/:id').put(authMiddleware, taskController.updateTask);
+    router.route('/tasks/:id').delete(authMiddleware, taskController.deleteTask);
        
     return router;
 })();
