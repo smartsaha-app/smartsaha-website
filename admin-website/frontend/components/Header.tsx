@@ -22,6 +22,7 @@ export default function Header() {
     { name: 'Tableau de bord', href: '/dashboard' },
     { name: 'Blog', href: '/blogs' },
     { name: 'Portfolio', href: '/portfolios' },
+    { name: 'Plaintes', href: '/complaints' },
     { name: 'Paramètres', href: '/settings' },
   ];
 

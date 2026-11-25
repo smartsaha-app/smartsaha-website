@@ -139,6 +139,7 @@ L'API est alors disponible sur `http://localhost:<LISTEN_PORT>`, avec toutes les
 | GET | `/api/complaints` | Lister les plaintes (avec leurs tâches et développeurs assignés) |
 | GET | `/api/complaints/:id` | Détail d'une plainte |
 | DELETE | `/api/complaints/:id` | Supprimer une plainte (et ses tâches) |
+| POST | `/api/complaints/:id/notify` | Envoyer un email à chaque développeur assigné (la plainte + ses tâches) |
 | GET / POST | `/api/developers` | Lister / créer un développeur |
 | PUT / DELETE | `/api/developers/:id` | Modifier / supprimer un développeur |
 | GET / POST | `/api/tasks` | Lister / créer une tâche |
@@ -153,6 +154,12 @@ L'API est alors disponible sur `http://localhost:<LISTEN_PORT>`, avec toutes les
 ```
 
 `title` est obligatoire (200 caractères max), `description` et `page` sont optionnels.
+
+À chaque nouvelle plainte, un email est envoyé à **tous les utilisateurs admin** (table `users`) via Resend (`services/emailService.js`). L'envoi se fait en arrière-plan : un échec d'envoi n'empêche pas la création de la plainte.
+
+**`POST /api/complaints/:id/notify`** 🔒 — aucun corps requis. Envoie à chaque développeur assigné un email contenant la plainte et **uniquement ses propres tâches**. Renvoie `400` si aucune tâche n'est assignée, sinon la liste des développeurs prévenus (`notified`) et en échec (`failed`).
+
+> Les emails partent de `no-reply@smart-saha.com` : le domaine doit être vérifié dans Resend et `RESEND_API_KEY` renseignée.
 
 **`POST /api/developers`** 🔒
 

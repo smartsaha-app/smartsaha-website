@@ -59,6 +59,7 @@ exports.router = (function() {
     router.route('/complaints').get(authMiddleware, complaintController.getAllComplaints);
     router.route('/complaints/:id').get(authMiddleware, complaintController.getComplaintById);
     router.route('/complaints/:id').delete(authMiddleware, complaintController.deleteComplaint);
+    router.route('/complaints/:id/notify').post(authMiddleware, complaintController.notifyDevelopers);
 
     // Developer routes
     router.route('/developers').get(authMiddleware, developerController.getAllDevelopers);
