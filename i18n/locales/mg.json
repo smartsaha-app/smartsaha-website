@@ -403,5 +403,18 @@
   "projectNotFound": "Tsy hita ny tetikasa",
   "projectNotFoundText": "Ny vokatra tadiavinao dia tsy misy na efa nalevina.",
   "legalInfoBadge": "Fampahalalana ara-dalàna",
-  "privacyMetaDescription": "Fantaro ny fomba iarovan'ny SmartSaha ny angonao sy fanajany ny fiainanao manokana."
+  "privacyMetaDescription": "Fantaro ny fomba iarovan'ny SmartSaha ny angonao sy fanajany ny fiainanao manokana.",
+  "complaintButton": "Hitatitra olana",
+  "complaintModalTitle": "Hitatitra olana",
+  "complaintModalSubtitle": "Nahita bug, hadisoana na olana teo amin'ny tranonkala ve ianao? Lazao anay fa hikarakara izany ny ekipanay.",
+  "complaintFieldTitle": "Lohateny",
+  "complaintFieldTitlePlaceholder": "Ohatra : Tsy mandeha ny taratasy fifandraisana",
+  "complaintFieldDescription": "Famaritana",
+  "complaintFieldDescriptionPlaceholder": "Lazao ny zava-nitranga sy ny nantenainao...",
+  "complaintFieldPage": "Pejy voakasika",
+  "complaintSubmit": "Alefa",
+  "complaintSending": "Mandefa...",
+  "complaintSuccess": "Misaotra ! Voaray ny tatitrao.",
+  "complaintError": "Tsy nety ny fandefasana. Andramo indray any aoriana.",
+  "complaintCancel": "Hanafoana"
 }

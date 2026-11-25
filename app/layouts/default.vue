@@ -7,6 +7,8 @@
       </main>
   
       <Footer v-if="route.path !== '/market/post'" />
+
+      <ComplaintWidget />
     </div>
   </template>
   
@@ -14,6 +16,7 @@
   import { useRoute } from 'vue-router';
   import Header from "~/components/Header.vue";
   import Footer from "~/components/Footer.vue";
+  import ComplaintWidget from "~/components/ComplaintWidget.vue";
   
   const route = useRoute();
   </script>

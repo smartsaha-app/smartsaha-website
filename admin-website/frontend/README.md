@@ -66,7 +66,7 @@ NEXT_PUBLIC_API_URL=http://localhost:3001/api
 npm run dev
 ```
 
-L'application est accessible sur [http://localhost:3000](http://localhost:3000).
+L'application est accessible sur [http://localhost:3002](http://localhost:3002) (port 3002 pour ne pas entrer en conflit avec le site public Nuxt sur le port 3000).
 
 ## 📦 Scripts disponibles
 

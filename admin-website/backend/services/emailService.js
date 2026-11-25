@@ -4,7 +4,9 @@ const models = require('../models');
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const FROM = "SmartSaha <no-reply@smart-saha.com>";
+// Expéditeur configurable : en local, utiliser "SmartSaha <onboarding@resend.dev>"
+// si le domaine smart-saha.com n'est pas vérifié sur le compte Resend utilisé
+const FROM = process.env.EMAIL_FROM || "SmartSaha <no-reply@smart-saha.com>";
 
 const TASK_STATUS_LABELS = {
     not_started: "Non commencée",
