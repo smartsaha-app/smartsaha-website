@@ -403,5 +403,18 @@
   "projectNotFound": "Project not found",
   "projectNotFoundText": "The achievement you're looking for doesn't exist or has been archived.",
   "legalInfoBadge": "Legal Information",
-  "privacyMetaDescription": "Learn how SmartSaha protects your data and respects your privacy."
+  "privacyMetaDescription": "Learn how SmartSaha protects your data and respects your privacy.",
+  "complaintButton": "Report a problem",
+  "complaintModalTitle": "Report a problem",
+  "complaintModalSubtitle": "Found a bug, an error or an issue on the site? Let us know and our team will take care of it.",
+  "complaintFieldTitle": "Title",
+  "complaintFieldTitlePlaceholder": "E.g. The contact form doesn't send",
+  "complaintFieldDescription": "Description",
+  "complaintFieldDescriptionPlaceholder": "Describe what happened and what you expected...",
+  "complaintFieldPage": "Page concerned",
+  "complaintSubmit": "Send",
+  "complaintSending": "Sending...",
+  "complaintSuccess": "Thank you! Your report has been sent.",
+  "complaintError": "Sending failed. Please try again later.",
+  "complaintCancel": "Cancel"
 }

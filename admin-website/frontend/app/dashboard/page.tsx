@@ -16,9 +16,14 @@ import {
   AlertCircle,
   Tag,
   Presentation,
-  Bell
+  Bell,
+  MessageSquareWarning,
+  Inbox,
+  Clock,
+  CheckCircle2
 } from 'lucide-react';
 import { api } from '@/lib/api';
+import { Complaint, countComplaintsByStatus } from '@/lib/complaints';
 
 interface Blog {
   id: number;
@@ -38,6 +43,7 @@ export default function DashboardPage() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [portfoliosCount, setPortfoliosCount] = useState<number>(0);
   const [categoriesCount, setCategoriesCount] = useState<number>(0);
+  const [complaints, setComplaints] = useState<Complaint[]>([]);
   
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -52,11 +58,17 @@ export default function DashboardPage() {
       setError(null);
 
       // Exécution parallèle des requêtes pour optimiser le temps de chargement
-      const [blogsRes, portfoliosRes, categoriesRes] = await Promise.allSettled([
+      const [blogsRes, portfoliosRes, categoriesRes, complaintsRes] = await Promise.allSettled([
         api.get('/blogs'),
         api.get('/portfolios'),
-        api.get('/categories')
+        api.get('/categories'),
+        api.get('/complaints')
       ]);
+
+      // Extraction des plaintes
+      if (complaintsRes.status === 'fulfilled') {
+        setComplaints(complaintsRes.value.data.complaints || []);
+      }
 
       // Extraction des blogs
       if (blogsRes.status === 'fulfilled') {
@@ -121,6 +133,36 @@ export default function DashboardPage() {
       change: 'Actives',
       icon: Tag,
       color: 'bg-green-50 text-green-600',
+    },
+  ];
+
+  // Statistiques de la boîte à plaintes
+  const complaintCounts = countComplaintsByStatus(complaints);
+
+  const complaintKpis = [
+    {
+      title: 'Total des plaintes',
+      value: complaintCounts.total,
+      icon: MessageSquareWarning,
+      color: 'bg-gray-100 text-gray-700',
+    },
+    {
+      title: 'Nouvelles',
+      value: complaintCounts.new,
+      icon: Inbox,
+      color: 'bg-blue-50 text-blue-600',
+    },
+    {
+      title: 'En cours',
+      value: complaintCounts.in_progress,
+      icon: Clock,
+      color: 'bg-amber-50 text-amber-600',
+    },
+    {
+      title: 'Résolues',
+      value: complaintCounts.resolved,
+      icon: CheckCircle2,
+      color: 'bg-emerald-50 text-emerald-600',
     },
   ];
 
@@ -202,6 +244,46 @@ export default function DashboardPage() {
               </div>
             );
           })}
+        </div>
+
+        {/* Section boîte à plaintes */}
+        <div className="rounded-2xl bg-white shadow-sm border border-gray-100 p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-lg font-bold text-gray-900">Boîte à plaintes</h2>
+              <p className="text-xs text-gray-500 mt-0.5">
+                Une plainte est résolue quand toutes ses tâches sont terminées
+              </p>
+            </div>
+            <Link
+              href="/complaints"
+              className="inline-flex items-center gap-1 text-sm font-semibold text-[#10b481] hover:text-[#0e9b6e] transition"
+            >
+              Voir tout
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </div>
+
+          <div className="mt-5 grid grid-cols-2 gap-4 lg:grid-cols-4">
+            {complaintKpis.map((kpi) => {
+              const Icon = kpi.icon;
+              return (
+                <div key={kpi.title} className="flex items-center gap-4 rounded-xl border border-gray-100 p-4">
+                  <div className={`rounded-xl p-3 ${kpi.color}`}>
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-medium text-gray-500">{kpi.title}</p>
+                    {loading ? (
+                      <Loader2 className="h-5 w-5 animate-spin text-gray-400 mt-1" />
+                    ) : (
+                      <p className="text-2xl font-bold tabular-nums text-gray-900">{kpi.value}</p>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         {/* Section des blogs récents */}

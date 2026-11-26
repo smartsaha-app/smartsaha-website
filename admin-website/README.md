@@ -54,7 +54,7 @@ npm run dev
 
 Par défaut :
 - Le **backend** écoute sur le port défini par `LISTEN_PORT` (ex. `3001`)
-- Le **frontend** écoute sur `http://localhost:3000`
+- Le **frontend** écoute sur `http://localhost:3002`
 
 ⚠️ Le frontend doit être configuré avec `NEXT_PUBLIC_API_URL` pointant vers l'URL du backend (voir [frontend/README.md](./frontend/README.md)).
 
