@@ -26,5 +26,5 @@ export function middleware(request: NextRequest) {
 
 // Configurer les routes ciblées par le middleware
 export const config = {
-  matcher: ['/dashboard', '/blogs/:path*', 'portfolios/:path*', '/settings/:path*'],
+  matcher: ['/dashboard', '/blogs/:path*', 'portfolios/:path*', '/settings/:path*', '/complaints/:path*'],
 };
