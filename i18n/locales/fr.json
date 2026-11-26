@@ -403,5 +403,18 @@
   "projectNotFound": "Projet introuvable",
   "projectNotFoundText": "La réalisation que vous cherchez n'existe pas ou a été archivée.",
   "legalInfoBadge": "Informations Légales",
-  "privacyMetaDescription": "Découvrez comment SmartSaha protège vos données et respecte votre vie privée."
+  "privacyMetaDescription": "Découvrez comment SmartSaha protège vos données et respecte votre vie privée.",
+  "complaintButton": "Signaler un problème",
+  "complaintModalTitle": "Signaler un problème",
+  "complaintModalSubtitle": "Un bug, une erreur ou un souci sur le site ? Dites-le-nous, notre équipe s'en occupe.",
+  "complaintFieldTitle": "Titre",
+  "complaintFieldTitlePlaceholder": "Ex : Le formulaire de contact ne s'envoie pas",
+  "complaintFieldDescription": "Description",
+  "complaintFieldDescriptionPlaceholder": "Décrivez ce qui s'est passé et ce que vous attendiez...",
+  "complaintFieldPage": "Page concernée",
+  "complaintSubmit": "Envoyer",
+  "complaintSending": "Envoi en cours...",
+  "complaintSuccess": "Merci ! Votre signalement a bien été envoyé.",
+  "complaintError": "L'envoi a échoué. Veuillez réessayer plus tard.",
+  "complaintCancel": "Annuler"
 }
