@@ -629,7 +629,7 @@ export const translate = {
     followUs: "Araho izahay",
 
     titleHero: "MANANGANA NY HO AVIN’NY FAMBOLENA",
-    accrocheHero: "Fambolena marani-tsaina ho avy maharitra.",
+    accrocheHero: "Fambolena amin'ny antsipiriany ho avy maharitra.",
     heroText:
       "SmartSaha dia manampy ny tantsaha amin’ny alalan’ny teknolojia sy AI.",
 
@@ -639,7 +639,7 @@ export const translate = {
 
     joinUs: "Midira miaraka aminay",
 
-    precisonAgriculture: "Fambolena marani-tsaina",
+    precisonAgriculture: "Fambolena amin'ny antsipiriany",
     precisionText:
       "Manatsara ny vokatra sy mampihena ny fatiantoka.",
 
@@ -691,7 +691,7 @@ export const translate = {
       "Fampiasana AI sy data.",
 
     paBenefTitle:
-      "Fambolena marani-tsaina.",
+      "Fambolena amin'ny antsipiriany.",
     paBenef1: "Mifehy ny saha",
     paBenef2: "Maminavina",
     paBenef3: "Feno",
