@@ -240,7 +240,7 @@ export default function ComplaintsPage() {
             <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
               Boîte à plaintes
             </h1>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-1 text-sm text-gray-700">
               Suivez les plaintes reçues et les tâches pour les résoudre.
             </p>
           </div>
@@ -301,13 +301,13 @@ export default function ComplaintsPage() {
           </div>
 
           <div className="relative w-full lg:w-80">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-600" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Rechercher une plainte..."
-              className="w-full rounded-xl border border-gray-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-[#10b481] focus:ring-2 focus:ring-[#10b481]/20"
+              className="w-full rounded-xl border border-gray-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-[#10b481] focus:ring-2 focus:ring-[#10b481]/20 text-gray-900 placeholder:text-gray-500"
             />
           </div>
         </div>
@@ -316,13 +316,13 @@ export default function ComplaintsPage() {
         {loading ? (
           <div className="flex flex-col items-center justify-center rounded-2xl border border-gray-100 bg-white py-16">
             <Loader2 className="mb-2 h-8 w-8 animate-spin text-[#10b481]" />
-            <p className="text-sm text-gray-500">Chargement des plaintes...</p>
+            <p className="text-sm text-gray-700">Chargement des plaintes...</p>
           </div>
         ) : filteredComplaints.length === 0 ? (
           <div className="flex flex-col items-center justify-center rounded-2xl border border-gray-100 bg-white py-16 text-center">
             <MessageSquareWarning className="mb-3 h-10 w-10 text-gray-300" />
             <p className="text-sm font-medium text-gray-700">Aucune plainte</p>
-            <p className="mt-1 text-xs text-gray-500">
+            <p className="mt-1 text-xs text-gray-700">
               {complaints.length === 0
                 ? 'Les plaintes envoyées depuis le site apparaîtront ici.'
                 : 'Aucune plainte ne correspond à ce filtre.'}
@@ -385,7 +385,7 @@ export default function ComplaintsPage() {
             </div>
             <div className="mt-4 text-center">
               <h3 className="text-lg font-bold text-gray-900">{confirm.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-gray-500">{confirm.message}</p>
+              <p className="mt-2 text-sm leading-relaxed text-gray-700">{confirm.message}</p>
             </div>
             <div className="mt-6 flex justify-center gap-3">
               <button
@@ -500,7 +500,7 @@ function ComplaintCard({
           aria-expanded={expanded}
         >
           <ChevronDown
-            className={`mt-1 h-5 w-5 shrink-0 text-gray-400 transition-transform ${expanded ? 'rotate-180' : ''}`}
+            className={`mt-1 h-5 w-5 shrink-0 text-gray-600 transition-transform ${expanded ? 'rotate-180' : ''}`}
           />
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
@@ -509,7 +509,7 @@ function ComplaintCard({
                 {COMPLAINT_STATUS_LABELS[status]}
               </span>
             </div>
-            <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500">
+            <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-700">
               <span className="inline-flex items-center gap-1">
                 <Calendar className="h-3.5 w-3.5" />
                 {formatDate(complaint.created_at)}
@@ -541,7 +541,7 @@ function ComplaintCard({
           type="button"
           onClick={onDelete}
           aria-label="Supprimer la plainte"
-          className="rounded-lg p-2 text-gray-400 transition hover:bg-red-50 hover:text-red-600"
+          className="rounded-lg p-2 text-gray-600 transition hover:bg-red-50 hover:text-red-600"
         >
           <Trash2 className="h-4 w-4" />
         </button>
@@ -552,14 +552,14 @@ function ComplaintCard({
         <div className="space-y-5 border-t border-gray-100 bg-gray-50/50 px-5 py-5">
           {complaint.description && (
             <div>
-              <h4 className="mb-1 text-xs font-semibold uppercase tracking-wider text-gray-500">Description</h4>
+              <h4 className="mb-1 text-xs font-semibold uppercase tracking-wider text-gray-700">Description</h4>
               <p className="whitespace-pre-line text-sm text-gray-700">{complaint.description}</p>
             </div>
           )}
 
           <div>
             <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-500">Tâches</h4>
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-700">Tâches</h4>
               <button
                 type="button"
                 onClick={handleNotify}
@@ -577,13 +577,13 @@ function ComplaintCard({
             </div>
 
             {tasks.length === 0 ? (
-              <p className="text-sm text-gray-500">Aucune tâche pour cette plainte.</p>
+              <p className="text-sm text-gray-700">Aucune tâche pour cette plainte.</p>
             ) : (
               <ul className="divide-y divide-gray-100 overflow-hidden rounded-xl border border-gray-100 bg-white">
                 {tasks.map((task) => (
                   <li key={task.id} className="flex flex-col gap-3 p-3 sm:flex-row sm:items-center">
                     <span
-                      className={`flex-1 text-sm ${task.status === 'done' ? 'text-gray-400 line-through' : 'text-gray-800'}`}
+                      className={`flex-1 text-sm ${task.status === 'done' ? 'text-gray-600 line-through' : 'text-gray-800'}`}
                     >
                       {task.title}
                     </span>
@@ -594,7 +594,7 @@ function ComplaintCard({
                         onUpdateTask(task.id, { developer_id: e.target.value ? Number(e.target.value) : null })
                       }
                       aria-label="Développeur assigné"
-                      className="rounded-lg border border-gray-200 bg-white px-2.5 py-1.5 text-xs text-gray-700 outline-none focus:border-[#10b481]"
+                      className="rounded-lg border border-gray-200 bg-white px-2.5 py-1.5 text-xs outline-none focus:border-[#10b481] text-gray-900 placeholder:text-gray-500"
                     >
                       <option value="">Non assignée</option>
                       {developers.map((d) => (
@@ -617,7 +617,7 @@ function ComplaintCard({
                       type="button"
                       onClick={() => onDeleteTask(task)}
                       aria-label="Supprimer la tâche"
-                      className="self-end rounded-lg p-1.5 text-gray-400 transition hover:bg-red-50 hover:text-red-600 sm:self-auto"
+                      className="self-end rounded-lg p-1.5 text-gray-600 transition hover:bg-red-50 hover:text-red-600 sm:self-auto"
                     >
                       <X className="h-4 w-4" />
                     </button>
@@ -634,13 +634,13 @@ function ComplaintCard({
                 onChange={(e) => setTaskTitle(e.target.value)}
                 maxLength={200}
                 placeholder="Nouvelle tâche..."
-                className="flex-1 rounded-xl border border-gray-200 bg-white px-3.5 py-2 text-sm outline-none focus:border-[#10b481] focus:ring-2 focus:ring-[#10b481]/20"
+                className="flex-1 rounded-xl border border-gray-200 bg-white px-3.5 py-2 text-sm outline-none focus:border-[#10b481] focus:ring-2 focus:ring-[#10b481]/20 text-gray-900 placeholder:text-gray-500"
               />
               <select
                 value={taskDev}
                 onChange={(e) => setTaskDev(e.target.value)}
                 aria-label="Assigner à"
-                className="rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 outline-none focus:border-[#10b481]"
+                className="rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#10b481] text-gray-900 placeholder:text-gray-500"
               >
                 <option value="">Non assignée</option>
                 {developers.map((d) => (
@@ -702,7 +702,7 @@ function ComplaintFormModal({ onClose, onCreated, onError }: ComplaintFormModalP
       <form onSubmit={handleSubmit} className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-bold text-gray-900">Nouvelle plainte</h3>
-          <button type="button" onClick={onClose} aria-label="Fermer" className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100">
+          <button type="button" onClick={onClose} aria-label="Fermer" className="rounded-lg p-1.5 text-gray-600 hover:bg-gray-100">
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -716,7 +716,7 @@ function ComplaintFormModal({ onClose, onCreated, onError }: ComplaintFormModalP
               onChange={(e) => setTitle(e.target.value)}
               maxLength={200}
               required
-              className="mt-1 w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm outline-none focus:border-[#10b481] focus:ring-2 focus:ring-[#10b481]/20"
+              className="mt-1 w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm outline-none focus:border-[#10b481] focus:ring-2 focus:ring-[#10b481]/20 text-gray-900 placeholder:text-gray-500"
             />
           </label>
           <label className="block">
@@ -725,7 +725,7 @@ function ComplaintFormModal({ onClose, onCreated, onError }: ComplaintFormModalP
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={4}
-              className="mt-1 w-full resize-none rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm outline-none focus:border-[#10b481] focus:ring-2 focus:ring-[#10b481]/20"
+              className="mt-1 w-full resize-none rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm outline-none focus:border-[#10b481] focus:ring-2 focus:ring-[#10b481]/20 text-gray-900 placeholder:text-gray-500"
             />
           </label>
           <label className="block">
@@ -736,7 +736,7 @@ function ComplaintFormModal({ onClose, onCreated, onError }: ComplaintFormModalP
               onChange={(e) => setPage(e.target.value)}
               maxLength={255}
               placeholder="/contact"
-              className="mt-1 w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm outline-none focus:border-[#10b481] focus:ring-2 focus:ring-[#10b481]/20"
+              className="mt-1 w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm outline-none focus:border-[#10b481] focus:ring-2 focus:ring-[#10b481]/20 text-gray-900 placeholder:text-gray-500"
             />
           </label>
         </div>
@@ -814,14 +814,14 @@ function DevelopersModal({ developers, onClose, onChange, notify, askConfirm }: 
       <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-bold text-gray-900">Développeurs</h3>
-          <button type="button" onClick={onClose} aria-label="Fermer" className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100">
+          <button type="button" onClick={onClose} aria-label="Fermer" className="rounded-lg p-1.5 text-gray-600 hover:bg-gray-100">
             <X className="h-5 w-5" />
           </button>
         </div>
 
         <div className="mt-4 max-h-72 overflow-y-auto">
           {developers.length === 0 ? (
-            <p className="py-6 text-center text-sm text-gray-500">Aucun développeur pour le moment.</p>
+            <p className="py-6 text-center text-sm text-gray-700">Aucun développeur pour le moment.</p>
           ) : (
             <ul className="divide-y divide-gray-100">
               {developers.map((dev) => (
@@ -831,13 +831,13 @@ function DevelopersModal({ developers, onClose, onChange, notify, askConfirm }: 
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-semibold text-gray-900">{dev.name}</p>
-                    <p className="truncate text-xs text-gray-500">{dev.email}</p>
+                    <p className="truncate text-xs text-gray-700">{dev.email}</p>
                   </div>
                   <button
                     type="button"
                     onClick={() => handleDelete(dev)}
                     aria-label={`Supprimer ${dev.name}`}
-                    className="rounded-lg p-2 text-gray-400 transition hover:bg-red-50 hover:text-red-600"
+                    className="rounded-lg p-2 text-gray-600 transition hover:bg-red-50 hover:text-red-600"
                   >
                     <Trash2 className="h-4 w-4" />
                   </button>
@@ -855,7 +855,7 @@ function DevelopersModal({ developers, onClose, onChange, notify, askConfirm }: 
               onChange={(e) => setName(e.target.value)}
               placeholder="Nom"
               maxLength={100}
-              className="flex-1 rounded-xl border border-gray-200 px-3.5 py-2 text-sm outline-none focus:border-[#10b481] focus:ring-2 focus:ring-[#10b481]/20"
+              className="flex-1 rounded-xl border border-gray-200 px-3.5 py-2 text-sm outline-none focus:border-[#10b481] focus:ring-2 focus:ring-[#10b481]/20 text-gray-900 placeholder:text-gray-500"
             />
             <input
               type="email"
@@ -863,7 +863,7 @@ function DevelopersModal({ developers, onClose, onChange, notify, askConfirm }: 
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
               maxLength={150}
-              className="flex-1 rounded-xl border border-gray-200 px-3.5 py-2 text-sm outline-none focus:border-[#10b481] focus:ring-2 focus:ring-[#10b481]/20"
+              className="flex-1 rounded-xl border border-gray-200 px-3.5 py-2 text-sm outline-none focus:border-[#10b481] focus:ring-2 focus:ring-[#10b481]/20 text-gray-900 placeholder:text-gray-500"
             />
           </div>
           <button
